@@ -296,6 +296,12 @@ def main():
         "Cython==3.3.0",
         "PyYAML==6.0.3",
     )
+    ninja_binary = Path(subprocess.check_output(
+        [str(python), "-c", "import ninja; from pathlib import Path; print(Path(ninja.BIN_DIR) / 'ninja.exe')"],
+        text=True,
+    ).strip())
+    if not ninja_binary.is_file():
+        raise FileNotFoundError(f"Missing native Ninja executable: {ninja_binary}")
     uv_source = work / "libuv-source"
     clone(uv_source, "https://github.com/libuv/libuv.git", "v1.53.0", UV_COMMIT)
     uv_install = work / "libuv-install"
@@ -311,6 +317,7 @@ def main():
             "-G",
             "Ninja",
             "-DCMAKE_BUILD_TYPE=Release",
+            f"-DCMAKE_MAKE_PROGRAM={ninja_binary}",
             "-DLIBUV_BUILD_SHARED=ON",
             "-DBUILD_TESTING=OFF",
             f"-DCMAKE_INSTALL_PREFIX={uv_install}",
@@ -383,6 +390,7 @@ def main():
     definitions.update(
         {
             "CMAKE_BUILD_TYPE": "Release",
+            "CMAKE_MAKE_PROGRAM": str(ninja_binary),
             "CMAKE_C_COMPILER": "cl",
             "CMAKE_CXX_COMPILER": "cl",
             "BLAS": "Eigen",

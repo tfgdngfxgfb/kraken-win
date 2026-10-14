@@ -10,7 +10,8 @@
     "Builder path points to Kraken root.",
     "Source replacement helper is inlined.",
     "MIT attribution added.",
-    "Usage text describes the Kraken checkout and direct Python invocation."
+    "Usage text describes the Kraken checkout and direct Python invocation.",
+    "CI prints bounded native error diagnostics and explicitly selects the native Ninja executable for nested CMake checks."
   ],
   "pytorch_source_commit": "5c4886908584029761b579af026dcfb627c84070"
 }
