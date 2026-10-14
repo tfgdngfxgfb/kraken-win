@@ -345,9 +345,14 @@ def build_binary_dataset(files: Optional[list[Union[str, 'PathLike', 'Segmentati
         with pa.memory_map(tmp_file, 'rb') as source:
             logger.info(f'Rewriting output ({output_file}) to update metadata.')
             ds = pa.ipc.open_file(source).read_all()
-            metadata['lines']['counts'] = dict(metadata['lines']['counts'])
-            metadata['lines'] = json.dumps(metadata['lines'])
-            schema = schema.with_metadata(metadata)
-            with pa.OSFile(output_file, 'wb') as sink:
-                with pa.ipc.new_file(sink, schema) as writer:
-                    writer.write(ds)
+            try:
+                metadata['lines']['counts'] = dict(metadata['lines']['counts'])
+                metadata['lines'] = json.dumps(metadata['lines'])
+                schema = schema.with_metadata(metadata)
+                with pa.OSFile(output_file, 'wb') as sink:
+                    with pa.ipc.new_file(sink, schema) as writer:
+                        writer.write(ds)
+            finally:
+                # Arrow tables retain mapped buffers after source.close().
+                # Release them before TemporaryDirectory removes the file on Windows.
+                del ds

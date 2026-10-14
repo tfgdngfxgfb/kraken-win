@@ -2,6 +2,9 @@
 
 import json
 import unittest
+import weakref
+from contextlib import contextmanager
+from unittest.mock import patch
 from helpers import temp_output
 import pyarrow as pa
 
@@ -56,6 +59,36 @@ class TestKrakenArrowCompilation(unittest.TestCase):
                                  output_file=tmp_file,
                                  format_type='path')
             _validate_ds(self, tmp_file, 4, 0, 'kraken_recognition_bbox')
+
+    def test_mapped_dataset_released_before_temporary_cleanup(self):
+        """Mapped Arrow buffers must be released before Windows deletes the file."""
+        import tempfile
+
+        mapped_tables = []
+        temporary_directory = tempfile.TemporaryDirectory
+        open_file = pa.ipc.open_file
+
+        class TrackedReader:
+            def __init__(self, source):
+                self.reader = open_file(source)
+
+            def read_all(self):
+                table = self.reader.read_all()
+                mapped_tables.append(weakref.ref(table))
+                return table
+
+        @contextmanager
+        def checked_temporary_directory(*args, **kwargs):
+            with temporary_directory(*args, **kwargs) as directory:
+                yield directory
+                self.assertTrue(mapped_tables)
+                for table in mapped_tables:
+                    self.assertIsNone(table(), 'Temporary dataset still retains mapped file buffers')
+
+        with temp_output() as tmp_file:
+            with patch('kraken.lib.arrow_dataset.tempfile.TemporaryDirectory', checked_temporary_directory), \
+                    patch('kraken.lib.arrow_dataset.pa.ipc.open_file', TrackedReader):
+                build_binary_dataset(files=self.box_lines, output_file=tmp_file, format_type='path')
 
     def test_build_xml_dataset(self):
         with temp_output() as tmp_file:
