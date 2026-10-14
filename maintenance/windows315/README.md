@@ -24,6 +24,8 @@ https://github.com/microsoft/vcpkg/issues/51763. Other matrix jobs use the lates
 runner images. It needs MSVC x64 Build Tools, Windows
 SDK, Git and network access. Existing build outputs are preserved. Full native
 build logs remain local because compiler diagnostics can contain environment data.
+CI uses four build workers and a two-hour job limit for this source build; the
+reference local binding build alone took approximately 55 minutes with four workers.
 
 For local use, the supplied PyLaia installer already provides corrected CPU and
 CUDA 13.2 bindings, avoiding recompilation. Install Kraken into that environment
