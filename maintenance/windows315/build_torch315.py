@@ -10,6 +10,7 @@ import argparse
 import ctypes
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -58,6 +59,25 @@ SUBMODULES = (
 
 def run(*args, **kwargs):
     subprocess.run([str(arg) for arg in args], check=True, **kwargs)
+
+
+def report_native_failure(log):
+    """Show bounded compiler/CMake diagnostics without dumping the environment."""
+    lines = log.read_text(encoding="utf-8", errors="replace").splitlines()
+    selected = set()
+    pattern = re.compile(r"CMake Error|fatal error|error (?:C|LNK)\d+|Could NOT find|ninja: build stopped|^\s*FAILED:")
+    for index, line in enumerate(lines):
+        if pattern.search(line):
+            selected.add(index)
+            if "CMake Error" in line or "Could NOT find" in line:
+                selected.update(range(index + 1, min(index + 7, len(lines))))
+    print("Native build diagnostics (full log remains local):", flush=True)
+    for index in sorted(selected)[:60]:
+        line = lines[index]
+        if re.search(r"(?i)token|password|secret|authorization|credential", line):
+            print("[sensitive diagnostic omitted]", flush=True)
+        else:
+            print(line[:500], flush=True)
 
 
 def short_path(path):
@@ -412,6 +432,7 @@ def main():
         try:
             run(*command, env=env, stdout=stream, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError:
+            report_native_failure(log)
             raise RuntimeError(
                 f"Native binding build failed; inspect the local log: {log}"
             ) from None
