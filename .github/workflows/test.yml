@@ -25,6 +25,14 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         python-version: ['3.14', '3.15']
+        # SLEEF's MSVC probe fails with the VS 2026 image. Build cp315
+        # bindings with the VS 2022 toolchain used for local validation.
+        exclude:
+          - os: windows-latest
+            python-version: '3.15'
+        include:
+          - os: windows-2022
+            python-version: '3.15'
     steps:
       - uses: actions/checkout@v7
         with:

@@ -17,7 +17,11 @@ python -m pip install --no-deps .local/torch315-wheels/torch-2.14.1+pylaia315cpu
 python -m pip install --no-deps torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu
 ```
 
-The Windows 3.15 CI job follows this path. It needs MSVC x64 Build Tools, Windows
+The Windows 3.15 CI job follows this path on `windows-2022` with Visual Studio
+2022, matching the toolchain used for the supplied validated bindings. The newer
+VS 2026 runner reproduces the SLEEF compiler-probe failure reported in
+https://github.com/microsoft/vcpkg/issues/51763. Other matrix jobs use the latest
+runner images. It needs MSVC x64 Build Tools, Windows
 SDK, Git and network access. Existing build outputs are preserved. Full native
 build logs remain local because compiler diagnostics can contain environment data.
 
