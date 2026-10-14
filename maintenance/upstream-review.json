@@ -193,7 +193,7 @@
     "NumPy 2.5-compatible 2D signed-distance calculation",
     "XML paths relative to output directory",
     "Binarization XML export",
-    "Fork-only CI publishing guards"
+    "Test and build CI without package or documentation publishing"
   ],
   "external_service_limitation": "Zenodo OAI ListRecords pagination returned HTTP 422; current and superseded individual-model metadata lookups passed."
 }
