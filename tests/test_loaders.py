@@ -298,6 +298,7 @@ class TestWriteModels(unittest.TestCase):
                     tensor = f.get_tensor(key)
                     self.assertEqual(tensor.dtype, torch.float16,
                                      f'{key} is not float16')
+                    del tensor  # Release the mapped file before directory cleanup on Windows.
 
     def test_roundtrip_mixed(self):
         """Cast only conv layer to fp16, write, and verify stored dtypes."""
@@ -318,3 +319,4 @@ class TestWriteModels(unittest.TestCase):
                     elif '.O_1.' in key:
                         self.assertEqual(tensor.dtype, torch.float32,
                                          f'{key} should be float32')
+                    del tensor  # safe_open.close() alone does not release tensor buffers.

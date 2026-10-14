@@ -2,6 +2,8 @@
 
 import unittest
 import tempfile
+import gc
+from contextlib import contextmanager
 from unittest.mock import Mock, patch
 from pathlib import Path
 from traceback import print_exc
@@ -28,6 +30,16 @@ resources = thisfile / "resources"
 
 def mock_extract_polygons():
     return Mock(side_effect=segmentation.extract_polygons)
+
+
+@contextmanager
+def training_directory():
+    """Release cyclic trainer/CLI references before deleting mapped datasets."""
+    with tempfile.TemporaryDirectory() as directory:
+        try:
+            yield directory
+        finally:
+            gc.collect()
 
 
 class TestNewPolygons(unittest.TestCase):
@@ -241,7 +253,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos train` with new model, check that it uses new polygon extraction method
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             fp = str(Path(tempdir) / "test.xml")
 
@@ -261,7 +273,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos train` training new model, check that it uses legacy polygon extraction method if forced
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             fp = str(Path(tempdir) / "test.xml")
 
@@ -280,7 +292,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos train` finetuning old model, check that it uses new polygon extraction method
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             fp = str(Path(tempdir) / "test.xml")
 
@@ -298,7 +310,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos train` finetuning old model, check that it uses legacy polygon extraction method if forced
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             fp = str(Path(tempdir) / "test.xml")
 
@@ -317,7 +329,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos pretrain` with new model, check that it uses new polygon extraction method
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             fp = str(Path(tempdir) / "test.xml")
 
@@ -336,7 +348,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos pretrain` with new model, check that it uses legacy polygon extraction method if forced
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             fp = str(Path(tempdir) / "test.xml")
 
@@ -355,7 +367,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos pretrain` with old model, check that it uses new polygon extraction method
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             fp = str(Path(tempdir) / "test.xml")
 
@@ -397,7 +409,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos train`, on old arrow dataset, check that it raises a warning about polygon extraction method only if incoherent
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             mfp2 = str(Path(tempdir) / "model2")
 
@@ -409,7 +421,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos compile`, check that it uses new polygon extraction method
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             dset = str(Path(tempdir) / "dataset.arrow")
             mfp = str(Path(tempdir) / "model")
             mfp2 = str(Path(tempdir) / "model2")
@@ -428,7 +440,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos compile`, check that it uses old polygon extraction method
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             dset = str(Path(tempdir) / "dataset.arrow")
             mfp = str(Path(tempdir) / "model")
             mfp2 = str(Path(tempdir) / "model2")
@@ -446,7 +458,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos train`, on old arrow dataset, check that it raises a warning about polygon extraction method only if incoherent
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             mfp = str(Path(tempdir) / "model")
             mfp2 = str(Path(tempdir) / "model2")
 
@@ -457,7 +469,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos compile`, on new arrow dataset, check that it raises a warning about polygon extraction method only if incoherent
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             dset = str(Path(tempdir) / "dataset.arrow")
             mfp = str(Path(tempdir) / "model")
             mfp2 = str(Path(tempdir) / "model2")
@@ -476,7 +488,7 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test `ketos compile`, on mixed arrow dataset, check that it raises a warning about polygon extraction method only if incoherent
         """
-        with tempfile.TemporaryDirectory() as tempdir:
+        with training_directory() as tempdir:
             dset = str(Path(tempdir) / "dataset.arrow")
             mfp = str(Path(tempdir) / "model")
 

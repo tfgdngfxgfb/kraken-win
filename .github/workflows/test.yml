@@ -82,7 +82,7 @@ jobs:
           flake8 kraken tests --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Run tests
         run: |
-          python -m pytest -vv -m "not network and not slow" --maxfail=3 -o faulthandler_timeout=120
+          python -m pytest -vv -m "not network and not slow" -o faulthandler_timeout=120
 
   docs:
     name: Build documentation
