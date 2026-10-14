@@ -1,12 +1,12 @@
 Windows 11
 ==========
 
-Use 64-bit CPython 3.14 and a virtual environment. Python 3.15 is not supported while PyTorch lacks compatible Windows wheels. Run the following commands in PowerShell from this fork's checkout. Enable UTF-8 mode in every new terminal: HTRMoPo 0.6 reads its Unicode metadata using the interpreter's default encoding.
+This fork supports 64-bit CPython 3.14 only. Use the latest 3.14 maintenance release and a virtual environment. Run the following commands in PowerShell from this fork's checkout. Enable UTF-8 mode in every new terminal: HTRMoPo 0.6 reads its Unicode metadata using the interpreter's default encoding.
 
 .. code-block:: powershell
 
    $env:PYTHONUTF8 = '1'
-   python -m venv .venv
+   py -3.14 -m venv .venv
    .\.venv\Scripts\python.exe -m pip install --upgrade pip
    .\.venv\Scripts\python.exe -m pip install -e '.[test]'
    .\.venv\Scripts\kraken.exe --help

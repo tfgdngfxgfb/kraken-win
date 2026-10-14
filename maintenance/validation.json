@@ -1,6 +1,9 @@
 {
   "date": "2026-10-14",
   "python": "3.14.8",
+  "supported_python": [
+    "3.14"
+  ],
   "platform": "Windows-11-10.0.26200-SP0",
   "environment": ".venv314",
   "cuda_available": true,
@@ -42,10 +45,11 @@
       "expected_failures": 1,
       "unexpected_passes": 1,
       "subtests_passed": 131,
-      "duration_seconds": 440.18,
+      "duration_seconds": 372.55,
       "command": "python -X utf8 -m pytest -m \"not network and not slow\""
     },
-    "baseline_python_313": "310 passed, one Windows test failure fixed and individually verified; additional CPU/CUDA/PDF/checkpoint regressions passed",
+    "dependency_versions": "36 direct requirements use the latest stable releases; only docutils and mpmath are held back by upstream dependency constraints",
+    "dependency_consistency": "passed: pip check reported no broken requirements",
     "repository_descriptions": "2 passed",
     "repository_listing": "External Zenodo OAI pagination failed with HTTP 422",
     "numpy_25_baseline_and_rtl_regressions": "6 passed, followed by full suite passing",
@@ -55,8 +59,9 @@
   },
   "build": {
     "wheel_and_sdist": "passed, including rebuilding the wheel from the sdist",
-    "documentation": "passed with 70 API/docstring warnings",
-    "wheel_import_and_bundled_model": "passed"
+    "documentation": "passed with 69 API/docstring warnings",
+    "wheel_import_and_bundled_model": "passed",
+    "python_policy": "Wheel metadata accepts only Python 3.14; pip rejection of Python 3.13 and 3.15 verified"
   },
   "upstream_modifications": false
 }

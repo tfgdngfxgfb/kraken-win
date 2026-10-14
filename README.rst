@@ -34,7 +34,7 @@ yourself you can use `pipx`.
    $ sudo apt install pipx
    $ pipx install git+https://github.com/tfgdngfxgfb/kraken-win.git
 
-kraken supports Python 3.10 through 3.14. Python 3.14 is recommended for this fork. It is possible the installation fails because `pipx` defaults to
+This fork supports Python 3.14 only. Use the latest 3.14 maintenance release. It is possible the installation fails because `pipx` defaults to
 an unsupported interpreter version. In that case you need to install a
 compatible interpreter version such as 3.14 and then specify this version
 explicitly:

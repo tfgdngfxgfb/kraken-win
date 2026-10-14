@@ -8,7 +8,7 @@ This guide provides a brief overview of how to install and use kraken.
 Installation
 ------------
 
-Kraken can be run on Linux or macOS (both x64 and ARM). Installation is
+This fork supports Windows 11 (x64), Linux, and macOS (both x64 and ARM). See :doc:`user_guide/windows` for Windows installation. Installation is
 through the on-board *pip* utility. To not pollute the global state of your
 distribution's package manager it is recommended to use virtual environments.
 If you do not have a setup or do not wish to handle virtual environments
@@ -17,18 +17,17 @@ yourself you can use `pipx`.
 .. code-block:: console
 
    $ sudo apt install pipx
-   $ pipx install kraken
+   $ pipx install git+https://github.com/tfgdngfxgfb/kraken-win.git
 
-kraken works both on Linux and Mac OS X and with any python interpreter between
-3.10 and 3.13. It is possible the installation fails because `pipx` defaults to
+This fork supports Python 3.14 only. Use the latest 3.14 maintenance release. It is possible the installation fails because `pipx` defaults to
 an unsupported interpreter version. In that case you need to install a
-compatible interpreter version such as 3.13 and then specify this version
+compatible interpreter version such as 3.14 and then specify this version
 explicitly:
 
 .. code-block:: console
 
-   $ sudo apt install python3.13-full
-   $ pipx install --python python3.13 kraken
+   $ sudo apt install python3.14-full
+   $ pipx install --python python3.14 git+https://github.com/tfgdngfxgfb/kraken-win.git
 
 
 Installation using pip
@@ -39,7 +38,7 @@ like.
 
 .. code-block:: console
 
-  $ pip install kraken
+  $ pip install git+https://github.com/tfgdngfxgfb/kraken-win.git
 
 or by running pip in the git repository:
 
@@ -47,12 +46,11 @@ or by running pip in the git repository:
 
   $ pip install .
 
-If you want direct PDF and multi-image TIFF/JPEG2000 support it is necessary to
-install the `pdf` extras package for PyPi:
+Install the optional ``pdf`` extra for PDF input:
 
 .. code-block:: console
 
-   $ pip install kraken[pdf]
+   $ pip install "kraken[pdf] @ git+https://github.com/tfgdngfxgfb/kraken-win.git"
 
 or
 
@@ -70,9 +68,9 @@ repository and perform an editable install:
 
 .. code-block:: console
 
-  $ git clone https://github.com/mittagessen/kraken.git
-  $ cd kraken
-  $ pip install --editable . 
+  $ git clone https://github.com/tfgdngfxgfb/kraken-win.git
+  $ cd kraken-win
+  $ pip install --editable .
 
 Model Retrieval
 ---------------
