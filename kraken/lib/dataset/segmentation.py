@@ -139,6 +139,7 @@ class BaselineSet(Dataset):
         self.imgs = []
         self.pad = padding
         self.targets = []
+        self._documents = []
         self.class_mapping = class_mapping
 
         # keep track of samples that failed to load
@@ -157,6 +158,18 @@ class BaselineSet(Dataset):
     @property
     def num_classes(self):
         return max(v for d in self.class_mapping.values() for v in d.values()) + 1
+
+    def set_class_mapping(self, class_mapping):
+        """Rebuild targets when fine-tuning changes output channel indices."""
+        documents = self._documents
+        self._documents = []
+        self.imgs = []
+        self.targets = []
+        self.class_mapping = class_mapping
+        self.class_stats = {'baselines': defaultdict(int), 'regions': defaultdict(int)}
+        self.failed_samples.clear()
+        for doc in documents:
+            self.add(doc)
 
     @property
     def canonical_class_mapping(self) -> dict[str, dict[str, int]]:
@@ -225,6 +238,7 @@ class BaselineSet(Dataset):
                 continue
         self.targets.append({'baselines': baselines_, 'regions': regions_})
         self.imgs.append(doc.imagename)
+        self._documents.append(doc)
 
     def _update_im_mode(self, im):
         if im.shape[0] == 3:

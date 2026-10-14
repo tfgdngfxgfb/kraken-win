@@ -3,7 +3,6 @@
 Tests for model loaders/writers/creators.
 """
 import json
-import os
 import torch
 import tempfile
 import unittest
@@ -84,14 +83,11 @@ class TestLoadModels(unittest.TestCase):
         """
         Tests that load_models raises ValueError for invalid model files.
         """
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.bin') as fp:
-            fp.write(b'invalid data')
-            fp.flush()
-            try:
-                with raises(ValueError):
-                    load_models(fp.name)
-            finally:
-                os.unlink(fp.name)
+        from helpers import temp_output
+        with temp_output(suffix='.bin') as path:
+            Path(path).write_bytes(b'invalid data')
+            with raises(ValueError):
+                load_models(path)
 
     def test_load_models_nonexistent_file(self):
         """

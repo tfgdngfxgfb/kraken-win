@@ -580,12 +580,15 @@ class BLLASegmentationModel(KrakenTrainerModule):
                         raise ValueError(f'invalid resize parameter value {self.resize}')
                 # backfill train_set/val_set mapping if key-equal as the actual
                 # numbering in the train_set might be different
-                self.trainer.datamodule.train_set.dataset.class_mapping = net_class_mapping
-                self.trainer.datamodule.val_set.dataset.class_mapping = net_class_mapping
+                self.trainer.datamodule.train_set.dataset.set_class_mapping(net_class_mapping)
+                self.trainer.datamodule.val_set.dataset.set_class_mapping(net_class_mapping)
 
             self.net.user_metadata['metrics'] = []
             # store canonical (one-to-one) class mapping in model metadata for inference
             self.net.user_metadata['class_mapping'] = self.trainer.datamodule.train_set.dataset.canonical_class_mapping
+            data_config = self.trainer.datamodule.hparams.data_config
+            data_config.line_class_mapping = dict(self.trainer.datamodule.train_set.dataset.class_mapping['baselines'])
+            data_config.region_class_mapping = dict(self.trainer.datamodule.train_set.dataset.class_mapping['regions'])
 
             # change topline/baseline switch
             loc = {None: 'centerline',

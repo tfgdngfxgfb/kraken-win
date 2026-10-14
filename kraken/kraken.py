@@ -30,6 +30,7 @@ from PIL import Image
 from pathlib import Path
 from itertools import chain
 from functools import partial
+from contextlib import closing
 from importlib import resources
 from platformdirs import user_data_dir
 from typing import IO, Any, Callable, cast
@@ -76,6 +77,16 @@ def get_input_parser(type_str: str) -> Callable[[str], dict[str, Any]]:
         return open_image
 
 
+def _relative_image_name(image_name, output):
+    image = Path(image_name).resolve()
+    if str(output) == '-':
+        return image.as_posix()
+    try:
+        return Path(os.path.relpath(image, Path(output).resolve().parent)).as_posix()
+    except ValueError:
+        return image.as_posix()
+
+
 # chainable functions of functional components (binarization/segmentation/recognition)
 
 def binarizer(threshold, zoom, escale, border, perc, range, low, high, input, output) -> None:
@@ -104,8 +115,13 @@ def binarizer(threshold, zoom, escale, border, perc, range, low, high, input, ou
                 logger.info('Serializing as {} into {}'.format(ctx.meta['output_mode'], output))
                 res.save(f'{output}.png')
                 from kraken import serialization
-                fp.write(serialization.serialize([],
-                                                 image_name=f'{output}.png',
+                from kraken.containers import Segmentation
+                empty_segmentation = Segmentation(type='bbox',
+                                                  imagename=_relative_image_name(f'{output}.png', output),
+                                                  text_direction='horizontal-lr',
+                                                  script_detection=False,
+                                                  lines=[])
+                fp.write(serialization.serialize(empty_segmentation,
                                                  image_size=res.size,
                                                  template=ctx.meta['output_template'],
                                                  template_source='custom' if ctx.meta['output_mode'] == 'template' else 'native',
@@ -169,7 +185,8 @@ def segmenter(legacy, model, config, input, output) -> None:
             fp = cast('IO[Any]', fp)
             logger.info('Serializing as {} into {}'.format(ctx.meta['output_mode'], output))
             from kraken import serialization
-            fp.write(serialization.serialize(res,
+            serialized_res = dataclasses.replace(res, imagename=_relative_image_name(res.imagename, output))
+            fp.write(serialization.serialize(serialized_res,
                                              image_size=im.size,
                                              template=ctx.meta['output_template'],
                                              template_source='custom' if ctx.meta['output_mode'] == 'template' else 'native',
@@ -249,7 +266,8 @@ def recognizer(model, no_segmentation, config, linetype, input, output) -> None:
         logger.info('Serializing as {} into {}'.format(ctx.meta['output_mode'], output))
         if ctx.meta['output_mode'] != 'native':
             from kraken import serialization
-            fp.write(serialization.serialize(results=results,
+            serialized_results = dataclasses.replace(results, imagename=_relative_image_name(results.imagename, output))
+            fp.write(serialization.serialize(results=serialized_results,
                                              image_size=open_image(ctx.meta['base_image']).size,
                                              writing_mode=ctx.meta['text_direction'],
                                              scripts=None,
@@ -362,40 +380,42 @@ def process_pipeline(subcommands, input, batch_input, suffix, verbose, format_ty
 
     # parse pdfs
     if format_type == 'pdf':
-        import pyvips
+        import pypdfium2 as pdfium
 
         if not batch_input:
             logger.warning('PDF inputs not added with batch option. Manual output filename will be ignored and `-o` utilized.')
         new_input = []
         num_pages = 0
+        pdf_inputs = []
         for (fpath, _) in input:
-            doc = pyvips.Image.new_from_file(fpath, dpi=300, n=-1, access="sequential")
-            if 'n-pages' in doc.get_fields():
-                num_pages += doc.get('n-pages')
+            try:
+                with pdfium.PdfDocument(str(fpath)) as doc:
+                    page_count = len(doc)
+                pdf_inputs.append((fpath, page_count))
+                num_pages += page_count
+            except pdfium.PdfiumError:
+                logger.warning(f'{fpath} is not a PDF file. Skipping.')
 
         with KrakenProgressBar() as progress:
             pdf_parse_task = progress.add_task('Extracting PDF pages', total=num_pages, visible=True if not ctx.meta['verbose'] else False)
-            for (fpath, _) in input:
+            for fpath, page_count in pdf_inputs:
                 try:
-                    doc = pyvips.Image.new_from_file(fpath, dpi=300, n=-1, access="sequential")
-                    if 'n-pages' not in doc.get_fields():
-                        logger.warning('{fpath} does not contain pages. Skipping.')
-                        continue
-                    n_pages = doc.get('n-pages')
-
-                    dest_dict = {'idx': -1, 'src': fpath, 'uuid': None}
-                    for i in range(0, n_pages):
-                        dest_dict['idx'] += 1
-                        dest_dict['uuid'] = f'_{uuid.uuid4()}'
-                        fd, filename = tempfile.mkstemp(suffix='.png')
-                        os.close(fd)
-                        doc = pyvips.Image.new_from_file(fpath, dpi=300, page=i, access="sequential")
-                        logger.info(f'Saving temporary image {fpath}:{dest_dict["idx"]} to {filename}')
-                        doc.write_to_file(filename)
-                        new_input.append((filename, pdf_format.format(**dest_dict) + suffix))
-                        progress.update(pdf_parse_task, advance=1)
-                except pyvips.error.Error:
-                    num_pages -= n_pages
+                    with pdfium.PdfDocument(str(fpath)) as doc:
+                        for i in range(page_count):
+                            dest_dict = {'idx': i, 'src': fpath, 'uuid': f'_{uuid.uuid4()}'}
+                            fd, filename = tempfile.mkstemp(suffix='.png')
+                            os.close(fd)
+                            try:
+                                with closing(doc[i]) as page, closing(page.render(scale=300 / 72)) as bitmap:
+                                    bitmap.to_pil().save(filename)
+                            except BaseException:
+                                os.unlink(filename)
+                                raise
+                            logger.info(f'Saving temporary image {fpath}:{i} to {filename}')
+                            new_input.append((filename, pdf_format.format(**dest_dict) + suffix))
+                            progress.update(pdf_parse_task, advance=1)
+                except pdfium.PdfiumError:
+                    num_pages -= page_count
                     progress.update(pdf_parse_task, total=num_pages)
                     logger.warning(f'{fpath} is not a PDF file. Skipping.')
         input = new_input

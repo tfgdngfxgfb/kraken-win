@@ -20,6 +20,7 @@ Command line driver for publishing models to the model repository.
 """
 import re
 import logging
+import shutil
 
 import click
 
@@ -246,7 +247,7 @@ def publish(ctx, metadata, access_token, doi, private, model):
 
         model_path = model_path.resolve()
         tmpdir = Path(tmpdir)
-        (tmpdir / model_path.name).resolve().symlink_to(model_path)
+        shutil.copy2(model_path, tmpdir / model_path.name)
         if rec_models:
             # v0 metadata only supports recognition models
             nn_rec = rec_models[0]

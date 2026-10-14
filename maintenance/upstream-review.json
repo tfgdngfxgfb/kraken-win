@@ -1,0 +1,199 @@
+{
+  "date": "2026-10-14",
+  "scope": "Only tfgdngfxgfb/kraken-win is changed. Upstream is read-only.",
+  "upstream_main": "bb487219e7d8289274443d1ad0989efb4924dc2a",
+  "pull_requests": [
+    {
+      "number": 814,
+      "title": "fix(logging): log model class name, not full module repr, in SegmentationTaskModel.predict",
+      "url": "https://github.com/mittagessen/kraken/pull/814",
+      "sha": "1b6e17ca95e75727e599ef1952099fe99fd93712",
+      "disposition": "Adapted and validated locally; no upstream write."
+    },
+    {
+      "number": 802,
+      "title": "Update action versions in the test workflow",
+      "url": "https://github.com/mittagessen/kraken/pull/802",
+      "sha": "e47fcf4629bfe7cacbcf984f1c6c2741afde9543",
+      "disposition": "Adapted and validated locally; no upstream write."
+    },
+    {
+      "number": 803,
+      "title": "Add Dependabot configuration for GitHub Actions",
+      "url": "https://github.com/mittagessen/kraken/pull/803",
+      "sha": "e507150320f11bd8bc5668bfcbd96a48f6528c74",
+      "disposition": "Adapted and validated locally; no upstream write."
+    },
+    {
+      "number": 800,
+      "title": "Fix all whitespace warnings and errors reported by Pyflakes",
+      "url": "https://github.com/mittagessen/kraken/pull/800",
+      "sha": "ebada583cfcd6877a8d88b99b16260efa54ea7d6",
+      "disposition": "Adapted and validated locally; no upstream write."
+    }
+  ],
+  "issues": [
+    {
+      "number": 812,
+      "title": "ketos segtest fails with IndexError in segmentation.py when building the pixel metrics table (aux + regions only)",
+      "url": "https://github.com/mittagessen/kraken/issues/812",
+      "disposition": "Fixed: pixel metric rows use compact metric indices, verified with bundled-model segtest."
+    },
+    {
+      "number": 810,
+      "title": "ppocrv6: inference differs from training because SE pooling sees the static-width padding; spurious characters at the line end",
+      "url": "https://github.com/mittagessen/kraken/issues/810",
+      "disposition": "Deferred: requires padding-aware architecture or training-width metadata, plus accuracy validation on trained PP-OCR models."
+    },
+    {
+      "number": 806,
+      "title": "`class_mapping` and `_full_class_mapping` disagree in models trained with `ketos segtrain --resize new` \u2192 regions get the wrong names (kraken 7.0.1)",
+      "url": "https://github.com/mittagessen/kraken/issues/806",
+      "disposition": "Fixed: rebuild fine-tuning targets and synchronize checkpoint class mappings. Training/checkpoint round-trip regression passes. Previously mislabelled model files are not rewritten automatically."
+    },
+    {
+      "number": 795,
+      "title": "Conflict of relative paths in XML files",
+      "url": "https://github.com/mittagessen/kraken/issues/795",
+      "disposition": "Fixed: XML image references are relative to output directory; regression tested."
+    },
+    {
+      "number": 790,
+      "title": "extract_polygons fills outside-polygon with black (cval=0), degrading recognition on bitonal images",
+      "url": "https://github.com/mittagessen/kraken/issues/790",
+      "disposition": "Deferred: configurable masking changes training and inference preprocessing; historical branch archived and retained."
+    },
+    {
+      "number": 778,
+      "title": "Failed to install on Colab and Streamlit Community Cloud",
+      "url": "https://github.com/mittagessen/kraken/issues/778",
+      "disposition": "Investigated: Python and dependency installation are being verified natively on Windows."
+    },
+    {
+      "number": 764,
+      "title": "Fine-tuning with segtrain does not start \"WARNING Setting baseline location to baseline\"",
+      "url": "https://github.com/mittagessen/kraken/issues/764",
+      "disposition": "Investigated: recognition, segmentation, and reading-order training smoke tests pass on Windows."
+    },
+    {
+      "number": 745,
+      "title": "Excessive horizontal segmentation",
+      "url": "https://github.com/mittagessen/kraken/issues/745",
+      "disposition": "Deferred feature: force horizontal fragment joining inside regions. Needs representative manuscript images and rules preventing cross-column joins."
+    },
+    {
+      "number": 737,
+      "title": "Tables layout annotation and segmentation",
+      "url": "https://github.com/mittagessen/kraken/issues/737",
+      "disposition": "Reviewed annotation question: existing region/baseline training can annotate tables; reliable table structure extraction requires annotated data and evaluation."
+    },
+    {
+      "number": 724,
+      "title": "add proportion of correctly read letters in ketos test",
+      "url": "https://github.com/mittagessen/kraken/issues/724",
+      "disposition": "Deferred reporting feature: include per-codepoint frequencies alongside the confusion matrix. Existing aggregate accuracy metrics are retained."
+    },
+    {
+      "number": 708,
+      "title": "Infinite loop in `boundary_tracing()` \u2014 an interaction cap is missing",
+      "url": "https://github.com/mittagessen/kraken/issues/708",
+      "disposition": "Fixed: boundary tracing detects repeated states and handles isolated pixels; regression tested."
+    },
+    {
+      "number": 683,
+      "title": "Segmentation Fine-Tuning leads to 0 line detection",
+      "url": "https://github.com/mittagessen/kraken/issues/683",
+      "disposition": "Reviewed model-specific fine-tuning report; current Windows training smoke tests pass. The original 30-page training data/model are not available for reproduction."
+    },
+    {
+      "number": 667,
+      "title": "Allow `native` input or remove it as the default output",
+      "url": "https://github.com/mittagessen/kraken/issues/667",
+      "disposition": "Deferred input-format feature: independently loading native JSON segmentation needs an input parser and persistent image-path semantics. XML remains the supported reusable interchange format."
+    },
+    {
+      "number": 650,
+      "title": "Problem with assigning a line to a region if it's too close to the region border",
+      "url": "https://github.com/mittagessen/kraken/issues/650",
+      "disposition": "Reviewed region assignment example. Changing spatial tolerance requires a validated corpus so neighboring region/column assignments do not regress."
+    },
+    {
+      "number": 624,
+      "title": "Failure to read varying text sizes in a Newspaper page",
+      "url": "https://github.com/mittagessen/kraken/issues/624",
+      "disposition": "Reviewed model-specific font-size sensitivity report. Recognition accuracy across newspaper scales requires evaluating the supplied model/corpus, separate from Windows installation."
+    },
+    {
+      "number": 544,
+      "title": "improve polygons of bottom lines",
+      "url": "https://github.com/mittagessen/kraken/issues/544",
+      "disposition": "Reviewed bottom-line polygon issue and retained Evarin-improve-polygons history as an archive tag. Historical geometry changes require accuracy comparisons on representative pages."
+    },
+    {
+      "number": 438,
+      "title": "Consider integrating Kraken with the Hugging Face hub",
+      "url": "https://github.com/mittagessen/kraken/issues/438",
+      "disposition": "Deferred: Hugging Face integration is a new service feature, separate from Windows compatibility."
+    },
+    {
+      "number": 358,
+      "title": "[feature request] Training with Metal Performance Shaders",
+      "url": "https://github.com/mittagessen/kraken/issues/358",
+      "disposition": "Out of scope: Apple MPS-specific request; Windows CPU/CUDA is the requested platform."
+    },
+    {
+      "number": 176,
+      "title": "add testfilename in testing",
+      "url": "https://github.com/mittagessen/kraken/issues/176",
+      "disposition": "Deferred reporting feature: per-input filenames in aggregate evaluation output. The existing contrib/test_per_file.py utility provides per-file evaluation."
+    }
+  ],
+  "forks": [
+    {
+      "repository": "stweil/kraken",
+      "ahead": 10,
+      "behind": 10,
+      "disposition": "Reviewed CI and whitespace patches; Python 3.14 changes already in main."
+    },
+    {
+      "repository": "IvoLeist/kraken-OCR",
+      "ahead": 0,
+      "behind": 7,
+      "disposition": "No commits ahead of upstream main."
+    },
+    {
+      "repository": "pndaza/kraken",
+      "ahead": 0,
+      "behind": 54,
+      "disposition": "No commits ahead of upstream main."
+    },
+    {
+      "repository": "storytracer/kraken",
+      "ahead": 0,
+      "behind": 10,
+      "disposition": "No commits ahead of upstream main."
+    },
+    {
+      "repository": "CeylanBerlin/kraken-ocr-good-for-arabic",
+      "ahead": 0,
+      "behind": 16,
+      "disposition": "No commits ahead of upstream main."
+    },
+    {
+      "repository": "davanstrien/kraken",
+      "ahead": 0,
+      "behind": 11,
+      "disposition": "No commits ahead of upstream main."
+    }
+  ],
+  "additional_fixes": [
+    "Windows temporary-file handle lifetime",
+    "CPU/CUDA tensor placement",
+    "PDFium-based PDF input",
+    "NumPy 2.5-compatible 2D signed-distance calculation",
+    "XML paths relative to output directory",
+    "Binarization XML export",
+    "Fork-only CI publishing guards"
+  ],
+  "external_service_limitation": "Zenodo OAI ListRecords pagination returned HTTP 422; current and superseded individual-model metadata lookups passed."
+}

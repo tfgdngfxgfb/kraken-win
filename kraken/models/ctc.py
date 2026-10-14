@@ -228,6 +228,7 @@ class CTCRecognitionInferenceMixin:
         Returns:
             List of decoded sequences.
         """
+        line = self._fabric.to_device(line)
         logits, olens = self.nn(line, lens)
         probs = (logits / self._inf_config.temperature).softmax(1)
         self.outputs = probs.detach().squeeze(2)

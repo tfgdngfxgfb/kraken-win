@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-14",
+  "python": "3.14.8",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "environment": ".venv314",
+  "cuda_available": true,
+  "cuda_runtime": "13.0",
+  "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+  "packages": {
+    "jsonschema": "4.26.0",
+    "lxml": "6.1.3",
+    "requests": "2.34.2",
+    "click": "8.5.0",
+    "numpy": "2.5.4",
+    "Pillow": "12.3.0",
+    "regex": "2026.9.29",
+    "scipy": "1.18.1",
+    "protobuf": "7.36.2",
+    "coremltools": "9.0",
+    "jinja2": "3.1.6",
+    "torchvision": "0.29.1+cu130",
+    "torch": "2.14.1+cu130",
+    "scikit-learn": "1.9.1",
+    "scikit-image": "0.26.0",
+    "shapely": "2.2.0",
+    "pyarrow": "26.0.0",
+    "htrmopo": "0.6",
+    "lightning": "2.6.6",
+    "torchmetrics": "1.9.0",
+    "threadpoolctl": "3.7.0",
+    "platformdirs": "4.13.0",
+    "rich": "15.0.0",
+    "safetensors": "0.8.0",
+    "iso639-lang": "2.6.3",
+    "packaging": "26.3"
+  },
+  "utf8_mode_required": true,
+  "tests": {
+    "ordinary_suite": {
+      "passed": 317,
+      "deselected": 11,
+      "expected_failures": 1,
+      "unexpected_passes": 1,
+      "subtests_passed": 131,
+      "duration_seconds": 440.18,
+      "command": "python -X utf8 -m pytest -m \"not network and not slow\""
+    },
+    "baseline_python_313": "310 passed, one Windows test failure fixed and individually verified; additional CPU/CUDA/PDF/checkpoint regressions passed",
+    "repository_descriptions": "2 passed",
+    "repository_listing": "External Zenodo OAI pagination failed with HTTP 422",
+    "numpy_25_baseline_and_rtl_regressions": "6 passed, followed by full suite passing",
+    "fine_tuning_checkpoint": "passed",
+    "cpu_and_cuda_pdf": "passed",
+    "static_checks": "passed: flake8 fatal/name/whitespace checks and git diff --check"
+  },
+  "build": {
+    "wheel_and_sdist": "passed, including rebuilding the wheel from the sdist",
+    "documentation": "passed with 70 API/docstring warnings",
+    "wheel_import_and_bundled_model": "passed"
+  },
+  "upstream_modifications": false
+}

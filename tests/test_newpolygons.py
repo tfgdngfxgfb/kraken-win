@@ -13,7 +13,7 @@ from click.testing import CliRunner
 
 import pytest
 
-from helpers import make_baseline_segmentation
+from helpers import make_baseline_segmentation, temp_output
 
 from kraken.lib import segmentation
 from kraken.lib.models import load_any
@@ -146,9 +146,9 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test kraken_cli with old model, check that it uses legacy polygon extraction method
         """
-        with tempfile.NamedTemporaryFile() as fp:
+        with temp_output() as fname:
             self._test_krakencli(
-                args=['-f', 'xml', '-i', self.segmented_img, fp.name, 'ocr', '-m', self.old_bl_model_path],
+                args=['-f', 'xml', '-i', self.segmented_img, fname, 'ocr', '-m', self.old_bl_model_path],
                 force_no_legacy=False,
                 expect_legacy=True,
             )
@@ -157,9 +157,9 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test kraken_cli with old model, check that it uses legacy polygon extraction method
         """
-        with tempfile.NamedTemporaryFile() as fp:
+        with temp_output() as fname:
             self._test_krakencli(
-                args=['-f', 'xml', '-i', self.segmented_img, fp.name, 'ocr', '-m', self.old_bl_model_path],
+                args=['-f', 'xml', '-i', self.segmented_img, fname, 'ocr', '-m', self.old_bl_model_path],
                 force_no_legacy=True,
                 expect_legacy=False,
             )
@@ -168,9 +168,9 @@ class TestNewPolygons(unittest.TestCase):
         """
         Test kraken_cli with new model, check that it uses new polygon extraction method
         """
-        with tempfile.NamedTemporaryFile() as fp:
+        with temp_output() as fname:
             self._test_krakencli(
-                args=['-f', 'xml', '-i', self.segmented_img, fp.name, 'ocr', '-m', self.new_bl_model_path],
+                args=['-f', 'xml', '-i', self.segmented_img, fname, 'ocr', '-m', self.new_bl_model_path],
                 force_no_legacy=False,
                 expect_legacy=False,
             )
@@ -181,9 +181,9 @@ class TestNewPolygons(unittest.TestCase):
         Without --linetype, XML input is parsed at the model's line type: a
         bbox model gets bbox crops and the legacy flag is never applied.
         """
-        with tempfile.NamedTemporaryFile() as fp:
+        with temp_output() as fname:
             result = self.runner.invoke(kraken_cli,
-                                        ['-f', 'xml', '-i', self.segmented_img, fp.name,
+                                        ['-f', 'xml', '-i', self.segmented_img, fname,
                                          'ocr', '--num-line-workers', '0', '-m', self.old_model_path])
             if result.exception:
                 print_exc()

@@ -214,13 +214,13 @@ def boundary_tracing(region):
 
     # initialization
     # starting point is the most upper left point
-    idx_start = 0
-    while True:  # asserting that the starting point is not isolated
-        start = [y[idx_start], x[idx_start]]
+    for start in zip(y, x):
+        start = list(start)
         focus_start = binary[start[0] - 1:start[0] + 2, start[1] - 1:start[1] + 2]
         if np.sum(focus_start) > 1:
             break
-        idx_start += 1
+    else:
+        return coords.copy()
 
     # Determining backtrack pixel for the first element
     if (binary[start[0] + 1, start[1]] == 0 and binary[start[0] + 1, start[1] - 1] == 0):
@@ -231,8 +231,13 @@ def boundary_tracing(region):
     current = start
     backtrack = backtrack_start
     boundary = []
+    visited = set()
 
     while True:
+        state = (*current, *backtrack)
+        if state in visited:
+            break
+        visited.add(state)
         neighbors_current = moore_neighborhood(current, backtrack)
         y = neighbors_current[:, 0]
         x = neighbors_current[:, 1]
@@ -1594,7 +1599,8 @@ def extract_polygons(im: Image.Image,
                     poly_bl_x = poly_bl_x[poly_closest_bl, np.arange(l_poly)]
                     poly_bl_diff = poly_bl_diff[poly_closest_bl, np.arange(l_poly)]
                     # signed distance between polygon points and baseline segments (to get y coordinates)
-                    poly_bl_y = np.cross(diff_bl_normed[poly_closest_bl], poly_bl_diff)
+                    nearest_tangents = diff_bl_normed[poly_closest_bl]
+                    poly_bl_y = nearest_tangents[:, 0] * poly_bl_diff[:, 1] - nearest_tangents[:, 1] * poly_bl_diff[:, 0]
                     # final destination points
                     pol_dst_pts = np.array(
                         [cum_lens[poly_closest_bl] + poly_bl_x, poly_bl_y]

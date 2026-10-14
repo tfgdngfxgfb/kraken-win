@@ -262,7 +262,7 @@ class VGSLSegmentationInference:
         res_tf = tf.Compose(transforms.transforms[:tf_idx])
         scal_im = np.array(res_tf(im).convert('L'))
 
-        tensor_im = transforms(im)
+        tensor_im = self._fabric.to_device(transforms(im))
 
         logger.debug('Running network forward pass')
         o, _ = self.nn(tensor_im.unsqueeze(0))

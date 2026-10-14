@@ -1,0 +1,431 @@
+{
+  "date": "2026-10-14",
+  "repository": "tfgdngfxgfb/kraken-win",
+  "main": "bb487219e7d8289274443d1ad0989efb4924dc2a",
+  "branch_count": 46,
+  "branches": [
+    {
+      "branch": "Evarin-improve-polygons",
+      "sha": "d5d32f283f4c4878f5df1828c5e50c0211da8d8f",
+      "behind_main": 465,
+      "ahead_main": 2,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/Evarin-improve-polygons"
+    },
+    {
+      "branch": "ci_build",
+      "sha": "118f0b802cd7d96292e63b751e3a2843ae57725e",
+      "behind_main": 907,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/ci_build"
+    },
+    {
+      "branch": "debug/onecycle",
+      "sha": "6c49c9fcea1cdef1d4db741aead57f54202dd04a",
+      "behind_main": 895,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/debug/onecycle"
+    },
+    {
+      "branch": "feature/bbox_baseline_cast",
+      "sha": "02f32c8b6982eb915f1de79891d0a066fc6f170a",
+      "behind_main": 75,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/bbox_baseline_cast"
+    },
+    {
+      "branch": "feature/better_metrics",
+      "sha": "29314c6448721bac474dc06a97f5092114ed9336",
+      "behind_main": 327,
+      "ahead_main": 16,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/better_metrics"
+    },
+    {
+      "branch": "feature/binary_datasets",
+      "sha": "dd34db7681ad2d921ecf3ef1fcdee8753941a668",
+      "behind_main": 969,
+      "ahead_main": 115,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/binary_datasets"
+    },
+    {
+      "branch": "feature/conformer_ocr",
+      "sha": "0f7afe3aa9571c693a9940c877c34a7197106f31",
+      "behind_main": 360,
+      "ahead_main": 2,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/conformer_ocr"
+    },
+    {
+      "branch": "feature/deprecate_py3.8",
+      "sha": "1cbba578e3450d5808384716853c50cd00f3469b",
+      "behind_main": 310,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/deprecate_py3.8"
+    },
+    {
+      "branch": "feature/early_stopping_last",
+      "sha": "218b068dfece08209f94959ca042f7a9f53885f9",
+      "behind_main": 984,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/early_stopping_last"
+    },
+    {
+      "branch": "feature/fixed_polygon",
+      "sha": "eb2c2ddc55cd83cf48e3b7e52632607fdfd59391",
+      "behind_main": 304,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/fixed_polygon"
+    },
+    {
+      "branch": "feature/gdtuo",
+      "sha": "72e789ae3958df00a37d409db6fc991835dc4dca",
+      "behind_main": 723,
+      "ahead_main": 3,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/gdtuo"
+    },
+    {
+      "branch": "feature/htrmopo",
+      "sha": "ded52d126c400e04f53f554d8f66a4d92f0c1b4f",
+      "behind_main": 294,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/htrmopo"
+    },
+    {
+      "branch": "feature/jit",
+      "sha": "90010632d0ed3da47c35fc6f847a2fb6894548f2",
+      "behind_main": 879,
+      "ahead_main": 2,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/jit"
+    },
+    {
+      "branch": "feature/lightning_namespace",
+      "sha": "d72570d3adbadc9e56c9cd7d782e7607012c7b3e",
+      "behind_main": 392,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/lightning_namespace"
+    },
+    {
+      "branch": "feature/line_background_test",
+      "sha": "e6e627cfbd09ee14621e3019bf85c51e8bacbde6",
+      "behind_main": 16,
+      "ahead_main": 2,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/line_background_test"
+    },
+    {
+      "branch": "feature/modern_build",
+      "sha": "c19eb2f1f60db6647f5491bfc60f29026e2be540",
+      "behind_main": 136,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/modern_build"
+    },
+    {
+      "branch": "feature/more_context",
+      "sha": "ec9be30573b8571fcc2feccfbef5da25a0fe4437",
+      "behind_main": 1246,
+      "ahead_main": 11,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/more_context"
+    },
+    {
+      "branch": "feature/orig_pretraining",
+      "sha": "7454f44257bbae9fc3f96ce8f7aefcd3b5d71277",
+      "behind_main": 801,
+      "ahead_main": 11,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/orig_pretraining"
+    },
+    {
+      "branch": "feature/para_seg",
+      "sha": "d39a06180983cbe58dbfa3aebf023a651ca63545",
+      "behind_main": 225,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/para_seg"
+    },
+    {
+      "branch": "feature/ppocrv6_rec",
+      "sha": "ec14d62180bb1ddab74efa5b1e843bfaf47be5d7",
+      "behind_main": 17,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/ppocrv6_rec"
+    },
+    {
+      "branch": "feature/print_loss",
+      "sha": "4e461d0009f4c126b3b27380581cb72502146c6d",
+      "behind_main": 797,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/print_loss"
+    },
+    {
+      "branch": "feature/processing_steps",
+      "sha": "317fe69ad5ce519faebe0567ecbe10e0c088f609",
+      "behind_main": 901,
+      "ahead_main": 13,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/processing_steps"
+    },
+    {
+      "branch": "feature/reading_order",
+      "sha": "003568bf6c5c91095b6efbcec845145f3371fa75",
+      "behind_main": 539,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/reading_order"
+    },
+    {
+      "branch": "feature/refactor_ro",
+      "sha": "378aed10751f168711260578d09897bf627db66e",
+      "behind_main": 248,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/refactor_ro"
+    },
+    {
+      "branch": "feature/remove_albumentations",
+      "sha": "75d4c35ac9a3b2e4a07b7b20a0d2376ee168bfcf",
+      "behind_main": 186,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/remove_albumentations"
+    },
+    {
+      "branch": "feature/safetensors_serialization",
+      "sha": "de7ecf0032a827caf69ea6b7e0b817b6d1a68c4a",
+      "behind_main": 162,
+      "ahead_main": 205,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/safetensors_serialization"
+    },
+    {
+      "branch": "feature/seg_padding",
+      "sha": "6841351e18ddabc91376b64cb03943cfe2f3d16d",
+      "behind_main": 773,
+      "ahead_main": 8,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/seg_padding"
+    },
+    {
+      "branch": "feature/sentencepiece",
+      "sha": "a548d8a4d048188ffb49a552c63bb48f24308eae",
+      "behind_main": 409,
+      "ahead_main": 7,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/sentencepiece"
+    },
+    {
+      "branch": "feature/soft_cldice_loss",
+      "sha": "e8cb184b832922e609217fc32e1184fa1c245de6",
+      "behind_main": 87,
+      "ahead_main": 3,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/soft_cldice_loss"
+    },
+    {
+      "branch": "feature/softmax_temperature",
+      "sha": "370181c4ab100d5c03348c839e64c100a32412d8",
+      "behind_main": 189,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/softmax_temperature"
+    },
+    {
+      "branch": "feature/threadpoolctl",
+      "sha": "2d172651fc641bfa420fb314c35e473d6429f1db",
+      "behind_main": 554,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/threadpoolctl"
+    },
+    {
+      "branch": "feature/torchaudio_beamsearch",
+      "sha": "317b6537bccd66265197f1a08d64770f376f522c",
+      "behind_main": 727,
+      "ahead_main": 3,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/torchaudio_beamsearch"
+    },
+    {
+      "branch": "feature/torchmetrics",
+      "sha": "69e6fcaca30fe55ae064d63e95be139f167540bc",
+      "behind_main": 768,
+      "ahead_main": 7,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/torchmetrics"
+    },
+    {
+      "branch": "feature/unicode17-bidi",
+      "sha": "1e6bed0aafc2faa11e6a12f42b955f39b52c7394",
+      "behind_main": 55,
+      "ahead_main": 2,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/unicode17-bidi"
+    },
+    {
+      "branch": "feature/weight_segtrain_loss",
+      "sha": "23aad37bafa6d7f5eb96e90131c59df2a02657b2",
+      "behind_main": 977,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/feature/weight_segtrain_loss"
+    },
+    {
+      "branch": "feature/wer",
+      "sha": "3ff282ad160822018b1277f8a76bf80e1f42a213",
+      "behind_main": 631,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/feature/wer"
+    },
+    {
+      "branch": "fix/conda-build",
+      "sha": "b2beb405a9e9c8f76c7fedd49e7e6b2e2e766ba7",
+      "behind_main": 605,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/fix/conda-build"
+    },
+    {
+      "branch": "fix/exif_rotation",
+      "sha": "516d8867bca1e7f38ff3ea0969ce53598c1e7c9d",
+      "behind_main": 137,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/fix/exif_rotation"
+    },
+    {
+      "branch": "fix/mirrored_glyph_codec",
+      "sha": "d48322735df64c69fb8aaf7bc1ee269dcf2ba63f",
+      "behind_main": 346,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/fix/mirrored_glyph_codec"
+    },
+    {
+      "branch": "fix/onecycle",
+      "sha": "6cc6fcf47ea588ca777e4723c953ac1f61742dad",
+      "behind_main": 894,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": "archive/2026-10-14/fix/onecycle"
+    },
+    {
+      "branch": "fix/segtest_706",
+      "sha": "90bed8e100ccda4426a9e5b407faabdeee1d1f63",
+      "behind_main": 252,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/fix/segtest_706"
+    },
+    {
+      "branch": "fix/segtrain",
+      "sha": "be5e145c0b1f742e746c79dee13f459f9f2ab3ec",
+      "behind_main": 773,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/fix/segtrain"
+    },
+    {
+      "branch": "gh-pages",
+      "sha": "6cc7f7e9bee0bab74bcd0aacfabfead5fabd949e",
+      "behind_main": 2457,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/gh-pages"
+    },
+    {
+      "branch": "main",
+      "sha": "bb487219e7d8289274443d1ad0989efb4924dc2a",
+      "behind_main": 0,
+      "ahead_main": 0,
+      "same_as_upstream": true,
+      "merged_into_main": true,
+      "archive_tag": null
+    },
+    {
+      "branch": "ranger21",
+      "sha": "8491dad1eb034c455e7e5983c2598e2ebc4889d8",
+      "behind_main": 910,
+      "ahead_main": 1,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/ranger21"
+    },
+    {
+      "branch": "transformer",
+      "sha": "e4d09839e665cb45c7acfd719380ab35c6c6c425",
+      "behind_main": 907,
+      "ahead_main": 5,
+      "same_as_upstream": true,
+      "merged_into_main": false,
+      "archive_tag": "archive/2026-10-14/transformer"
+    }
+  ],
+  "cleanup": {
+    "status": "complete",
+    "retained_branches": [
+      "main"
+    ],
+    "archived_branches": 45,
+    "verified_commit_ids": true,
+    "local_backup": ".local/kraken-before-windows.bundle"
+  }
+}

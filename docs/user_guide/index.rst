@@ -8,6 +8,7 @@ This user guide provides detailed information on how to use the `kraken` and
    :maxdepth: 1
 
    migration_6_0
+   windows
    inference
    training_recognition
    training_segmentation
