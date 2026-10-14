@@ -1,0 +1,16 @@
+{
+  "source_bundle": "PyLaia-1.2.3-fork.20261014-Windows-x64.zip",
+  "bundle_sha256": "8573114f1d80cb7bbacea0dfcec6696a730968e831bf8e534b9729b1a0ff245f",
+  "pylaia_source_commit": "1f4a96dba6008982a905edd1ddbcffcd2a2d8466",
+  "original_files": {
+    "build_torch315.py": "820c65b2c4410b29e247cf13b8387efdca2b9fe6030f9202d54fd330b1c4f713",
+    "assemble_torch315_wheel.py": "9b7e237c245e383856ca9607e292206d0eecd3be57a40b8b05feba949a295f44"
+  },
+  "adaptations": [
+    "Builder path points to Kraken root.",
+    "Source replacement helper is inlined.",
+    "MIT attribution added.",
+    "Usage text describes the Kraken checkout and direct Python invocation."
+  ],
+  "pytorch_source_commit": "5c4886908584029761b579af026dcfb627c84070"
+}

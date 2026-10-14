@@ -1,0 +1,267 @@
+{
+  "date": "2026-10-14",
+  "base_commit": "5772222d0c7e24909d8d6a3dba108a4574550d35",
+  "change_status": "Python 3.15 changes validated locally before commit; no packages published.",
+  "python": "3.15.0",
+  "requires_python": ">=3.14,<3.16",
+  "supported_python": [
+    "3.14",
+    "3.15"
+  ],
+  "platform": "Windows-11-10.0.26200-SP0",
+  "validated_windows315_backends": [
+    "CPU",
+    "CUDA 13.2, single NVIDIA GPU"
+  ],
+  "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+  "runtime_packages": {
+    "jsonschema": "4.26.0",
+    "lxml": "6.1.3",
+    "requests": "2.34.2",
+    "click": "8.5.0",
+    "numpy": "2.5.4",
+    "Pillow": "12.3.0",
+    "regex": "2026.9.29",
+    "scipy": "1.18.1",
+    "protobuf": "7.36.2",
+    "coremltools": "9.0",
+    "jinja2": "3.1.6",
+    "torchvision": "0.29.1+cu132",
+    "torch": "2.14.1+pylaia315cu132",
+    "scikit-learn": "1.9.1",
+    "scikit-image": "0.26.0",
+    "shapely": "2.2.0",
+    "pyarrow": "26.0.0",
+    "htrmopo": "0.6",
+    "lightning": "2.6.6",
+    "torchmetrics": "1.9.0",
+    "threadpoolctl": "3.7.0",
+    "platformdirs": "4.13.0",
+    "rich": "15.0.0",
+    "safetensors": "0.8.0",
+    "iso639-lang": "2.6.3",
+    "packaging": "26.3"
+  },
+  "pylaia": {
+    "version": "1.2.3+fork.20261014",
+    "bundle": "PyLaia-1.2.3-fork.20261014-Windows-x64.zip",
+    "bundle_sha256": "8573114f1d80cb7bbacea0dfcec6696a730968e831bf8e534b9729b1a0ff245f",
+    "source_commit": "1f4a96dba6008982a905edd1ddbcffcd2a2d8466",
+    "dependency_relationship": "PyLaia is not a Kraken dependency. Both applications share corrected PyTorch bindings.",
+    "language_model": "Flashlight 0.0.7+pylaia1 and KenLM 0.3.0+pylaia1: weighted decoding and safe checkpoint loading passed.",
+    "autograd_and_shutdown": "CPU and CUDA callbacks passed; cuDNN LSTM dropout backward and normal exit passed.",
+    "actual_htr_training_in_shared_environment": {
+      "model": "PyLaia LaiaCRNN",
+      "python": "3.15.0",
+      "torch": "2.14.1+pylaia315cu132",
+      "results": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.962156295776367,
+            6.922683238983154,
+            6.936434745788574
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        },
+        "cuda": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.972368240356445,
+            6.993675231933594,
+            6.9313178062438965
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    }
+  },
+  "native_dependencies": {
+    "scikit-image": {
+      "version": "0.26.0",
+      "compiler": "LLVM clang-cl 23.1.3",
+      "source": "Unmodified PyPI sdist",
+      "meson_setup_args": [
+        "--vsenv",
+        "-Dinclude-v2=false"
+      ],
+      "llvm_download": {
+        "name": "clang+llvm-23.1.3-x86_64-pc-windows-msvc.tar.zst",
+        "size": 276320456,
+        "digest": "sha256:7e69dc07a4536b79ff24a651a2611990bf8eaab17ea560f1092707c4f31ba01d",
+        "browser_download_url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.3/clang%2Bllvm-23.1.3-x86_64-pc-windows-msvc.tar.zst"
+      }
+    },
+    "PyYAML": {
+      "version": "6.0.3",
+      "build": "Local CPython 3.15 MSVC source wheel"
+    },
+    "torch_cpu": {
+      "version": "2.14.1+pylaia315cpu",
+      "build": "Assembled locally from hash-verified official computation libraries and supplied bindings."
+    },
+    "torch_cuda": {
+      "wheel": "torch-2.14.1+pylaia315cu132-cp315-cp315-win_amd64.whl",
+      "sha256": "ea6022da50a332b6fe4e5b2faa3b67c9be1ec26aecfd99ac747e8460c981632d",
+      "original_wheel_sha256": "f9a7336a67a7a4a29cb568adecc8aef2b9cbb6bbd1d0efc2a52b9e8f7b5fb66b",
+      "binding_source_commit": "5c4886908584029761b579af026dcfb627c84070",
+      "verification": "Every wheel RECORD hash verified; only the three supplied Python bindings, version metadata and RECORD differ from the verified official wheel."
+    }
+  },
+  "fixes": [
+    "Reject known incompatible Windows PyTorch 2.14.1 cp315 Python bindings before model loading.",
+    "Release initialized cuDNN dropout state at exit, preserving cuDNN and model dropout during execution.",
+    "Windows Python 3.15 CI builds corrected CPU bindings from pinned upstream source; no private binary upload is needed."
+  ],
+  "reproduced_before_fixes": {
+    "official_cpu_autograd": "Python thread-state dictionary pointer corrupted in Python autograd callback.",
+    "official_cpu_training": "Six codec merging/fine-tuning subcases failed with DataLoader worker exits; passed after corrected bindings.",
+    "corrected_cuda_without_cleanup": "LSTM backward completed, then process exited with -1073740791 (0xC0000409); passed after cleanup."
+  },
+  "tests": {
+    "cpu_full_suite": {
+      "passed": 314,
+      "skipped": 3,
+      "deselected": 11,
+      "xfailed": 1,
+      "xpassed": 1,
+      "subtests_passed": 131,
+      "duration_seconds": 378.7,
+      "command": "python -X utf8 -m pytest -vv -m \"not network and not slow\" --maxfail=3 -o faulthandler_timeout=90",
+      "environment": ".venv315",
+      "log_sha256": "da22831a488aa8de78eb5d543894bd5fdc51cfb03b456abd538ec7540cf452cd"
+    },
+    "cuda_shared_environment_full_suite": {
+      "passed": 319,
+      "deselected": 11,
+      "xfailed": 1,
+      "xpassed": 1,
+      "subtests_passed": 131,
+      "duration_seconds": 363.6,
+      "command": "python -X utf8 -m pytest -vv -m \"not network and not slow\" --maxfail=3 -o faulthandler_timeout=90",
+      "environment": ".venv315-pylaia-cuda",
+      "log_sha256": "e28473c3f8a9b6614a3f297cf5b56d19710a9aaacb097d25fa9edc5684d5de4c"
+    },
+    "additional_cpu_native_regression": "1 passed, 1 CUDA skip",
+    "cuda_targeted_platform_and_runtime": "19 passed",
+    "python314_model_regression": "21 passed, 2 Windows 3.15-only skips",
+    "pip_check": "No broken requirements in CPU and shared CUDA/PyLaia environments.",
+    "static_checks": "flake8 E9,F63,F7,F82 and git diff --check passed.",
+    "builder_source_checks": {
+      "pytorch_commit": "5c4886908584029761b579af026dcfb627c84070",
+      "upstream_input_sha256": {
+        "cmake/PreBuildSteps.cmake": "01b978850b34c980ca78930dcc2b3b15e70f0de0c2e6078e7cf2a15bdc59484c",
+        "c10/CMakeLists.txt": "98d42fcdc007cb2ab7a9499d73e1f8a934ad6a07adca596ff1f13e983c3257f6",
+        "c10/cuda/CMakeLists.txt": "3ce099e5584fc2ee3376aaf302861102fc2fef192fccb1f6070371464bc051dd",
+        "torch/CMakeLists.txt": "9cb2a6439b146f00a51b61a68cacdd8e1ea930a7454c3c59961b04febe437dd2",
+        "pyproject.toml": "8ba6dc482d955267f9ead956b8b5a9f1dd6442a026d7f0b8ebf516bf989f9069"
+      },
+      "source_patch_validation": "All exact CMake and build-metadata substitutions match the pinned upstream source; repeated application is idempotent.",
+      "full_native_rebuild_in_kraken_workspace": false
+    }
+  },
+  "wheel_validation": {
+    "metadata": {
+      "wheel": "kraken-7.1.1.post13+g5772222d.d20261014-py3-none-any.whl",
+      "version": "7.1.1.post13+g5772222d.d20261014",
+      "requires_python": "<3.16,>=3.14",
+      "bundled_model_sha256": "a3ccc7309fe8df62d1cbd372706edc73db6a2a32806e3758522ed8528a734073",
+      "workflow_validation": "passed",
+      "policy_validation": "passed"
+    },
+    "shared_import_orders": [
+      {
+        "import_order": "kraken-first",
+        "kraken_version": "7.1.1.post13+g5772222d.d20261014",
+        "pylaia_version": "1.2.3+fork.20261014",
+        "torch": "2.14.1+pylaia315cu132",
+        "torchvision": "0.29.1+cu132",
+        "cuda": "13.2",
+        "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+        "module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\.local\\py315-wheel-final\\kraken\\__init__.py",
+        "inference": {
+          "cpu": {
+            "segmentation_lines": 30,
+            "recognition_characters": 34
+          },
+          "cuda": {
+            "segmentation_lines": 30,
+            "recognition_characters": 34
+          }
+        },
+        "cudnn_dropout_backward": "passed"
+      },
+      {
+        "import_order": "laia-first",
+        "kraken_version": "7.1.1.post13+g5772222d.d20261014",
+        "pylaia_version": "1.2.3+fork.20261014",
+        "torch": "2.14.1+pylaia315cu132",
+        "torchvision": "0.29.1+cu132",
+        "cuda": "13.2",
+        "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+        "module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\.local\\py315-wheel-final\\kraken\\__init__.py",
+        "inference": {
+          "cpu": {
+            "segmentation_lines": 30,
+            "recognition_characters": 34
+          },
+          "cuda": {
+            "segmentation_lines": 30,
+            "recognition_characters": 34
+          }
+        },
+        "cudnn_dropout_backward": "passed"
+      }
+    ],
+    "build": "Wheel and sdist built on Python 3.15, including rebuilding wheel from sdist.",
+    "documentation": "Sphinx HTML build passed with 71 API/docstring warnings."
+  },
+  "local_artifacts": [
+    {
+      "path": ".local/dist-py315-final/kraken-7.1.1.post13+g5772222d.d20261014-py3-none-any.whl",
+      "sha256": "fb40a6f40aecd4e655147b8652fa9809b5054f65108ea691aaccefeea0f21988"
+    },
+    {
+      "path": ".local/dist-py315-final/kraken-7.1.1.post13+g5772222d.d20261014.tar.gz",
+      "sha256": "f7b7cc19c4f042c2d8e956713feb6f06bf38ab9ea7c08d7e4acb2f886ad0bef3"
+    },
+    {
+      "path": ".local/native-wheels-py315/pyyaml-6.0.3-cp315-cp315-win_amd64.whl",
+      "sha256": "08dc6c13a6221f1f94a3303a3bbdcdcea6c7e7f9d87f05aab1cc34b761bc7c33"
+    },
+    {
+      "path": ".local/native-wheels-py315/scikit_image-0.26.0-cp315-cp315-win_amd64.whl",
+      "sha256": "8bb290ddb9b6e09a665d1968bbddedbd06eece6dac8004dba22ef0a7f20bfa7f"
+    },
+    {
+      "path": ".local/native-wheels-py315/torch-2.14.1+pylaia315cpu-cp315-cp315-win_amd64.whl",
+      "sha256": "d4749326ce85386cd9d4af4b305af262bb33d974a72690b8796fc0b68f147edb"
+    },
+    {
+      "path": ".local/native-wheels-py315/torch-2.14.1+pylaia315cu132-cp315-cp315-win_amd64.whl",
+      "sha256": "ea6022da50a332b6fe4e5b2faa3b67c9be1ec26aecfd99ac747e8460c981632d"
+    }
+  ],
+  "ci": {
+    "python_matrix": [
+      "3.14",
+      "3.15"
+    ],
+    "platforms": [
+      "ubuntu-latest",
+      "windows-latest"
+    ],
+    "github_actions_executed_at_local_validation": false,
+    "publication_jobs": false,
+    "native_binding_builder": "Adapted verified MIT-licensed PyLaia build helpers; exact source substitutions checked against the pinned upstream commit. Full native compilation was not repeated in this Kraken workspace."
+  },
+  "limitations": [
+    "Validation covers standard GIL-enabled CPython 3.15 on Windows x64 with CPU or one NVIDIA GPU.",
+    "Distributed execution, torch.compile and free-threaded Python are outside this validation.",
+    "Network/slow-marked Kraken tests were excluded."
+  ],
+  "existing_python314_transfer_package": "dist/kraken-7.1.1-fork1.zip preserved unchanged.",
+  "upstream_modifications": false
+}
