@@ -12,6 +12,19 @@ This fork targets standard 64-bit CPython 3.14 and 3.15. Python 3.15 requires th
    .\.venv\Scripts\kraken.exe --help
    .\.venv\Scripts\ketos.exe --help
 
+Dependency versions
+-------------------
+
+The 2026-10-17 update uses Pillow 13.0.0, platformdirs 4.13.3, tifffile
+2026.10.15, filelock 4.2.0, pluggy 1.7.0, tomlkit 0.15.2 and
+sphinx-autodoc-typehints 3.17.1. From a source checkout, use
+``-c maintenance/dependency-constraints.txt`` with pip to reproduce these
+versions. CI also applies these constraints to isolated build dependencies.
+The local transfer package includes a complete runtime constraint file for
+its installer.
+When sharing an environment with PyLaia, use a PyLaia release that also allows
+Pillow 13. Older distributions that pin Pillow 12.3.0 need a separate environment.
+
 Python 3.15 CPU and CUDA setup
 -----------------------------
 

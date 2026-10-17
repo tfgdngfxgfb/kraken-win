@@ -153,7 +153,8 @@ class TestCLIRecognition(unittest.TestCase):
                     result = self.runner.invoke(cli, [flag, '-i', str(self.bw_img), fname,
                                                       'segment', '-bl',
                                                       'ocr', '-m', str(self.model)])
-                    self.assertEqual(result.exit_code, 0, msg=result.output)
+                    self.assertEqual(result.exit_code, 0,
+                                     msg=f'{result.output}\n{result.exception!r}')
                     with open(fname, 'r') as f:
                         content = f.read()
                     self.assertTrue(marker(content), msg=f'format marker missing in {name} output')

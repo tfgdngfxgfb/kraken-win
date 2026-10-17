@@ -14,6 +14,8 @@ env:
   PYTHONUTF8: '1'
   OMP_NUM_THREADS: '1'
   MKL_NUM_THREADS: '1'
+  PIP_CONSTRAINT: ${{ github.workspace }}/maintenance/dependency-constraints.txt
+  PIP_BUILD_CONSTRAINT: ${{ github.workspace }}/maintenance/dependency-constraints.txt
 
 jobs:
   lint_and_test:

@@ -32,7 +32,7 @@ dependencies = [
     "requests>=2.34.2",
     "click>=8.5.0,<9",
     "numpy>=2.5.4,<2.6",
-    "Pillow>=12.3.0",
+    "Pillow>=13.0.0,<14",
     "regex>=2026.9.29",
     "scipy>=1.18.1,<1.19",
     "protobuf>=7.36.2,<8",
@@ -48,7 +48,7 @@ dependencies = [
     "lightning~=2.6.6",
     "torchmetrics>=1.9.0,<2",
     "threadpoolctl>=3.7.0,<4",
-    "platformdirs>=4.13.0",
+    "platformdirs>=4.13.3",
     "rich>=15.0.0,<16",
     "safetensors>=0.8.0,<0.9",
     "iso639-lang>=2.6.3",
@@ -63,7 +63,7 @@ docs = [
     "sphinx-autoapi>=3.8.1",
     "sphinx-multiversion>=0.2.4",
     "sphinx-github-changelog>=2.3.0",
-    "sphinx-autodoc-typehints>=3.13.10",
+    "sphinx-autodoc-typehints>=3.17.1",
 ]
 
 [project.urls]
@@ -158,4 +158,4 @@ match = ["[0-9]*"]
 packages = ["kraken"]
 
 [tool.hatch.build.targets.sdist]
-include = ["kraken/", "README.rst", "LICENSE", "CITATION.cff"]
+include = ["kraken/", "README.rst", "LICENSE", "CITATION.cff", "maintenance/dependency-constraints.txt"]

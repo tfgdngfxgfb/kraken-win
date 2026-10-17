@@ -1,0 +1,10 @@
+# Versions selected for the 2026-10-17 dependency update.
+# Apply to runtime, tests, documentation and isolated build dependencies.
+# Docutils and mpmath remain subject to Sphinx/SymPy's existing version limits.
+Pillow==13.0.0
+platformdirs==4.13.3
+tifffile==2026.10.15
+filelock==4.2.0
+pluggy==1.7.0
+tomlkit==0.15.2
+sphinx-autodoc-typehints==3.17.1

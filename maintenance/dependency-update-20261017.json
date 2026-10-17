@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-17",
+  "recorded_utc": "2026-10-17T16:56:56.540246+00:00",
+  "base_commit": "8e3a058820ef75bc853a7be3f96b4cdef8279eb4",
+  "scope": "Seven dependency updates; validated locally before commit. No builds published.",
+  "requires_python": ">=3.14,<3.16",
+  "updated_packages": {
+    "Pillow": "13.0.0",
+    "platformdirs": "4.13.3",
+    "tifffile": "2026.10.15",
+    "filelock": "4.2.0",
+    "pluggy": "1.7.0",
+    "tomlkit": "0.15.2",
+    "sphinx-autodoc-typehints": "3.17.1"
+  },
+  "tests": {
+    "python315_cpu": {
+      "summary": "= 316 passed, 4 skipped, 11 deselected, 1 xfailed, 1 xpassed, 2016 warnings, 131 subtests passed in 378.03s (0:06:18) =",
+      "counts": {
+        "passed": 316,
+        "skipped": 4,
+        "deselected": 11,
+        "xfailed": 1,
+        "xpassed": 1,
+        "subtests passed": 131
+      },
+      "seconds": 378.03,
+      "environment": {
+        "python": "3.15.0",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "packages": {
+          "Pillow": "13.0.0",
+          "platformdirs": "4.13.3",
+          "tifffile": "2026.10.15",
+          "filelock": "4.2.0",
+          "pluggy": "1.7.0",
+          "tomlkit": "0.15.2",
+          "sphinx-autodoc-typehints": "3.17.1"
+        },
+        "torch": "2.14.1+pylaia315cpu",
+        "torchvision": "0.29.1+cpu",
+        "cuda": null,
+        "gpu": null,
+        "pylaia_installed": false
+      },
+      "normal_process_exit": true
+    },
+    "python315_cuda": {
+      "summary": "320 passed, 11 deselected, 1 xfailed, 1 xpassed, 2005 warnings, 131 subtests passed in 428.57s (0:07:08)",
+      "counts": {
+        "passed": 320,
+        "deselected": 11,
+        "xfailed": 1,
+        "xpassed": 1,
+        "subtests passed": 131
+      },
+      "seconds": 428.57,
+      "environment": {
+        "python": "3.15.0",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "packages": {
+          "Pillow": "13.0.0",
+          "platformdirs": "4.13.3",
+          "tifffile": "2026.10.15",
+          "filelock": "4.2.0",
+          "pluggy": "1.7.0",
+          "tomlkit": "0.15.2",
+          "sphinx-autodoc-typehints": "3.17.1"
+        },
+        "torch": "2.14.1+pylaia315cu132",
+        "torchvision": "0.29.1+cu132",
+        "cuda": "13.2",
+        "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+        "pylaia_installed": false
+      },
+      "normal_process_exit": true
+    }
+  },
+  "documentation": {
+    "result": "passed",
+    "warnings": 71
+  },
+  "dependency_consistency": {
+    "cpu": "pip check passed",
+    "cuda_without_pylaia": "pip check passed"
+  },
+  "pylaia_compatibility": "Kraken does not depend on the PyLaia package. A shared environment must use a PyLaia release that permits Pillow 13.",
+  "runtime": "Reuses the previously validated corrected CPU/CUDA 13.2 PyTorch 2.14.1 bindings.",
+  "constraints": "maintenance/dependency-constraints.txt; applied to regular and isolated CI build dependencies.",
+  "github_actions_executed_at_local_validation": false,
+  "cpu_hocr_observation": {
+    "initial_run": "One hOCR output subtest failed once without exception details; initial logs retained locally.",
+    "isolated_cli_suite": "11 tests and 5 subtests passed.",
+    "full_cpu_rerun": "Passed with all 131 subtests.",
+    "response": "Added the underlying exception to CLI test failure diagnostics. No OCR implementation change was made; cause not established and failure not reproduced."
+  },
+  "publication": "None; only source changes are pushed. Release build remains local."
+}
