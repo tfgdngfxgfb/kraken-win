@@ -22,19 +22,22 @@ sphinx-autodoc-typehints 3.17.1. From a source checkout, use
 versions. CI also applies these constraints to isolated build dependencies.
 The local transfer package includes a complete runtime constraint file for
 its installer.
-When sharing an environment with PyLaia, use a PyLaia release that also allows
-Pillow 13. Older distributions that pin Pillow 12.3.0 need a separate environment.
+Shared environments have also been validated with the private PyLaia
+``1.2.5+fork.20261017`` build, which requires Pillow 13.0.0 and filelock 4.2.0.
+Older distributions that pin Pillow 12.3.0 need updating before sharing this
+environment. The local transfer package includes the new PyLaia wheel and
+its native language-model dependencies as an optional installer addition.
 
 Python 3.15 CPU and CUDA setup
 -----------------------------
 
-The official PyTorch 2.14.1 Windows cp315 wheels have an incompatible Python thread-state ABI. Python autograd callbacks fail on CPU, and CUDA can crash at process shutdown. Use the corrected CPU or CUDA 13.2 bindings supplied with the private PyLaia ``1.2.3+fork.20261014`` bundle. Kraken does not require the PyLaia Python package itself; both applications can share the corrected PyTorch runtime. Ordinary PyPI dependency resolution alone does not install these corrected bindings.
+The official PyTorch 2.14.1 Windows cp315 wheels have an incompatible Python thread-state ABI. Python autograd callbacks fail on CPU, and CUDA can crash at process shutdown. Use the corrected CPU or CUDA 13.2 bindings supplied with the private PyLaia ``1.2.5+fork.20261017`` bundle. These binding files are identical to the previously validated 1.2.3 bundle. Kraken does not require the PyLaia Python package itself; both applications can share the corrected PyTorch runtime. Ordinary PyPI dependency resolution alone does not install these corrected bindings.
 
 For a shared environment, extract the complete PyLaia ZIP and run its installer with an explicit environment path inside the Kraken checkout. Replace the bundle path below with your extracted folder. Choose ``CPU`` instead of ``CUDA`` if needed. The environment path must not already exist.
 
 .. code-block:: powershell
 
-   & 'C:\path\PyLaia-1.2.3-fork.20261014-Windows-x64\Install-PyLaia.ps1' -PythonVersion 3.15 -TorchBuild CUDA -InstallationPath "$PWD\.venv315"
+   & 'C:\path\PyLaia-1.2.5-fork.20261017-Windows-x64\Install-PyLaia.ps1' -PythonVersion 3.15 -TorchBuild CUDA -InstallationPath "$PWD\.venv315"
 
 For Kraken alone, the source builders in ``maintenance/windows315`` produce the same corrected CPU bindings without installing PyLaia. Run these commands in an x64 Visual Studio developer PowerShell, then continue with scikit-image below:
 
@@ -108,3 +111,15 @@ Tests
    .\.venv\Scripts\python.exe -m pytest -m 'not network and not slow'
 
 CUDA regression tests run when a CUDA-enabled torch installation and GPU are available. Windows and Linux CI cover the CPU path.
+
+For a shared PyLaia installation, the optional check below runs three CTC
+training steps, verifies finite gradients and updated weights, round-trips a
+checkpoint, and loads Kraken's standard segmentation model. Run both import
+orders in separate processes to check normal shutdown as well. Omit
+``--require-cuda`` on a CPU installation. Native Flashlight/KenLM decoding is
+checked separately by the supplied PyLaia installation verifier.
+
+.. code-block:: powershell
+
+   .\.venv315\Scripts\python.exe -I maintenance/windows315/verify_shared_pylaia.py --import-order kraken-first --require-cuda
+   .\.venv315\Scripts\python.exe -I maintenance/windows315/verify_shared_pylaia.py --import-order laia-first --require-cuda

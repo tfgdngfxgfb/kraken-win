@@ -1,0 +1,247 @@
+{
+  "recorded_utc": "2026-10-17T17:37:27.272862+00:00",
+  "kraken_program_commit": "628cdc677e5d1dcd18f245d15b82b5d5bcca0022",
+  "scope": "Local Windows 11 / standard Python 3.15 shared Kraken and PyLaia validation; no build publication.",
+  "pylaia": {
+    "version": "1.2.5+fork.20261017",
+    "source_commit": "f59f0fde72a5e12e4c3301e46eeda4aa3fc4c48f",
+    "user_supplied_archive": "PyLaia-1.2.5-fork.20261017-Windows-x64.zip",
+    "archive_sha256": "0ee935d19d99341a1592117d7fb04f9ae9645c5f4172c201333045816e39ce4f",
+    "wheel_sha256": "3ff45d13e18db0460ce4e9b9ebf592f68c4e2e17ede0969f011b8c9ddc8619c4",
+    "torch_bindings_identical_to_previously_validated_bundle": true,
+    "source_project_modified": false
+  },
+  "updated_packages": {
+    "Pillow": "13.0.0",
+    "platformdirs": "4.13.3",
+    "tifffile": "2026.10.15",
+    "filelock": "4.2.0",
+    "pluggy": "1.7.0",
+    "tomlkit": "0.15.2",
+    "sphinx-autodoc-typehints": "3.17.1"
+  },
+  "tests": {
+    "cpu": {
+      "summary": "316 passed, 4 skipped, 11 deselected, 1 xfailed, 1 xpassed, 2016 warnings, 131 subtests passed in 433.13s (0:07:13)",
+      "pylaia_imported_before_tests": true,
+      "python": "3.15.0",
+      "normal_exit": true
+    },
+    "cuda": {
+      "summary": "= 320 passed, 11 deselected, 1 xfailed, 1 xpassed, 2004 warnings, 131 subtests passed in 411.17s (0:06:51) =",
+      "pylaia_imported_before_tests": true,
+      "python": "3.15.0",
+      "normal_exit": true
+    }
+  },
+  "shared_training": {
+    "cpu/kraken-first": {
+      "python": "3.15.0",
+      "import_order": "kraken-first",
+      "kraken": "7.1.1.post13+g5772222d.d20261014",
+      "pylaia": "1.2.5+fork.20261017",
+      "pillow": "13.0.0",
+      "filelock": "4.2.0",
+      "torch": "2.14.1+pylaia315cpu",
+      "cuda": null,
+      "gpu": null,
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    },
+    "cpu/laia-first": {
+      "python": "3.15.0",
+      "import_order": "laia-first",
+      "kraken": "7.1.1.post13+g5772222d.d20261014",
+      "pylaia": "1.2.5+fork.20261017",
+      "pillow": "13.0.0",
+      "filelock": "4.2.0",
+      "torch": "2.14.1+pylaia315cpu",
+      "cuda": null,
+      "gpu": null,
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    },
+    "cuda/kraken-first": {
+      "python": "3.15.0",
+      "import_order": "kraken-first",
+      "kraken": "7.1.1+fork3",
+      "pylaia": "1.2.5+fork.20261017",
+      "pillow": "13.0.0",
+      "filelock": "4.2.0",
+      "torch": "2.14.1+pylaia315cu132",
+      "cuda": "13.2",
+      "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        },
+        "cuda": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.522363662719727,
+            6.4171857833862305,
+            6.468724250793457
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    },
+    "cuda/laia-first": {
+      "python": "3.15.0",
+      "import_order": "laia-first",
+      "kraken": "7.1.1+fork3",
+      "pylaia": "1.2.5+fork.20261017",
+      "pillow": "13.0.0",
+      "filelock": "4.2.0",
+      "torch": "2.14.1+pylaia315cu132",
+      "cuda": "13.2",
+      "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        },
+        "cuda": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.522363662719727,
+            6.4171857833862305,
+            6.468724250793457
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    }
+  },
+  "installed_wheel_ocr": {
+    "cpu/kraken-first": {
+      "import_order": "kraken-first",
+      "kraken_version": "7.1.1+fork3",
+      "pylaia_version": "1.2.5+fork.20261017",
+      "torch": "2.14.1+pylaia315cpu",
+      "torchvision": "0.29.1+cpu",
+      "cuda": null,
+      "gpu": null,
+      "inference": {
+        "cpu": {
+          "segmentation_lines": 30,
+          "recognition_characters": 34
+        }
+      },
+      "cudnn_dropout_backward": "not applicable (CPU)"
+    },
+    "cpu/laia-first": {
+      "import_order": "laia-first",
+      "kraken_version": "7.1.1+fork3",
+      "pylaia_version": "1.2.5+fork.20261017",
+      "torch": "2.14.1+pylaia315cpu",
+      "torchvision": "0.29.1+cpu",
+      "cuda": null,
+      "gpu": null,
+      "inference": {
+        "cpu": {
+          "segmentation_lines": 30,
+          "recognition_characters": 34
+        }
+      },
+      "cudnn_dropout_backward": "not applicable (CPU)"
+    },
+    "cuda/kraken-first": {
+      "import_order": "kraken-first",
+      "kraken_version": "7.1.1+fork3",
+      "pylaia_version": "1.2.5+fork.20261017",
+      "torch": "2.14.1+pylaia315cu132",
+      "torchvision": "0.29.1+cu132",
+      "cuda": "13.2",
+      "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+      "inference": {
+        "cpu": {
+          "segmentation_lines": 30,
+          "recognition_characters": 34
+        },
+        "cuda": {
+          "segmentation_lines": 30,
+          "recognition_characters": 34
+        }
+      },
+      "cudnn_dropout_backward": "passed"
+    },
+    "cuda/laia-first": {
+      "import_order": "laia-first",
+      "kraken_version": "7.1.1+fork3",
+      "pylaia_version": "1.2.5+fork.20261017",
+      "torch": "2.14.1+pylaia315cu132",
+      "torchvision": "0.29.1+cu132",
+      "cuda": "13.2",
+      "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+      "inference": {
+        "cpu": {
+          "segmentation_lines": 30,
+          "recognition_characters": 34
+        },
+        "cuda": {
+          "segmentation_lines": 30,
+          "recognition_characters": 34
+        }
+      },
+      "cudnn_dropout_backward": "passed"
+    }
+  },
+  "language_model": {
+    "cpu": "Flashlight 0.0.7+pylaia1 and KenLM 0.3.0+pylaia1 passed weighted decoding, Unicode paths, autograd callbacks and normal shutdown.",
+    "cuda": "Flashlight 0.0.7+pylaia1 and KenLM 0.3.0+pylaia1 passed weighted decoding, Unicode paths, autograd callbacks and normal shutdown."
+  },
+  "installer": {
+    "cpu": "Actual Windows PowerShell 5.1 transfer installer with -IncludePyLaia passed.",
+    "cuda": "Actual Windows PowerShell 5.1 transfer installer with -IncludePyLaia passed."
+  },
+  "dependency_consistency": "pip check passed on CPU and CUDA",
+  "interrupted_cuda_test_observation": {
+    "first_run": "A pytest.main invocation from python -c stalled in a CLI line-extraction process pool. It was interrupted; diagnostics retained locally.",
+    "isolated_cli_test": "Passed: one test and two XML linetype subtests.",
+    "full_rerun": "Passed using python -m pytest -p laia. No implementation change; cause not established."
+  }
+}
