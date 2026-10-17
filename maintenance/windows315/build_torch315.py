@@ -65,7 +65,7 @@ def report_native_failure(log):
     """Show bounded compiler/CMake diagnostics without dumping the environment."""
     lines = log.read_text(encoding="utf-8", errors="replace").splitlines()
     selected = set()
-    pattern = re.compile(r"CMake Error|fatal error|error (?:C|LNK)\d+|Could NOT find|ninja: build stopped|^\s*FAILED:")
+    pattern = re.compile(r"CMake Error|fatal error|error (?:C|LNK)\d+|Could NOT find|ninja: build stopped|^\s*FAILED:|^ERROR:")
     for index, line in enumerate(lines):
         if pattern.search(line):
             selected.add(index)
@@ -435,10 +435,14 @@ def main():
         for key, value in definitions.items()
     ]
     log = work / "bindings-build.log"
+    binding_environment = env.copy()
+    # pip rejects build constraints with --no-build-isolation. This build
+    # already uses the explicitly provisioned, pinned build environment.
+    binding_environment.pop("PIP_BUILD_CONSTRAINT", None)
     # NVCC failures can dump environment variables: never publish the full log.
     with log.open("w", encoding="utf-8") as stream:
         try:
-            run(*command, env=env, stdout=stream, stderr=subprocess.STDOUT)
+            run(*command, env=binding_environment, stdout=stream, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError:
             report_native_failure(log)
             raise RuntimeError(
