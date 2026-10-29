@@ -1,0 +1,664 @@
+{
+  "date": "2026-10-28",
+  "recorded_utc": "2026-10-28T22:52:05.098547+00:00",
+  "base_commit": "71ac1e1980597e769e2fd567e840e94767a18dc7",
+  "scope": "Integrate supplied PyLaia 1.2.9 into Kraken official PyTorch 2.15 CPU/CUDA environments.",
+  "pylaia": {
+    "version": "1.2.9+fork.20261028",
+    "source_commit": "fef38e11ec017139a5bb8886952c65f46a98d3b6",
+    "archive": "C:\\Users\\Håkon\\Documents\\PyLaia fork\\dist\\PyLaia-1.2.9-fork.20261028-Windows-x64.zip",
+    "archive_sha256": "c8cbfe9161d5424f269aed80369efca1e5e8cf514dbf2dc799c316fdd6c81a4d",
+    "source_project_modified": false,
+    "verified_bundle_files": {
+      "build-tools/torch215-wheels.json": "0a0bd73cf52ccdc1448ff81c19ce2561209b56af23ee5395a8620956fefeb025",
+      "compatibility/build-info.json": "b489471cb46466caea8078a31d0e103c87faf7ca90b06bc7808556d40768db33",
+      "compatibility/cwevals-0.0.1b2-py3-none-any.whl": "35b7bb2634c23840d6fb4a6910f0b2d524987f824c5a501a15220863e1c85ba9",
+      "compatibility/mpmath-1.4.1-py3-none-any.whl": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+      "compatibility/sympy-1.14.0+pylaia1-py3-none-any.whl": "35eba1dcd6f2923c1672f632d5168b9bb085fa4d1162fb325a44010d769f50b2",
+      "compatibility/wandb-0.31.0+pylaia1-py3-none-win_amd64.whl": "d2a973a5b9783965feab740857ecc434c3220765e54e47151d163fce6c6c53cf",
+      "LICENSE-PyLaia.txt": "b215e4e58bdacf7c578b2cee96bfdd0e204375ca80861555f204c37f78f04a9d",
+      "LICENSE-TORCHAUDIO": "46d9a0225a8ce8489c050fa5a7e8219521d4f0a227958241120a1620425d8edc",
+      "SECURITY.md": "802a27f9fc02c11e7ef545720fba23a27ac1e574c07b54d11de851d0632ec4cb",
+      "verify-installation.py": "bf4bfcec281b726153dfde47fda5f2e68d3b39deca3114b731022b182c6b695f",
+      "verify_torch_runtime.py": "45ced2c01c5cac1dd9edee2a893d95b136e914b682338584ce924c98b0b2d3d5",
+      "wheels/cp315/flashlight_text-0.0.7+pylaia1-cp315-cp315-win_amd64.whl": "d690a2854458c06be84e8af14dcb2fa8019c5305890072e2cd2155f1acbad885",
+      "wheels/cp315/kenlm-0.3.0+pylaia1-cp315-cp315-win_amd64.whl": "0cb9d0e21b46e4409200ccdd25bc899b6e825400430239dc5a512cd272b9fd21",
+      "wheels/cp315/python_bidi-0.6.12-cp315-cp315-win_amd64.whl": "54d62dfa276d82b365d944aac18d7587136ebf6d3f59b56f8bb83165da980982",
+      "wheels/cp315/pyyaml-6.0.3-cp315-cp315-win_amd64.whl": "e1dce417370d3a4247cde17940a31d2159702e66a0e55ba0f6fa2e086c2ece19",
+      "wheels/pylaia-1.2.9+fork.20261028-py3-none-any.whl": "aba6f1dbd0713a5eb78f4562e2067609e498ad39093cbe7d41f4285dbee2c43d"
+    },
+    "module_diff_from_1_2_8": "Only laia/common/compatibility.py changed: allow official PyTorch 2.15.0 CPU/CUDA 13.2; other model code and native LM wheels unchanged."
+  },
+  "torch": "2.15.0",
+  "torchvision": "0.29.2",
+  "python": "3.15.0",
+  "test_interpreter": {
+    "source": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-embed-amd64.zip",
+    "sha256": "a6999bcbcbe56f937159ef79c2630260eca99f65f7860bc5cd20430324079a44",
+    "embedded_host_setup": "Register the external venv site-packages DLL directory for KenLM. Normal venv startup already supplies this via Flashlight site.getsitepackages(); package files unchanged."
+  },
+  "binding_policy": "Official PyTorch/TorchVision native files unchanged before and after PyLaia installation and testing.",
+  "ci_executed": false,
+  "published": false,
+  "committed_or_pushed": false,
+  "kraken_full_suite": {
+    "rerun_for_this_companion": false,
+    "reason": "Kraken runtime unchanged; targeted shared training/OCR/native-decoder and shutdown checks exercise the changed PyLaia compatibility guard.",
+    "previous_cpu_summary": "317 passed, 5 skipped, 11 deselected, 1 xfailed, 1 xpassed, 2016 warnings, 131 subtests passed in 294.07s (0:04:54)",
+    "previous_cuda_summary": "322 passed, 11 deselected, 1 xfailed, 1 xpassed, 2004 warnings, 131 subtests passed in 270.09s (0:04:30)",
+    "previous_report": "maintenance/pytorch215-validation-20261028.json"
+  },
+  "tests": {
+    "cpu": {
+      "checks": [
+        {
+          "check": "training-kraken-first",
+          "returncode": 0,
+          "log": "training-kraken-first-cpu.log"
+        },
+        {
+          "check": "ocr-kraken-first",
+          "returncode": 0,
+          "log": "ocr-kraken-first-cpu.log"
+        },
+        {
+          "check": "training-laia-first",
+          "returncode": 0,
+          "log": "training-laia-first-cpu.log"
+        },
+        {
+          "check": "ocr-laia-first",
+          "returncode": 0,
+          "log": "ocr-laia-first-cpu.log"
+        },
+        {
+          "check": "pylaia-verifier",
+          "returncode": 0,
+          "log": "pylaia-verifier-cpu.log"
+        },
+        {
+          "check": "numerics",
+          "returncode": 0,
+          "log": "numerics-cpu.log"
+        },
+        {
+          "check": "dependency-check",
+          "returncode": 0,
+          "log": "dependency-check-cpu.log"
+        }
+      ],
+      "training": {
+        "kraken-first": {
+          "python": "3.15.0",
+          "import_order": "kraken-first",
+          "kraken": "7.1.1.post23+g71ac1e19.d20261028",
+          "kraken_module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\models\\__init__.py",
+          "pylaia": "1.2.9+fork.20261028",
+          "pillow": "13.0.0",
+          "filelock": "4.2.4",
+          "torch": "2.15.0+cpu",
+          "cuda": null,
+          "gpu": null,
+          "standard_segmentation_model_loaded": true,
+          "cudnn_enabled": true,
+          "training": {
+            "cpu": {
+              "ctc_steps": 3,
+              "finite_losses": [
+                6.528480529785156,
+                6.487031936645508,
+                6.482064247131348
+              ],
+              "weights_updated": true,
+              "checkpoint_roundtrip": "passed"
+            }
+          }
+        },
+        "laia-first": {
+          "python": "3.15.0",
+          "import_order": "laia-first",
+          "kraken": "7.1.1.post23+g71ac1e19.d20261028",
+          "kraken_module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\models\\__init__.py",
+          "pylaia": "1.2.9+fork.20261028",
+          "pillow": "13.0.0",
+          "filelock": "4.2.4",
+          "torch": "2.15.0+cpu",
+          "cuda": null,
+          "gpu": null,
+          "standard_segmentation_model_loaded": true,
+          "cudnn_enabled": true,
+          "training": {
+            "cpu": {
+              "ctc_steps": 3,
+              "finite_losses": [
+                6.528480529785156,
+                6.487031936645508,
+                6.482064247131348
+              ],
+              "weights_updated": true,
+              "checkpoint_roundtrip": "passed"
+            }
+          }
+        }
+      },
+      "ocr": {
+        "kraken-first": {
+          "import_order": "kraken-first",
+          "kraken_version": "7.1.1.post23+g71ac1e19.d20261028",
+          "pylaia_version": "1.2.9+fork.20261028",
+          "torch": "2.15.0+cpu",
+          "torchvision": "0.29.2+cpu",
+          "cuda": null,
+          "gpu": null,
+          "module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\__init__.py",
+          "inference": {
+            "cpu": {
+              "segmentation_lines": 30,
+              "recognition_characters": 34
+            }
+          },
+          "cudnn_dropout_backward": "not applicable (CPU)"
+        },
+        "laia-first": {
+          "import_order": "laia-first",
+          "kraken_version": "7.1.1.post23+g71ac1e19.d20261028",
+          "pylaia_version": "1.2.9+fork.20261028",
+          "torch": "2.15.0+cpu",
+          "torchvision": "0.29.2+cpu",
+          "cuda": null,
+          "gpu": null,
+          "module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\__init__.py",
+          "inference": {
+            "cpu": {
+              "segmentation_lines": 30,
+              "recognition_characters": 34
+            }
+          },
+          "cudnn_dropout_backward": "not applicable (CPU)"
+        }
+      },
+      "normal_process_exit_all_checks": "passed",
+      "language_model_decode": "Flashlight/KenLM weighted decoding passed",
+      "wandb": "offline logging passed",
+      "numerics": {
+        "sympy": "1.14.0+pylaia1",
+        "mpmath": "1.4.1",
+        "symbolic_shapes": "passed",
+        "high_precision_lambdify_and_integration": "passed",
+        "torch_gradients": [
+          "cpu"
+        ],
+        "cwevals_mock_transport": "sync and async passed; no network transport"
+      },
+      "dependency_consistency": "pip check clean",
+      "official_binding_sha256": {
+        "torch/_C.cp315-win_amd64.pyd": "cbb3c76a3f3582ab5bd1e74410213ae903491f9202cbed1b500e10dde2d5dfde",
+        "torch/lib/torch_python.dll": "e8afbc3ee76dd73ab84cdc5b6e4cfe00d6dd5ffb528045312d53b987ba000414",
+        "torch/lib/torch_python.lib": "16c508e337bcb0a2efdb5c83c795a1dbecf8c967ede3a79481c7fcbbdc6f8f74",
+        "torchvision/image_stable.pyd": "eb6a43b3c4fe4cdd2dd1fd95dd6253955deeeed5a0360896d4201506764aad66",
+        "torchvision/_C_stable.pyd": "25859e250d7327094eaab0668bda4ccb485790c0ea6ec91def857077129500aa"
+      },
+      "installed_versions": {
+        "ImageIO": "2.38.1",
+        "Jinja2": "3.1.6",
+        "Markdown": "3.11.2",
+        "MarkupSafe": "3.0.4",
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "Sickle": "0.7.0",
+        "aiohappyeyeballs": "2.7.1",
+        "aiohttp": "3.14.5",
+        "aiosignal": "1.4.0",
+        "annotated-types": "0.8.0",
+        "anyio": "4.15.1",
+        "atpublic": "9.0.0",
+        "attrs": "26.1.0",
+        "cattrs": "26.2.1",
+        "certifi": "2026.10.19",
+        "charset-normalizer": "3.5.2",
+        "click": "8.5.0",
+        "cloudpickle": "3.1.2",
+        "colorama": "0.4.6",
+        "contourpy": "1.4.0",
+        "coremltools": "9.0",
+        "cwevals": "0.0.1b2",
+        "cycler": "0.12.1",
+        "distro": "1.9.0",
+        "docstring_parser": "0.18.0",
+        "filelock": "4.2.4",
+        "flake8": "7.4.1",
+        "flashlight-text": "0.0.7+pylaia1",
+        "flufl.lock": "10.0.0",
+        "fonttools": "4.67.0",
+        "frozenlist": "1.8.0",
+        "fsspec": "2026.9.0",
+        "future": "1.0.0",
+        "googleapis-common-protos": "1.75.5",
+        "h11": "0.16.0",
+        "hocr-spec": "0.2.0",
+        "htrmopo": "0.6",
+        "httpcore": "1.0.9",
+        "httpx": "0.28.1",
+        "idna": "3.20",
+        "imagesize": "2.0.1",
+        "iniconfig": "2.3.1",
+        "iso639-lang": "2.6.3",
+        "joblib": "1.6.0",
+        "jsonargparse": "4.52.0",
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "kenlm": "0.3.0+pylaia1",
+        "kiwisolver": "1.5.1",
+        "kraken": "7.1.1.post23+g71ac1e19.d20261028",
+        "lazy-loader": "0.6",
+        "lightning": "2.6.6",
+        "lightning-utilities": "0.15.3",
+        "lxml": "6.1.3",
+        "markdown-it-py": "4.2.0",
+        "matplotlib": "3.11.2",
+        "mccabe": "0.7.0",
+        "mdurl": "0.1.2",
+        "mdutils": "1.8.1",
+        "mpmath": "1.4.1",
+        "multidict": "7.1.0",
+        "narwhals": "2.27.1",
+        "natsort": "8.4.0",
+        "networkx": "3.7",
+        "numpy": "2.5.4",
+        "opentelemetry-api": "1.45.1",
+        "opentelemetry-exporter-http-transport": "0.66b1",
+        "opentelemetry-exporter-otlp-common": "0.66b1",
+        "opentelemetry-exporter-otlp-proto-common": "1.45.1",
+        "opentelemetry-exporter-otlp-proto-http": "1.45.1",
+        "opentelemetry-proto": "1.45.1",
+        "opentelemetry-sdk": "1.45.1",
+        "opentelemetry-semantic-conventions": "0.66b1",
+        "packaging": "26.3",
+        "pillow": "13.0.0",
+        "pip": "26.2.2",
+        "platformdirs": "4.13.5",
+        "pluggy": "1.7.0",
+        "prettytable": "3.18.0",
+        "propcache": "0.5.4",
+        "protobuf": "7.36.2",
+        "psutil": "7.2.2",
+        "pyaml": "26.7.0",
+        "pyarrow": "26.0.0",
+        "pycodestyle": "2.15.0",
+        "pydantic": "2.14.1",
+        "pydantic_core": "2.50.1",
+        "pyflakes": "4.0.3",
+        "pylaia": "1.2.9+fork.20261028",
+        "pyparsing": "3.3.3",
+        "pypdfium2": "5.14.0",
+        "pytest": "9.1.1",
+        "python-bidi": "0.6.12",
+        "python-dateutil": "2.9.0.post0",
+        "pytorch-lightning": "2.6.6",
+        "referencing": "0.37.0",
+        "regex": "2026.9.29",
+        "requests": "2.34.2",
+        "rich": "15.0.0",
+        "rpds-py": "2026.9.1",
+        "safetensors": "0.8.0",
+        "scikit-image": "0.26.0",
+        "scikit-learn": "1.9.1",
+        "scipy": "1.18.1",
+        "setuptools": "84.2.0",
+        "shapely": "2.2.0",
+        "six": "1.17.0",
+        "sniffio": "1.3.1",
+        "sympy": "1.14.0+pylaia1",
+        "textdistance": "4.6.3",
+        "threadpoolctl": "3.7.0",
+        "tifffile": "2026.10.15",
+        "torch": "2.15.0+cpu",
+        "torchmetrics": "1.9.0",
+        "torchvision": "0.29.2+cpu",
+        "tqdm": "4.70.1",
+        "typeshed_client": "2.14.0",
+        "typing-inspection": "0.4.4",
+        "typing_extensions": "4.16.0",
+        "urllib3": "2.8.0",
+        "wandb": "0.31.0+pylaia1",
+        "wcwidth": "0.9.3",
+        "xxhash": "4.0.2",
+        "yarl": "1.25.1"
+      },
+      "log_sha256": {
+        "training-kraken-first-cpu.log": "7a1fdbb4f394a301597a376aeec042201b13e111646b1d2fa72ed1c08a364c9c",
+        "ocr-kraken-first-cpu.log": "366934fa74658ef20c0c5cfccb0088629999c20bb0ac9b08f56cd9ce6a960a61",
+        "training-laia-first-cpu.log": "5aa948a184b12925afb3cb4b4f7029648cb4b42784091dcdfee8b3f38674e20e",
+        "ocr-laia-first-cpu.log": "79fc6348b13f6e5f5f628978b5c8828e4c2666e0b4903d54205da79108b67c91",
+        "pylaia-verifier-cpu.log": "86ff74aae13400dac21e62bcfae3b1b08699ec0feaec8cdbf0f80418522a990c",
+        "numerics-cpu.log": "d6e129dd3f387257fa36e64179a0ce6a67bb3196b31763a4f4f641c17485a0e3",
+        "dependency-check-cpu.log": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+      }
+    },
+    "cuda": {
+      "checks": [
+        {
+          "check": "training-kraken-first",
+          "returncode": 0,
+          "log": "training-kraken-first-cuda.log"
+        },
+        {
+          "check": "ocr-kraken-first",
+          "returncode": 0,
+          "log": "ocr-kraken-first-cuda.log"
+        },
+        {
+          "check": "training-laia-first",
+          "returncode": 0,
+          "log": "training-laia-first-cuda.log"
+        },
+        {
+          "check": "ocr-laia-first",
+          "returncode": 0,
+          "log": "ocr-laia-first-cuda.log"
+        },
+        {
+          "check": "pylaia-verifier",
+          "returncode": 0,
+          "log": "pylaia-verifier-cuda.log"
+        },
+        {
+          "check": "numerics",
+          "returncode": 0,
+          "log": "numerics-cuda.log"
+        },
+        {
+          "check": "dependency-check",
+          "returncode": 0,
+          "log": "dependency-check-cuda.log"
+        }
+      ],
+      "training": {
+        "kraken-first": {
+          "python": "3.15.0",
+          "import_order": "kraken-first",
+          "kraken": "7.1.1.post23+g71ac1e19.d20261028",
+          "kraken_module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\models\\__init__.py",
+          "pylaia": "1.2.9+fork.20261028",
+          "pillow": "13.0.0",
+          "filelock": "4.2.4",
+          "torch": "2.15.0+cu132",
+          "cuda": "13.2",
+          "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+          "standard_segmentation_model_loaded": true,
+          "cudnn_enabled": true,
+          "training": {
+            "cpu": {
+              "ctc_steps": 3,
+              "finite_losses": [
+                6.528480529785156,
+                6.487031936645508,
+                6.482064247131348
+              ],
+              "weights_updated": true,
+              "checkpoint_roundtrip": "passed"
+            },
+            "cuda": {
+              "ctc_steps": 3,
+              "finite_losses": [
+                6.522363662719727,
+                6.4171857833862305,
+                6.468724250793457
+              ],
+              "weights_updated": true,
+              "checkpoint_roundtrip": "passed"
+            }
+          }
+        },
+        "laia-first": {
+          "python": "3.15.0",
+          "import_order": "laia-first",
+          "kraken": "7.1.1.post23+g71ac1e19.d20261028",
+          "kraken_module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\models\\__init__.py",
+          "pylaia": "1.2.9+fork.20261028",
+          "pillow": "13.0.0",
+          "filelock": "4.2.4",
+          "torch": "2.15.0+cu132",
+          "cuda": "13.2",
+          "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+          "standard_segmentation_model_loaded": true,
+          "cudnn_enabled": true,
+          "training": {
+            "cpu": {
+              "ctc_steps": 3,
+              "finite_losses": [
+                6.528480529785156,
+                6.487031936645508,
+                6.482064247131348
+              ],
+              "weights_updated": true,
+              "checkpoint_roundtrip": "passed"
+            },
+            "cuda": {
+              "ctc_steps": 3,
+              "finite_losses": [
+                6.522363662719727,
+                6.4171857833862305,
+                6.468724250793457
+              ],
+              "weights_updated": true,
+              "checkpoint_roundtrip": "passed"
+            }
+          }
+        }
+      },
+      "ocr": {
+        "kraken-first": {
+          "import_order": "kraken-first",
+          "kraken_version": "7.1.1.post23+g71ac1e19.d20261028",
+          "pylaia_version": "1.2.9+fork.20261028",
+          "torch": "2.15.0+cu132",
+          "torchvision": "0.29.2+cu132",
+          "cuda": "13.2",
+          "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+          "module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\__init__.py",
+          "inference": {
+            "cpu": {
+              "segmentation_lines": 30,
+              "recognition_characters": 34
+            },
+            "cuda": {
+              "segmentation_lines": 30,
+              "recognition_characters": 34
+            }
+          },
+          "cudnn_dropout_backward": "passed"
+        },
+        "laia-first": {
+          "import_order": "laia-first",
+          "kraken_version": "7.1.1.post23+g71ac1e19.d20261028",
+          "pylaia_version": "1.2.9+fork.20261028",
+          "torch": "2.15.0+cu132",
+          "torchvision": "0.29.2+cu132",
+          "cuda": "13.2",
+          "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+          "module": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\kraken\\__init__.py",
+          "inference": {
+            "cpu": {
+              "segmentation_lines": 30,
+              "recognition_characters": 34
+            },
+            "cuda": {
+              "segmentation_lines": 30,
+              "recognition_characters": 34
+            }
+          },
+          "cudnn_dropout_backward": "passed"
+        }
+      },
+      "normal_process_exit_all_checks": "passed",
+      "language_model_decode": "Flashlight/KenLM weighted decoding passed",
+      "wandb": "offline logging passed",
+      "numerics": {
+        "sympy": "1.14.0+pylaia1",
+        "mpmath": "1.4.1",
+        "symbolic_shapes": "passed",
+        "high_precision_lambdify_and_integration": "passed",
+        "torch_gradients": [
+          "cpu",
+          "cuda"
+        ],
+        "cwevals_mock_transport": "sync and async passed; no network transport"
+      },
+      "dependency_consistency": "pip check clean",
+      "official_binding_sha256": {
+        "torch/_C.cp315-win_amd64.pyd": "d36417a9ee379346c0a9a4a31a9ee58825ca2f1e89e9b9563e05d11eacdc47b4",
+        "torch/lib/torch_python.dll": "76bbdb02f23ea4d7ab260b73eea825cd8dc96590915ffef301f8ae6118259cf2",
+        "torch/lib/torch_python.lib": "b1b7e93108729967de6668afa2dbf3eff6c4afe8954203b08f2e8d189069e722",
+        "torchvision/image_stable.pyd": "08bfbcb7e272e35982448f2ef11d2b00673dbac1e3c2a77d20834252786e6906",
+        "torchvision/_C_stable.pyd": "242463633f313386f05a009c5376e5dbe4572ead5e948702cc6dfa83a9c53fae"
+      },
+      "installed_versions": {
+        "ImageIO": "2.38.1",
+        "Jinja2": "3.1.6",
+        "Markdown": "3.11.2",
+        "MarkupSafe": "3.0.4",
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "Sickle": "0.7.0",
+        "aiohappyeyeballs": "2.7.1",
+        "aiohttp": "3.14.5",
+        "aiosignal": "1.4.0",
+        "annotated-types": "0.8.0",
+        "anyio": "4.15.1",
+        "atpublic": "9.0.0",
+        "attrs": "26.1.0",
+        "cattrs": "26.2.1",
+        "certifi": "2026.10.19",
+        "charset-normalizer": "3.5.2",
+        "click": "8.5.0",
+        "cloudpickle": "3.1.2",
+        "colorama": "0.4.6",
+        "contourpy": "1.4.0",
+        "coremltools": "9.0",
+        "cwevals": "0.0.1b2",
+        "cycler": "0.12.1",
+        "distro": "1.9.0",
+        "docstring_parser": "0.18.0",
+        "filelock": "4.2.4",
+        "flake8": "7.4.1",
+        "flashlight-text": "0.0.7+pylaia1",
+        "flufl.lock": "10.0.0",
+        "fonttools": "4.67.0",
+        "frozenlist": "1.8.0",
+        "fsspec": "2026.9.0",
+        "future": "1.0.0",
+        "googleapis-common-protos": "1.75.5",
+        "h11": "0.16.0",
+        "hocr-spec": "0.2.0",
+        "htrmopo": "0.6",
+        "httpcore": "1.0.9",
+        "httpx": "0.28.1",
+        "idna": "3.20",
+        "imagesize": "2.0.1",
+        "iniconfig": "2.3.1",
+        "iso639-lang": "2.6.3",
+        "joblib": "1.6.0",
+        "jsonargparse": "4.52.0",
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "kenlm": "0.3.0+pylaia1",
+        "kiwisolver": "1.5.1",
+        "kraken": "7.1.1.post23+g71ac1e19.d20261028",
+        "lazy-loader": "0.6",
+        "lightning": "2.6.6",
+        "lightning-utilities": "0.15.3",
+        "lxml": "6.1.3",
+        "markdown-it-py": "4.2.0",
+        "matplotlib": "3.11.2",
+        "mccabe": "0.7.0",
+        "mdurl": "0.1.2",
+        "mdutils": "1.8.1",
+        "mpmath": "1.4.1",
+        "multidict": "7.1.0",
+        "narwhals": "2.27.1",
+        "natsort": "8.4.0",
+        "networkx": "3.7",
+        "numpy": "2.5.4",
+        "opentelemetry-api": "1.45.1",
+        "opentelemetry-exporter-http-transport": "0.66b1",
+        "opentelemetry-exporter-otlp-common": "0.66b1",
+        "opentelemetry-exporter-otlp-proto-common": "1.45.1",
+        "opentelemetry-exporter-otlp-proto-http": "1.45.1",
+        "opentelemetry-proto": "1.45.1",
+        "opentelemetry-sdk": "1.45.1",
+        "opentelemetry-semantic-conventions": "0.66b1",
+        "packaging": "26.3",
+        "pillow": "13.0.0",
+        "pip": "26.2.2",
+        "platformdirs": "4.13.5",
+        "pluggy": "1.7.0",
+        "prettytable": "3.18.0",
+        "propcache": "0.5.4",
+        "protobuf": "7.36.2",
+        "psutil": "7.2.2",
+        "pyaml": "26.7.0",
+        "pyarrow": "26.0.0",
+        "pycodestyle": "2.15.0",
+        "pydantic": "2.14.1",
+        "pydantic_core": "2.50.1",
+        "pyflakes": "4.0.3",
+        "pylaia": "1.2.9+fork.20261028",
+        "pyparsing": "3.3.3",
+        "pypdfium2": "5.14.0",
+        "pytest": "9.1.1",
+        "python-bidi": "0.6.12",
+        "python-dateutil": "2.9.0.post0",
+        "pytorch-lightning": "2.6.6",
+        "referencing": "0.37.0",
+        "regex": "2026.9.29",
+        "requests": "2.34.2",
+        "rich": "15.0.0",
+        "rpds-py": "2026.9.1",
+        "safetensors": "0.8.0",
+        "scikit-image": "0.26.0",
+        "scikit-learn": "1.9.1",
+        "scipy": "1.18.1",
+        "setuptools": "84.2.0",
+        "shapely": "2.2.0",
+        "six": "1.17.0",
+        "sniffio": "1.3.1",
+        "sympy": "1.14.0+pylaia1",
+        "textdistance": "4.6.3",
+        "threadpoolctl": "3.7.0",
+        "tifffile": "2026.10.15",
+        "torch": "2.15.0+cu132",
+        "torchmetrics": "1.9.0",
+        "torchvision": "0.29.2+cu132",
+        "tqdm": "4.70.1",
+        "typeshed_client": "2.14.0",
+        "typing-inspection": "0.4.4",
+        "typing_extensions": "4.16.0",
+        "urllib3": "2.8.0",
+        "wandb": "0.31.0+pylaia1",
+        "wcwidth": "0.9.3",
+        "xxhash": "4.0.2",
+        "yarl": "1.25.1"
+      },
+      "log_sha256": {
+        "training-kraken-first-cuda.log": "c703d9322523b755ea88e1cdbceb87962082815a3bba049be60218e82778c5bd",
+        "ocr-kraken-first-cuda.log": "61c72a04869efe7e4e5af8c1bc6b9a22555308147adc49158b150e9e075a88aa",
+        "training-laia-first-cuda.log": "5bfb8eaabdbe0dde4e0e07b4fb5eb58186d06451f1226da4a6186984f01d406c",
+        "ocr-laia-first-cuda.log": "d08d6c3f2a48896b8a1200b67e8d799a1891ffa635673210845c5f8cc429514f",
+        "pylaia-verifier-cuda.log": "f99f9e4985477f02b4f85eed9a764934f5caa2bbc7a6e31d57f8d00694b8fbcb",
+        "numerics-cuda.log": "c0ee18d9102de20a1686065f86c575291f86b1022a2c716b9e157475d0955dff",
+        "dependency-check-cuda.log": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+      }
+    }
+  },
+  "source_sha256": {
+    "README.rst": "97f0138c60755905deafa4cbcbf94f6be14a5cafbcdedf1f71fcd80668293f5d",
+    "docs/user_guide/windows.rst": "4670097c392ef3b75dbf43b638ec6b15963330a56dbc14b3db36ad5caf708501",
+    "maintenance/dependency-constraints.txt": "f283dc9532c981cdf86ba98aeface717f778fb01a1d89c422a4437459c87eb72",
+    "maintenance/windows315/README.rst": "7c5134a37314657d94cfdeb52deebd5294916d0f618ea5d9b5f6fc66c53a9165"
+  },
+  "documentation_check": {
+    "windows_guide": "HTML build passed with warnings treated as errors",
+    "log_sha256": "521ba9699e8d201092acedda6022e8d191e08e0743c262f10bb008a6ccf810e9"
+  }
+}

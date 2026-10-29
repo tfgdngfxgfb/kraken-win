@@ -1,0 +1,347 @@
+{
+  "date": "2026-10-20",
+  "recorded_utc": "2026-10-20T19:11:17.910776+00:00",
+  "base_commit": "71ac1e1980597e769e2fd567e840e94767a18dc7",
+  "scope": "Local Kraken/PyLaia 1.2.8 modernization, custom Sphinx/MyST for Docutils 0.23; no CI or publication.",
+  "source_changes_uncommitted_at_validation": true,
+  "pylaia_archive": {
+    "filename": "PyLaia-1.2.8-fork.20261020-Windows-x64.zip",
+    "sha256": "ea995f6a2a1e0bef102b90ff12b8fba3ae64f1c23b91a90adc5c3a148a21955e"
+  },
+  "updated_packages": {
+    "certifi": {
+      "before": "2026.7.22",
+      "after": "2026.10.19"
+    },
+    "docutils": {
+      "before": "0.22.4",
+      "after": "0.23"
+    },
+    "filelock": {
+      "before": "4.2.0",
+      "after": "4.2.4"
+    },
+    "markdown": {
+      "before": "3.11.1",
+      "after": "3.11.2"
+    },
+    "mpmath": {
+      "before": "1.3.0",
+      "after": "1.4.1"
+    },
+    "myst-parser": {
+      "before": "5.1.0",
+      "after": "5.1.0+kraken1"
+    },
+    "pip": {
+      "before": "26.2.1",
+      "after": "26.2.2"
+    },
+    "platformdirs": {
+      "before": "4.13.3",
+      "after": "4.13.5"
+    },
+    "pylaia": {
+      "before": "1.2.5+fork.20261017",
+      "after": "1.2.8+fork.20261020"
+    },
+    "python-bidi": {
+      "before": "0.6.11",
+      "after": "0.6.12"
+    },
+    "setuptools": {
+      "before": "84.0.0",
+      "after": "84.2.0"
+    },
+    "sphinx": {
+      "before": "9.1.0",
+      "after": "9.1.1+kraken1"
+    },
+    "sphinx-autodoc-typehints": {
+      "before": "3.17.1",
+      "after": "3.17.2"
+    },
+    "sphinxcontrib-jsmath": {
+      "before": "1.0.1",
+      "after": "2.0.0"
+    },
+    "sympy": {
+      "before": "1.14.0",
+      "after": "1.14.0+pylaia1"
+    },
+    "wcwidth": {
+      "before": "0.9.2",
+      "after": "0.9.3"
+    }
+  },
+  "added_packages": {
+    "absl-py": "2.5.1",
+    "annotated-types": "0.8.0",
+    "boolean.py": "5.0",
+    "build": "1.6.1",
+    "cachecontrol": "0.14.4",
+    "cachetools": "7.2.4",
+    "cfgv": "3.5.0",
+    "coverage": "7.16.2",
+    "cwevals": "0.0.1b2",
+    "cyclonedx-python-lib": "11.12.0",
+    "defusedxml": "0.7.1",
+    "distlib": "0.4.4",
+    "distro": "1.9.0",
+    "googleapis-common-protos": "1.75.5",
+    "grpcio": "1.84.0",
+    "hypothesis": "6.170.5",
+    "identify": "2.6.20",
+    "license-expression": "30.4.4",
+    "msgpack": "1.2.3",
+    "nodeenv": "1.11.0",
+    "opentelemetry-api": "1.45.1",
+    "opentelemetry-exporter-http-transport": "0.66b1",
+    "opentelemetry-exporter-otlp-common": "0.66b1",
+    "opentelemetry-exporter-otlp-proto-common": "1.45.1",
+    "opentelemetry-exporter-otlp-proto-http": "1.45.1",
+    "opentelemetry-proto": "1.45.1",
+    "opentelemetry-sdk": "1.45.1",
+    "opentelemetry-semantic-conventions": "0.66b1",
+    "packageurl-python": "0.17.6",
+    "pandas": "3.0.6",
+    "pip-api": "0.0.35",
+    "pip-audit": "2.10.1",
+    "pip-requirements-parser": "32.0.1",
+    "pre-commit": "4.7.0",
+    "py-serializable": "2.1.0",
+    "pydantic": "2.14.1",
+    "pydantic-core": "2.50.1",
+    "pyproject-api": "1.12.0",
+    "pyproject-hooks": "1.3.3",
+    "pytest-cov": "7.1.0",
+    "python-discovery": "1.6.4",
+    "ruff": "0.17.1",
+    "sniffio": "1.3.1",
+    "sortedcontainers": "2.4.0",
+    "tensorboard": "2.21.0",
+    "tensorboard-data-server": "0.7.2",
+    "tomli": "2.5.0",
+    "tomli-w": "1.2.0",
+    "tox": "4.67.1",
+    "typing-inspection": "0.4.4",
+    "tzdata": "2026.5",
+    "virtualenv": "21.14.11",
+    "wandb": "0.31.0+pylaia1",
+    "werkzeug": "3.1.9",
+    "xxhash": "4.0.2"
+  },
+  "tests": {
+    "cpu": {
+      "python": "3.15.0",
+      "summary": "= 316 passed, 4 skipped, 11 deselected, 1 xfailed, 1 xpassed, 2016 warnings, 131 subtests passed in 427.91s (0:07:07) =",
+      "normal_exit": true,
+      "pylaia_imported": true,
+      "pip_check": "passed",
+      "pylaia_lm_checkpoint_autograd_and_offline_wandb": "passed"
+    },
+    "cuda": {
+      "python": "3.15.0",
+      "summary": "= 320 passed, 11 deselected, 1 xfailed, 1 xpassed, 2004 warnings, 131 subtests passed in 399.09s (0:06:39) =",
+      "normal_exit": true,
+      "pylaia_imported": true,
+      "pip_check": "passed",
+      "pylaia_lm_checkpoint_autograd_and_offline_wandb": "passed"
+    }
+  },
+  "pytorch_bindings": {
+    "cpu": {
+      "unchanged": true,
+      "sha256": {
+        "torch/_C.cp315-win_amd64.pyd": "e7f3523ede18295e4926cf7eba23da2c6c86687d8a19c773c3abbdda27b6f9de",
+        "torch/lib/torch_python.dll": "672940d8fbec900d4a94905f0dd57cf88374e332a6f3c60ff04129304b483de9",
+        "torch/lib/torch_python.lib": "bd9a1d72664a9edffc189ffc29d0262b2a653fbf1de58b34a642b11e07fbf33b"
+      }
+    },
+    "cuda": {
+      "unchanged": true,
+      "sha256": {
+        "torch/_C.cp315-win_amd64.pyd": "a11661cbb95b4b47156acea355cc4d88e928b40b129c1df35add22a0ed6446af",
+        "torch/lib/torch_python.dll": "2d81f23d372824ccb6006804d933879136347698d339d7b3c186246b19cdeed5",
+        "torch/lib/torch_python.lib": "879d929231f7cce7b10ef1a1eeb420d74c3684fcf40e0a5fee2d5e637b95ae82"
+      }
+    }
+  },
+  "shared_pylaia_training": {
+    "cpu/kraken-first": {
+      "python": "3.15.0",
+      "import_order": "kraken-first",
+      "kraken": "7.1.1.post23+g71ac1e19.d20261020",
+      "pylaia": "1.2.8+fork.20261020",
+      "pillow": "13.0.0",
+      "filelock": "4.2.4",
+      "torch": "2.14.1+pylaia315cpu",
+      "cuda": null,
+      "gpu": null,
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    },
+    "cpu/laia-first": {
+      "python": "3.15.0",
+      "import_order": "laia-first",
+      "kraken": "7.1.1.post23+g71ac1e19.d20261020",
+      "pylaia": "1.2.8+fork.20261020",
+      "pillow": "13.0.0",
+      "filelock": "4.2.4",
+      "torch": "2.14.1+pylaia315cpu",
+      "cuda": null,
+      "gpu": null,
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    },
+    "cuda/kraken-first": {
+      "python": "3.15.0",
+      "import_order": "kraken-first",
+      "kraken": "7.1.1.post23+g71ac1e19.d20261020",
+      "pylaia": "1.2.8+fork.20261020",
+      "pillow": "13.0.0",
+      "filelock": "4.2.4",
+      "torch": "2.14.1+pylaia315cu132",
+      "cuda": "13.2",
+      "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        },
+        "cuda": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.522363662719727,
+            6.4171857833862305,
+            6.468724250793457
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    },
+    "cuda/laia-first": {
+      "python": "3.15.0",
+      "import_order": "laia-first",
+      "kraken": "7.1.1.post23+g71ac1e19.d20261020",
+      "pylaia": "1.2.8+fork.20261020",
+      "pillow": "13.0.0",
+      "filelock": "4.2.4",
+      "torch": "2.14.1+pylaia315cu132",
+      "cuda": "13.2",
+      "gpu": "NVIDIA GeForce RTX 4080 SUPER",
+      "standard_segmentation_model_loaded": true,
+      "cudnn_enabled": true,
+      "training": {
+        "cpu": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.528480529785156,
+            6.487031936645508,
+            6.482064247131348
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        },
+        "cuda": {
+          "ctc_steps": 3,
+          "finite_losses": [
+            6.522363662719727,
+            6.4171857833862305,
+            6.468724250793457
+          ],
+          "weights_updated": true,
+          "checkpoint_roundtrip": "passed"
+        }
+      }
+    }
+  },
+  "numerics": {
+    "cpu": {
+      "sympy": "1.14.0+pylaia1",
+      "mpmath": "1.4.1",
+      "symbolic_shapes": "passed",
+      "high_precision_lambdify_and_integration": "passed",
+      "torch_gradients": [
+        "cpu"
+      ],
+      "cwevals_mock_transport": "sync and async passed; no network transport"
+    },
+    "cuda": {
+      "sympy": "1.14.0+pylaia1",
+      "mpmath": "1.4.1",
+      "symbolic_shapes": "passed",
+      "high_precision_lambdify_and_integration": "passed",
+      "torch_gradients": [
+        "cpu",
+        "cuda"
+      ],
+      "cwevals_mock_transport": "sync and async passed; no network transport"
+    }
+  },
+  "documentation": {
+    "sphinx": "9.1.1+kraken1",
+    "myst-parser": "5.1.0+kraken1",
+    "docutils": "0.23",
+    "upstream_sphinx_selected": "273 passed, 7 skipped in 19.51s",
+    "upstream_myst": "1097 passed, 17 skipped, 16 warnings in 12.92s",
+    "integration": "5 passed in 5.70s",
+    "myst_fixture": {
+      "fixture": "tests\\test_renderers\\fixtures\\docutil_link_resolution.md",
+      "original_sha256": "c9bf6249350fa2e16ab85bceee5994fc8ed7177be0732d9933213f791eef217a",
+      "updated_sha256": "7ad8f727a56cf482e351da6252fac12cc2955202684a1e84f2599a0962df7467",
+      "reason": "Retain and assert Docutils 0.23 INFO node for explicit-over-implicit target names.",
+      "production_code_changed": false,
+      "assertions_removed": false
+    },
+    "source_archives": "Both local sdists rebuilt successfully with isolated build dependencies.",
+    "kraken_html": "Build succeeded; 71 existing unresolved-reference/API warnings, same count as before the update.",
+    "rebuilt_source_package_payloads": "Byte-identical to the tested wheel package payloads."
+  },
+  "latest_public_release_check": {
+    "packages_checked": 223,
+    "further_updates": [],
+    "errors": []
+  },
+  "ci": {
+    "executed": false,
+    "automatic_triggers_disabled": true,
+    "earliest_permitted_date": "2026-11-01",
+    "scheduled_resume": false
+  },
+  "publication": false,
+  "existing_transfer_builds_modified": false
+}

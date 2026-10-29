@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-29",
+  "sphinx": {
+    "version": "9.2.0",
+    "origin": "official PyPI distribution",
+    "requires_docutils": "<0.24,>=0.21",
+    "source": "https://pypi.org/project/Sphinx/9.2.0/"
+  },
+  "myst_parser": {
+    "upstream_version": "5.1.0",
+    "local_version": "5.1.0+kraken2",
+    "requires_sphinx": "==9.2.0",
+    "requires_docutils": "==0.23",
+    "upstream_wheel_sha256": "9c91c52b3cdb4d94a6506e4fab4e2f296c7623a0da0dcbe6de1565c3dad67a8a",
+    "upstream_sdist_sha256": "ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02"
+  },
+  "artifacts": [
+    {
+      "filename": "myst_parser-5.1.0+kraken2-py3-none-any.whl",
+      "sha256": "0ff533a7bec3f69d50b18ec58622bd25b6ec069ea9bc8b43c71293f860df95db",
+      "upstream_sha256": "9c91c52b3cdb4d94a6506e4fab4e2f296c7623a0da0dcbe6de1565c3dad67a8a"
+    },
+    {
+      "filename": "myst_parser-5.1.0+kraken2.tar.gz",
+      "sha256": "26d870f035b271820fda0ae4b4ddd25b5eba4363f3e6baaa9cbacacb9ac8911e",
+      "upstream_sha256": "ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02"
+    }
+  ],
+  "production_changes": [
+    "MyST dependency metadata and local version only; official Sphinx is unmodified.",
+    "Docutils 0.23; official Sphinx 9.2.0; MyST test extra allows Pygments 2.21.",
+    "MyST source build metadata uses flit-core>=4.2,<5."
+  ],
+  "historical_provenance": "provenance-20261020.json",
+  "test_fixture_adaptation": {
+    "fixture": "tests\\test_renderers\\fixtures\\docutil_link_resolution.md",
+    "original_sha256": "c9bf6249350fa2e16ab85bceee5994fc8ed7177be0732d9933213f791eef217a",
+    "updated_sha256": "7ad8f727a56cf482e351da6252fac12cc2955202684a1e84f2599a0962df7467",
+    "reason": "Retain and assert Docutils 0.23 INFO node for explicit-over-implicit target names.",
+    "production_code_changed": false,
+    "assertions_removed": false
+  },
+  "published": false,
+  "source_build": "Rebuilt successfully using flit-core 4.2.0; runtime package files match the tested wheel byte-for-byte."
+}

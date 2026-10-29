@@ -1,0 +1,13 @@
+{
+  "source_bundle": "PyLaia-1.2.8-fork.20261020-Windows-x64.zip",
+  "bundle_sha256": "ea995f6a2a1e0bef102b90ff12b8fba3ae64f1c23b91a90adc5c3a148a21955e",
+  "source_commit": "642dde0fd988069ff8e00c7ae31a221cee9b2026",
+  "source_file": "build-tools/build_compatibility.py",
+  "source_file_sha256": "f4e895458e68d56f600b514740ed8474ade5349b461c215b386036d23ded8eaa",
+  "license": "MIT",
+  "adaptations": [
+    "Resolve default output relative to Kraken checkout.",
+    "Allow SymPy-only bootstrap without optional W&B downloads.",
+    "Record the Kraken recipe path in build metadata."
+  ]
+}

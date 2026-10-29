@@ -1,60 +1,62 @@
 Windows 11
 ==========
 
-This fork targets standard 64-bit CPython 3.14 and 3.15. Python 3.15 requires the corrected PyTorch bindings described below; free-threaded Python is not covered. Use a virtual environment. Run the following commands in PowerShell from this fork's checkout. Enable UTF-8 mode in every new terminal: HTRMoPo 0.6 reads its Unicode metadata using the interpreter's default encoding.
+This fork targets standard 64-bit CPython 3.14 and 3.15 with official PyTorch
+2.15 and TorchVision 0.29.2 wheels. Free-threaded Python is not covered.
+Use a virtual environment. Run these commands in PowerShell from this fork's
+checkout. Enable UTF-8 mode in every new terminal: HTRMoPo 0.6 reads its Unicode
+metadata using the interpreter's default encoding.
 
 .. code-block:: powershell
 
    $env:PYTHONUTF8 = '1'
-   py -3.14 -m venv .venv
-   .\.venv\Scripts\python.exe -m pip install --upgrade pip
-   .\.venv\Scripts\python.exe -m pip install -e '.[test]'
-   .\.venv\Scripts\kraken.exe --help
-   .\.venv\Scripts\ketos.exe --help
+   py -3.15 -m venv .venv315
+   .\.venv315\Scripts\python.exe -m pip install --upgrade pip
+   .\.venv315\Scripts\python.exe -m pip install 'torch==2.15.0' 'torchvision==0.29.2' --index-url https://download.pytorch.org/whl/cpu
+   .\.venv315\Scripts\python.exe maintenance/python-compat/build_compatibility.py --sympy-only --output .local/python-compat-wheels
 
-Dependency versions
+For Python 3.14, replace ``-3.15`` with ``-3.14`` and use a separate environment.
+
+CPU and NVIDIA CUDA
 -------------------
 
-The 2026-10-17 update uses Pillow 13.0.0, platformdirs 4.13.3, tifffile
-2026.10.15, filelock 4.2.0, pluggy 1.7.0, tomlkit 0.15.2 and
-sphinx-autodoc-typehints 3.17.1. From a source checkout, use
-``-c maintenance/dependency-constraints.txt`` with pip to reproduce these
-versions. CI also applies these constraints to isolated build dependencies.
-The local transfer package includes a complete runtime constraint file for
-its installer.
-Shared environments have also been validated with the private PyLaia
-``1.2.5+fork.20261017`` build, which requires Pillow 13.0.0 and filelock 4.2.0.
-Older distributions that pin Pillow 12.3.0 need updating before sharing this
-environment. The local transfer package includes the new PyLaia wheel and
-its native language-model dependencies as an optional installer addition.
+The 2026-10-28 update uses unmodified official PyTorch 2.15.0 and TorchVision
+0.29.2 Windows wheels. PyTorch binding compilation and private PyLaia binding
+payloads are no longer used. A Python exit callback calls the official
+``torch._C._cudnn_clear_dropout_state`` function before DLL unload: CUDA LSTM
+dropout otherwise still crashes at process exit on Windows Python 3.15.
+The official binding files remain unmodified.
+CPU inference is available with ``-d cpu``.
 
-Python 3.15 CPU and CUDA setup
------------------------------
-
-The official PyTorch 2.14.1 Windows cp315 wheels have an incompatible Python thread-state ABI. Python autograd callbacks fail on CPU, and CUDA can crash at process shutdown. Use the corrected CPU or CUDA 13.2 bindings supplied with the private PyLaia ``1.2.5+fork.20261017`` bundle. These binding files are identical to the previously validated 1.2.3 bundle. Kraken does not require the PyLaia Python package itself; both applications can share the corrected PyTorch runtime. Ordinary PyPI dependency resolution alone does not install these corrected bindings.
-
-For a shared environment, extract the complete PyLaia ZIP and run its installer with an explicit environment path inside the Kraken checkout. Replace the bundle path below with your extracted folder. Choose ``CPU`` instead of ``CUDA`` if needed. The environment path must not already exist.
+For an NVIDIA GPU, install both official CUDA 13.2 packages in place of the CPU
+packages before installing Kraken:
 
 .. code-block:: powershell
 
-   & 'C:\path\PyLaia-1.2.5-fork.20261017-Windows-x64\Install-PyLaia.ps1' -PythonVersion 3.15 -TorchBuild CUDA -InstallationPath "$PWD\.venv315"
+   .\.venv315\Scripts\python.exe -m pip install --upgrade 'torch==2.15.0' 'torchvision==0.29.2' --index-url https://download.pytorch.org/whl/cu132
+   .\.venv315\Scripts\python.exe -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0))"
 
-For Kraken alone, the source builders in ``maintenance/windows315`` produce the same corrected CPU bindings without installing PyLaia. Run these commands in an x64 Visual Studio developer PowerShell, then continue with scikit-image below:
+CUDA 13.2 needs a compatible NVIDIA driver. The separate CUDA toolkit is not
+required to use the official wheels. CUDA, cuDNN and dropout remain enabled.
+Use matching CPU or CUDA variants of both packages. The runtime checks require
+PyTorch 2.15 or newer on Windows Python 3.15 and reject the old 2.14.1 runtime
+before models are loaded.
+
+Python 3.15 native dependencies
+-------------------------------
+
+The previously built Windows Python 3.15 scikit-image 0.26.0, PyYAML 6.0.3 and
+Core ML parser wheels can be reused with this update. A Kraken wheel does not
+contain its dependencies. If these wheels are available, pass their directory
+as another ``--find-links`` argument when installing Kraken below.
+
+For a source build of scikit-image, install Visual Studio Build Tools with the
+C++ workload and Windows SDK, plus LLVM/Clang. Clang is needed for its Pythran
+C++ code; ``include-v2=false`` matches upstream's wheel layout. No scikit-image
+source modifications are required.
 
 .. code-block:: powershell
 
-   py -3.15 -m venv .venv315
-   .\.venv315\Scripts\python.exe maintenance/windows315/build_torch315.py --build CPU --work-dir .local/torch315-build --output-dir .local/torch315-wheels --jobs 2
-   .\.venv315\Scripts\python.exe -m pip install --no-deps .local/torch315-wheels/torch-2.14.1+pylaia315cpu-cp315-cp315-win_amd64.whl
-   .\.venv315\Scripts\python.exe -m pip install --no-deps torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu
-
-As of 2026-10-14, ``scikit-image 0.26.0`` and ``PyYAML 6.0.3`` need local source builds on Windows Python 3.15. Install Visual Studio Build Tools with the C++ workload and Windows SDK, plus LLVM/Clang. The commands below assume ``clang-cl.exe`` is on ``PATH``. A portable LLVM installation can also be added to ``PATH``. Clang is needed for scikit-image's Pythran C++ code; the default MSVC build fails. No changes to scikit-image's source are required. ``include-v2=false`` matches upstream's wheel layout.
-
-.. code-block:: powershell
-
-   $env:PYTHONUTF8 = '1'
-   .\.venv315\Scripts\python.exe -m pip install --upgrade pip
-   # Add the bin directory of your LLVM installation if necessary.
    $env:PATH = 'C:\Program Files\LLVM\bin;' + $env:PATH
    $previousCC = $env:CC
    $previousCXX = $env:CXX
@@ -67,59 +69,113 @@ As of 2026-10-14, ``scikit-image 0.26.0`` and ``PyYAML 6.0.3`` need local source
        $env:CC = $previousCC
        $env:CXX = $previousCXX
    }
-   .\.venv315\Scripts\python.exe -m pip install -e '.[test,pdf]'
+   .\.venv315\Scripts\python.exe -m pip install --find-links .local/python-compat-wheels -c maintenance/dependency-constraints.txt -e '.[test,pdf]'
    .\.venv315\Scripts\python.exe -m pip check
+   .\.venv315\Scripts\kraken.exe --help
+   .\.venv315\Scripts\ketos.exe --help
 
-The PyLaia bundle already includes a PyYAML wheel. A locally built scikit-image wheel can be installed instead of compiling it again. Keep these native wheels and the corrected PyTorch wheel when transferring an installation to a machine without build tools. A Kraken wheel alone does not contain its dependencies. The existing Python 3.14 transfer package is unchanged.
-
-Python 3.15 CUDA 13.2 needs a compatible NVIDIA driver. The separate CUDA toolkit is not required to use the supplied wheels. Do not replace the corrected PyTorch wheel with an official cp315 wheel. Kraken checks the binding marker before loading models and releases cuDNN's dropout cache before process shutdown; cuDNN and dropout remain enabled. Validation covers a single CPU device or NVIDIA GPU, including normal exit. Distributed execution and ``torch.compile`` are outside this validation.
-
-CPU and NVIDIA CUDA
+Dependency versions
 -------------------
 
-CPU inference is available with ``-d cpu``. On Python 3.14, install a matching torch/torchvision pair from the official PyTorch index for NVIDIA GPUs. The CUDA 13.0 build requires a compatible NVIDIA driver; the separate CUDA toolkit is not needed for these wheels. Use the corrected CUDA 13.2 setup above on Python 3.15.
+The 2026-10-29 update selects the latest compatible runtime, test,
+documentation and build libraries with PyLaia 1.2.11. This includes
+platformdirs 4.14.0, jsonargparse 4.53.0, setuptools 84.2.1, certifi 2026.10.23,
+pytest 9.2.0, pandas 3.1.0 and python-dateutil 3.0.0. Full exact selections are
+recorded in maintenance/dependency-constraints.txt.
+
+SymPy 1.14.0+pylaia1 pairs with mpmath 1.4.1. Optional W&B 0.31.0+pylaia2
+pairs with cwevals 0.0.1b3. Their compatibility recipes preserve numerical
+code and native backends. Documentation now uses official Sphinx 9.2.0,
+Docutils 0.23 and local MyST 5.1.0+kraken2. See
+``maintenance/python-compat/README.rst`` and
+``maintenance/docs-compat/README.rst`` for recipes and licenses.
+
+Use ``-c maintenance/dependency-constraints.txt`` to reproduce these versions,
+along with ``--find-links`` folders for the local compatibility wheels.
+Existing transfer ZIPs retain their recorded dependency sets and are not
+changed by updating this source checkout. In particular, fork4 and earlier
+ZIP installers still target the historical PyTorch 2.14.1 runtime.
+
+PyLaia compatibility
+--------------------
+
+Kraken does not depend on the PyLaia Python package. The supplied PyLaia
+``1.2.11+fork.20261028`` bundle uses the same official PyTorch 2.15.0 and
+TorchVision 0.29.2 CPU/CUDA 13.2 wheels. It can share Kraken's Python 3.15
+environment. The earlier 1.2.8 bundle still requires the older PyTorch runtime.
+
+Extract the complete 1.2.11 ZIP and install its wheel into the Kraken environment
+after the official CPU or CUDA runtime has been installed above. Replace the
+bundle directory below with its actual location:
 
 .. code-block:: powershell
 
-   .\.venv\Scripts\python.exe -m pip install --upgrade torch torchvision --index-url https://download.pytorch.org/whl/cu130
-   .\.venv\Scripts\python.exe -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0))"
-   .\.venv\Scripts\kraken.exe -d cuda:0 -i image.png lines.json segment -bl
+   $pylaiaBundle = 'C:\path\PyLaia-1.2.11-fork.20261028-Windows-x64'
+   .\.venv315\Scripts\python.exe -m pip install --find-links "$pylaiaBundle\wheels\cp315" --find-links "$pylaiaBundle\compatibility" -c maintenance/dependency-constraints.txt "$pylaiaBundle\wheels\pylaia-1.2.11+fork.20261028-py3-none-any.whl[language-model]"
+   .\.venv315\Scripts\python.exe -m pip check
 
-Use ``--workers 0`` when training from notebooks or scripts without a guarded entry point. Command-line training supports worker processes. For Python scripts using workers, place execution inside ``if __name__ == '__main__':`` so Windows can spawn workers safely.
+The language-model extra installs the supplied Flashlight/KenLM native wheels.
+For optional W&B support, use ``[language-model,wandb]`` instead. Its local W&B
+and cwevals wheels are in the bundle's compatibility directory. PyLaia and
+Kraken both retain Python cleanup of cuDNN dropout state before shutdown;
+the official Torch binding files are not modified.
+
+The local integration checks cover both import orders, three CTC training
+steps with finite gradients and updated weights, checkpoint round-trips,
+Kraken OCR and segmentation, native language-model decoding and offline W&B.
+Results are recorded in ``maintenance/dependency-update-20261029.json``.
+
+The optional ``maintenance/windows315/verify_shared_pylaia.py`` helper can be
+used to repeat the training checks. Run both import orders as separate
+processes; omit ``--require-cuda`` on CPU:
+
+.. code-block:: powershell
+
+   .\.venv315\Scripts\python.exe -I maintenance/windows315/verify_shared_pylaia.py --import-order kraken-first --require-cuda
+   .\.venv315\Scripts\python.exe -I maintenance/windows315/verify_shared_pylaia.py --import-order laia-first --require-cuda
+
+The binding builder and assembler in that directory are historical tools for
+reproducing old builds; they are not part of the new installation path.
 
 Model formats and PDFs
 ----------------------
 
-Both legacy ``.mlmodel`` and ``.safetensors`` models use PyTorch for inference. Core ML's macOS-only native prediction runtime is not required. Its warnings about missing native runtime extensions on Windows do not prevent loading kraken models.
+Both legacy ``.mlmodel`` and ``.safetensors`` models use PyTorch for inference.
+Core ML's macOS-only native prediction runtime is not required. Its warnings
+about missing native runtime extensions on Windows do not prevent loading
+Kraken models. The standard line segmentation model is unchanged.
 
 Install this fork's PDF extra to include PDFium and its prebuilt Windows library:
 
 .. code-block:: powershell
 
-   .\.venv\Scripts\python.exe -m pip install -e '.[pdf]'
+   .\.venv315\Scripts\python.exe -m pip install --find-links .local/python-compat-wheels -c maintenance/dependency-constraints.txt -e '.[pdf]'
 
-PDF pages are rendered at 300 dpi. No separate libvips installation is required. Image input works without this optional dependency.
+PDF pages are rendered at 300 dpi. No separate libvips installation is required.
+Image input works without this optional dependency.
 
-Tests
------
+Local tests
+-----------
 
 .. code-block:: powershell
 
    $env:PYTHONUTF8 = '1'
    $env:OMP_NUM_THREADS = '1'
    $env:MKL_NUM_THREADS = '1'
-   .\.venv\Scripts\python.exe -m pytest -m 'not network and not slow'
+   .\.venv315\Scripts\python.exe -m pytest -m 'not network and not slow'
 
-CUDA regression tests run when a CUDA-enabled torch installation and GPU are available. Windows and Linux CI cover the CPU path.
+The runtime regression checks exercise Python autograd callbacks and normal
+process exit both with a direct call to the official cleanup API and after
+importing Kraken, which registers that cleanup automatically. CUDA checks
+also cover cuDNN LSTM dropout and backward propagation. GPU tests run when a
+CUDA-enabled PyTorch installation and a GPU are available. Distributed
+execution, ``torch.compile`` and free-threaded Python are outside this validation.
 
-For a shared PyLaia installation, the optional check below runs three CTC
-training steps, verifies finite gradients and updated weights, round-trips a
-checkpoint, and loads Kraken's standard segmentation model. Run both import
-orders in separate processes to check normal shutdown as well. Omit
-``--require-cuda`` on a CPU installation. Native Flashlight/KenLM decoding is
-checked separately by the supplied PyLaia installation verifier.
+Use ``--workers 0`` when training from notebooks or scripts without a guarded
+entry point. Command-line training supports worker processes. In Python
+scripts using workers, place execution inside ``if __name__ == '__main__':``
+so Windows can spawn workers safely.
 
-.. code-block:: powershell
-
-   .\.venv315\Scripts\python.exe -I maintenance/windows315/verify_shared_pylaia.py --import-order kraken-first --require-cuda
-   .\.venv315\Scripts\python.exe -I maintenance/windows315/verify_shared_pylaia.py --import-order laia-first --require-cuda
+Automatic Windows/Linux CI triggers remain paused. No CI run is started for
+the 2026-10-28 update. The manual workflow now installs official PyTorch wheels
+instead of building custom bindings; re-enabling CI requires a separate action.

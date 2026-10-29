@@ -1,0 +1,171 @@
+{
+  "upstream_artifacts": [
+    {
+      "name": "Sphinx",
+      "version": "9.1.1",
+      "requires_python": ">=3.12",
+      "requires_dist": [
+        "sphinxcontrib-applehelp>=1.0.7",
+        "sphinxcontrib-devhelp>=1.0.6",
+        "sphinxcontrib-htmlhelp>=2.0.6",
+        "sphinxcontrib-jsmath>=1.0.1",
+        "sphinxcontrib-qthelp>=1.0.6",
+        "sphinxcontrib-serializinghtml>=1.1.9",
+        "Jinja2>=3.1",
+        "Pygments>=2.17",
+        "docutils<0.23,>=0.21",
+        "snowballstemmer>=2.2",
+        "babel>=2.13",
+        "alabaster>=0.7.14",
+        "imagesize>=1.3",
+        "requests>=2.30.0",
+        "roman-numerals>=1.0.0",
+        "packaging>=23.0",
+        "colorama>=0.4.6; sys_platform == \"win32\"",
+        "defusedxml>=0.7.1; extra == \"test\""
+      ],
+      "project_urls": {
+        "Changelog": "https://www.sphinx-doc.org/en/master/changes.html",
+        "Code": "https://github.com/sphinx-doc/sphinx",
+        "Documentation": "https://www.sphinx-doc.org/",
+        "Download": "https://pypi.org/project/Sphinx/",
+        "Homepage": "https://www.sphinx-doc.org/",
+        "Issue tracker": "https://github.com/sphinx-doc/sphinx/issues"
+      },
+      "artifacts": [
+        {
+          "filename": "sphinx-9.1.1-py3-none-any.whl",
+          "sha256": "f8b60013ce25017be41a509e5c2d265bc1918410061315c36b809c7f335646c0",
+          "url": "https://files.pythonhosted.org/packages/47/18/3c66ea76da7de47e716b181c35bdbfafbd5e9af0bb247b14578e9de348e9/sphinx-9.1.1-py3-none-any.whl"
+        },
+        {
+          "filename": "sphinx-9.1.1.tar.gz",
+          "sha256": "48b627f02908f22c601b3ba9c7b17265b4f315dd05c8bc64cd4da41183f44fbc",
+          "url": "https://files.pythonhosted.org/packages/fc/73/567727fc8c8d85bc3adc88a246e12937cfda8d565cf1d80e85bceaa61fe5/sphinx-9.1.1.tar.gz"
+        }
+      ]
+    },
+    {
+      "name": "myst-parser",
+      "version": "5.1.0",
+      "requires_python": ">=3.11",
+      "requires_dist": [
+        "docutils<0.23,>=0.20",
+        "jinja2",
+        "markdown-it-py~=4.2",
+        "mdit-py-plugins>=0.6.1,~=0.6",
+        "pyyaml",
+        "sphinx<10,>=8",
+        "pre-commit~=4.0; extra == \"code-style\"",
+        "linkify-it-py~=2.0; extra == \"linkify\"",
+        "sphinx>=8; extra == \"rtd\"",
+        "ipython; extra == \"rtd\"",
+        "sphinx-book-theme~=1.1; extra == \"rtd\"",
+        "sphinx-design; extra == \"rtd\"",
+        "sphinx-copybutton; extra == \"rtd\"",
+        "sphinxext-rediraffe~=0.3.0; extra == \"rtd\"",
+        "sphinxext-opengraph~=0.13.0; extra == \"rtd\"",
+        "sphinx-pyscript; extra == \"rtd\"",
+        "sphinx-tippy>=0.4.3; extra == \"rtd\"",
+        "sphinx-autodoc2~=0.5.0; extra == \"rtd\"",
+        "sphinx-togglebutton; extra == \"rtd\"",
+        "beautifulsoup4; extra == \"testing\"",
+        "coverage[toml]; extra == \"testing\"",
+        "defusedxml; extra == \"testing\"",
+        "pytest<10,>=9; extra == \"testing\"",
+        "pytest-cov; extra == \"testing\"",
+        "pytest-regressions; extra == \"testing\"",
+        "pytest-param-files~=0.6.0; extra == \"testing\"",
+        "sphinx-pytest~=0.3.0; extra == \"testing\"",
+        "pygments<2.21; extra == \"testing\"",
+        "pygments; extra == \"testing-docutils\"",
+        "pytest<10,>=9; extra == \"testing-docutils\"",
+        "pytest-param-files~=0.6.0; extra == \"testing-docutils\""
+      ],
+      "project_urls": {
+        "Documentation": "https://myst-parser.readthedocs.io",
+        "Homepage": "https://github.com/executablebooks/MyST-Parser"
+      },
+      "artifacts": [
+        {
+          "filename": "myst_parser-5.1.0-py3-none-any.whl",
+          "sha256": "9c91c52b3cdb4d94a6506e4fab4e2f296c7623a0da0dcbe6de1565c3dad67a8a",
+          "url": "https://files.pythonhosted.org/packages/09/dc/f3dfb7488b770f3f67e6545085bf2abea5172e88f57b8ad25ef860ca704c/myst_parser-5.1.0-py3-none-any.whl"
+        },
+        {
+          "filename": "myst_parser-5.1.0.tar.gz",
+          "sha256": "ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02",
+          "url": "https://files.pythonhosted.org/packages/21/dc/603751677fff302f34396e206b610f556a59d7fe58b9a2145f54e96b48e8/myst_parser-5.1.0.tar.gz"
+        }
+      ]
+    },
+    {
+      "name": "docutils",
+      "version": "0.23",
+      "requires_python": ">=3.9",
+      "requires_dist": null,
+      "project_urls": {
+        "Changelog": "https://docutils.sourceforge.io/HISTORY.html",
+        "Code": "https://sourceforge.net/p/docutils/code/",
+        "Documentation": "https://docutils.sourceforge.io/docs/",
+        "Download": "https://pypi.org/project/docutils/",
+        "Homepage": "https://docutils.sourceforge.io",
+        "Issue tracker": "https://sourceforge.net/p/docutils/bugs/"
+      },
+      "artifacts": [
+        {
+          "filename": "docutils-0.23-py3-none-any.whl",
+          "sha256": "25d013af9bf23bc1c7b2b093dff4208166c53a94786c9e447808335ef1185fea",
+          "url": "https://files.pythonhosted.org/packages/32/91/30151a39f7570f448ed84529390628a651d7f27c87d73c9b887f8189695e/docutils-0.23-py3-none-any.whl"
+        },
+        {
+          "filename": "docutils-0.23.tar.gz",
+          "sha256": "746f5060322511280a1e50eb76846ed6bf2342984b2ac04dc42caa1a8d78799e",
+          "url": "https://files.pythonhosted.org/packages/39/a4/5180d9afc57e8fca05601dd652bdff19604c218814037fe90ffc7625a50a/docutils-0.23.tar.gz"
+        }
+      ]
+    }
+  ],
+  "myst_upstream_test_source": {
+    "commit": "2871eb95750873ccec2c4ab1dac0568815b64ca5",
+    "url": "https://codeload.github.com/executablebooks/MyST-Parser/tar.gz/2871eb95750873ccec2c4ab1dac0568815b64ca5",
+    "sha256": "51ae9eade448d43d7dc681788dd6f5bc71afb62d6ad33e3edc4b3fc986ad31f4"
+  },
+  "local_artifacts": [
+    {
+      "filename": "sphinx-9.1.1+kraken1-py3-none-any.whl",
+      "sha256": "2c727c6245eb5249b66faf7b5dc92758c5310599f61c08b3d46b268e38091879",
+      "upstream_sha256": "f8b60013ce25017be41a509e5c2d265bc1918410061315c36b809c7f335646c0"
+    },
+    {
+      "filename": "sphinx-9.1.1+kraken1.tar.gz",
+      "sha256": "b7615415b8bb4ba0c59d47aecaeeaa0ef26209b48abfefe595539582d85f84af",
+      "upstream_sha256": "48b627f02908f22c601b3ba9c7b17265b4f315dd05c8bc64cd4da41183f44fbc"
+    },
+    {
+      "filename": "myst_parser-5.1.0+kraken1-py3-none-any.whl",
+      "sha256": "3fb99674e24830a51042ccb730e11d612993bb47b4f5c5e2cd3b0731b69c2c68",
+      "upstream_sha256": "9c91c52b3cdb4d94a6506e4fab4e2f296c7623a0da0dcbe6de1565c3dad67a8a"
+    },
+    {
+      "filename": "myst_parser-5.1.0+kraken1.tar.gz",
+      "sha256": "fd619c885c6a000464b9238db42494fdd817c76b896c23f4d2a1fd56c1d638a7",
+      "upstream_sha256": "ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02"
+    }
+  ],
+  "production_changes": [
+    "Require Docutils 0.23.",
+    "Require the matching private Sphinx for MyST.",
+    "Allow validated Pygments 2.21 in the MyST testing extra.",
+    "Mark package versions with +kraken1."
+  ],
+  "test_fixture_adaptation": {
+    "fixture": "tests\\test_renderers\\fixtures\\docutil_link_resolution.md",
+    "original_sha256": "c9bf6249350fa2e16ab85bceee5994fc8ed7177be0732d9933213f791eef217a",
+    "updated_sha256": "7ad8f727a56cf482e351da6252fac12cc2955202684a1e84f2599a0962df7467",
+    "reason": "Retain and assert Docutils 0.23 INFO node for explicit-over-implicit target names.",
+    "production_code_changed": false,
+    "assertions_removed": false
+  },
+  "published": false
+}

@@ -1,4 +1,4 @@
-"""Exercise Python callbacks and shutdown in a separate native runtime process."""
+"""Exercise official bindings and the cuDNN cleanup needed for normal shutdown."""
 import os
 import subprocess
 import sys
@@ -10,14 +10,22 @@ import torch
 @pytest.mark.skipif(sys.platform != 'win32' or sys.version_info[:2] != (3, 15),
                     reason='Windows Python 3.15 binding regression')
 @pytest.mark.parametrize('device', ['cpu', 'cuda'])
-def test_autograd_and_normal_shutdown(device):
+@pytest.mark.parametrize('with_kraken', [False, True], ids=['official-api-cleanup', 'with-kraken'])
+def test_autograd_and_normal_shutdown(device, with_kraken):
     if device == 'cuda' and not torch.cuda.is_available():
         pytest.skip('CUDA is unavailable')
     code = '''
 import ctypes
 import sys
-import kraken.models
 import torch
+
+if sys.argv[2] == '1':
+    import kraken.models
+elif sys.argv[1] == 'cuda':
+    # The official 2.15 bindings fix autograd, but cuDNN's cached dropout state
+    # still needs clearing before DLL unload. Exercise its API without Kraken.
+    import atexit
+    atexit.register(torch._C._cudnn_clear_dropout_state)
 
 get_dict = ctypes.pythonapi.PyThreadState_GetDict
 get_dict.restype = ctypes.c_void_p
@@ -46,7 +54,7 @@ if device == 'cuda':
     assert torch.backends.cudnn.enabled
 print('autograd and dropout verified', flush=True)
 '''
-    result = subprocess.run([sys.executable, '-I', '-X', 'faulthandler', '-c', code, device],
+    result = subprocess.run([sys.executable, '-I', '-X', 'faulthandler', '-c', code, device, str(int(with_kraken))],
                             capture_output=True, text=True, encoding='utf-8', timeout=90,
                             env=dict(os.environ, OMP_NUM_THREADS='1', MKL_NUM_THREADS='1'))
     assert result.returncode == 0, result.stdout + result.stderr

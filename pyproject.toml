@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.32.4", "versioningit>=3.3.0"]
+requires = ["hatchling>=1.33.0", "versioningit>=3.3.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -38,8 +38,8 @@ dependencies = [
     "protobuf>=7.36.2,<8",
     "coremltools~=9.0",
     "jinja2~=3.1.6",
-    "torchvision>=0.29.1,<0.30",
-    "torch>=2.14.1,<2.15",
+    "torchvision>=0.29.2,<0.30",
+    "torch>=2.15.0,<2.16",
     "scikit-learn>=1.9.1,<1.10",
     "scikit-image>=0.26.0,<0.27",
     "shapely>=2.2.0,<3",
@@ -48,7 +48,7 @@ dependencies = [
     "lightning~=2.6.6",
     "torchmetrics>=1.9.0,<2",
     "threadpoolctl>=3.7.0,<4",
-    "platformdirs>=4.13.3",
+    "platformdirs>=4.14.0",
     "rich>=15.0.0,<16",
     "safetensors>=0.8.0,<0.9",
     "iso639-lang>=2.6.3",
@@ -56,14 +56,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["hocr-spec>=0.2.0", "pytest>=9.1.1"]
+test = ["hocr-spec>=0.2.0", "pytest>=9.2.0"]
 pdf = ["pypdfium2>=5.14,<6"]
 docs = [
-    "sphinx>=9.1.0,<10",
+    "sphinx==9.2.0",
+    "myst-parser==5.1.0+kraken2",
+    "docutils==0.23",
     "sphinx-autoapi>=3.8.1",
     "sphinx-multiversion>=0.2.4",
     "sphinx-github-changelog>=2.3.0",
-    "sphinx-autodoc-typehints>=3.17.1",
+    "sphinx-autodoc-typehints>=3.17.4",
 ]
 
 [project.urls]
@@ -158,4 +160,4 @@ match = ["[0-9]*"]
 packages = ["kraken"]
 
 [tool.hatch.build.targets.sdist]
-include = ["kraken/", "README.rst", "LICENSE", "CITATION.cff", "maintenance/dependency-constraints.txt"]
+include = ["kraken/", "README.rst", "LICENSE", "CITATION.cff", "maintenance/dependency-constraints.txt", "maintenance/docs-compat/", "maintenance/python-compat/"]

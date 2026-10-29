@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-29",
+  "source_bundle": {
+    "version": "1.2.11+fork.20261028",
+    "source_commit": "32eb03d4fd66cf350b9cbe1d332b64a06effed9b",
+    "archive": "C:\\Users\\H\u00e5kon\\Documents\\PyLaia fork\\dist\\PyLaia-1.2.11-fork.20261028-Windows-x64.zip",
+    "sha256": "8570322c1ab679f0a420bffba0e1fb9644a84a96ea24371c894aa4be3497a93b",
+    "files": {
+      "build-tools/build_compatibility.py": "fa1135c0d7bada838aee272d583b33a4a376851a25fd582c123741539ef7469c",
+      "compatibility/build-info.json": "21944864776cbb2b2966b6988ad1d7670cde29bef9e31e62052c3326c2fa5882",
+      "compatibility/cwevals-0.0.1b3-py3-none-any.whl": "3ff43ebab38a553877da8951305924a39a6f30809aae7f567de9ed1104d7ef15",
+      "compatibility/mpmath-1.4.1-py3-none-any.whl": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+      "compatibility/sources/cwevals-0.0.1b3.tar.gz": "2647ffa8338634db70e9cbd1d9232f0a62f2b7d7b2c5d8a2f0bb750d4aeced45",
+      "compatibility/sources/sympy-1.14.0-py3-none-any.whl": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "compatibility/sources/sympy-1.14.0.tar.gz": "d3d3fe8df1e5a0b42f0e7bdf50541697dbe7d23746e894990c030e2b05e72517",
+      "compatibility/sources/wandb-0.31.0-py3-none-win_amd64.whl": "488f8ef63cae217ba220e6d8c163ee8c5b98320ee1866ce774c4da0847235f02",
+      "compatibility/sources/wandb-0.31.0.tar.gz": "dcdaa635576ff17b18a757b39fc22b0db3d1c6e01d5ce090fe80f6adc776028d",
+      "compatibility/sympy-1.14.0+pylaia1-py3-none-any.whl": "35eba1dcd6f2923c1672f632d5168b9bb085fa4d1162fb325a44010d769f50b2",
+      "compatibility/wandb-0.31.0+pylaia2-py3-none-win_amd64.whl": "ba7ddcc4017cb10bbc3da1ca813c5eb5c691c4e960ed83da746f8f903c42c267",
+      "LICENSE-PyLaia.txt": "b215e4e58bdacf7c578b2cee96bfdd0e204375ca80861555f204c37f78f04a9d",
+      "LICENSE-TORCHAUDIO": "46d9a0225a8ce8489c050fa5a7e8219521d4f0a227958241120a1620425d8edc",
+      "SECURITY.md": "71fd3d28c4e93dd941d2f1157e42c5b09c9bbca249652830a51c1b7700d932ce",
+      "sources/cp315/flashlight-text-0.0.7+pylaia1-src.tar.gz": "da3b13572b6cef4a1442f2c7dfe8f3007a3ba2c4140c5778b60b104d1977f3d1",
+      "sources/cp315/kenlm-0.3.0+pylaia1-src.tar.gz": "452ed23510caff543950b3c980d166d04a2861a958bc00ef7bc52fb28a4d3bb5",
+      "sources/cp315/python_bidi-0.6.12.tar.gz": "bef41af9bfd16fc6cfc31d8b72a87023b52b5ebd468d9ff2f331a6843b2dad82",
+      "sources/cp315/pyyaml-6.0.3.tar.gz": "d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f",
+      "verify-installation.py": "bc4b5ea0f4b48c867abba59194dde57bc2d0005e4474209acfd7d8f3e27f33b1",
+      "verify_torch_runtime.py": "45ced2c01c5cac1dd9edee2a893d95b136e914b682338584ce924c98b0b2d3d5",
+      "wheels/cp315/flashlight_text-0.0.7+pylaia1-cp315-cp315-win_amd64.whl": "d690a2854458c06be84e8af14dcb2fa8019c5305890072e2cd2155f1acbad885",
+      "wheels/cp315/kenlm-0.3.0+pylaia1-cp315-cp315-win_amd64.whl": "0cb9d0e21b46e4409200ccdd25bc899b6e825400430239dc5a512cd272b9fd21",
+      "wheels/cp315/python_bidi-0.6.12-cp315-cp315-win_amd64.whl": "54d62dfa276d82b365d944aac18d7587136ebf6d3f59b56f8bb83165da980982",
+      "wheels/cp315/pyyaml-6.0.3-cp315-cp315-win_amd64.whl": "e1dce417370d3a4247cde17940a31d2159702e66a0e55ba0f6fa2e086c2ece19",
+      "wheels/pylaia-1.2.11+fork.20261028-py3-none-any.whl": "457fe1c1a3f8bcf0cfd8000ff19199cde6e31cd4c87b1df976df34f7f0212125"
+    }
+  },
+  "original_recipe": "build-tools/build_compatibility.py",
+  "original_recipe_sha256": "fa1135c0d7bada838aee272d583b33a4a376851a25fd582c123741539ef7469c",
+  "adaptations": [
+    "Resolve repository root from maintenance/python-compat.",
+    "Retain the optional --sympy-only bootstrap.",
+    "Record the local recipe path in build provenance."
+  ],
+  "verified_compatibility_artifacts": {
+    "local_wheels": [
+      {
+        "wheel": "sympy-1.14.0+pylaia1-py3-none-any.whl",
+        "sha256": "35eba1dcd6f2923c1672f632d5168b9bb085fa4d1162fb325a44010d769f50b2",
+        "upstream": "sympy-1.14.0-py3-none-any.whl",
+        "changed": [
+          "sympy-1.14.0.dist-info/METADATA",
+          "sympy/release.py"
+        ],
+        "native_payloads_unchanged": true
+      },
+      {
+        "wheel": "wandb-0.31.0+pylaia2-py3-none-win_amd64.whl",
+        "sha256": "ba7ddcc4017cb10bbc3da1ca813c5eb5c691c4e960ed83da746f8f903c42c267",
+        "upstream": "wandb-0.31.0-py3-none-win_amd64.whl",
+        "changed": [
+          "wandb-0.31.0.dist-info/METADATA",
+          "wandb/__init__.py"
+        ],
+        "native_payloads_unchanged": true
+      }
+    ],
+    "recipe": "ci/build_compatibility.py",
+    "upstream_artifacts": {
+      "sympy-1.14.0-py3-none-any.whl": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "sympy-1.14.0.tar.gz": "d3d3fe8df1e5a0b42f0e7bdf50541697dbe7d23746e894990c030e2b05e72517",
+      "wandb-0.31.0-py3-none-win_amd64.whl": "488f8ef63cae217ba220e6d8c163ee8c5b98320ee1866ce774c4da0847235f02",
+      "wandb-0.31.0-py3-none-manylinux_2_28_x86_64.whl": "009bcf370598d5e7a3d3bb66e33510f78c17fcc0505f8aa7ecf51dbc4378f979",
+      "wandb-0.31.0.tar.gz": "dcdaa635576ff17b18a757b39fc22b0db3d1c6e01d5ce090fe80f6adc776028d",
+      "mpmath-1.4.1-py3-none-any.whl": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+      "cwevals-0.0.1b3-py3-none-any.whl": "3ff43ebab38a553877da8951305924a39a6f30809aae7f567de9ed1104d7ef15",
+      "cwevals-0.0.1b3.tar.gz": "2647ffa8338634db70e9cbd1d9232f0a62f2b7d7b2c5d8a2f0bb750d4aeced45"
+    }
+  },
+  "reproduction": "All supplied compatibility wheels reproduced byte-identically.",
+  "historical_provenance": "provenance-20261020.json",
+  "published": false
+}

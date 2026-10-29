@@ -1,0 +1,276 @@
+{
+  "date": "2026-10-28",
+  "recorded_utc": "2026-10-28T22:28:23.548244+00:00",
+  "base_commit": "71ac1e1980597e769e2fd567e840e94767a18dc7",
+  "source_changes_uncommitted": true,
+  "scope": "Move Kraken to unmodified official PyTorch 2.15.0 and TorchVision 0.29.2 for Windows Python 3.15, CPU and CUDA 13.2.",
+  "requirements": {
+    "torch": ">=2.15.0,<2.16",
+    "torchvision": ">=0.29.2,<0.30"
+  },
+  "other_runtime_dependencies": "Frozen to the previously validated fork4 selections; no unrelated package update.",
+  "official_wheels": [
+    {
+      "filename": "torch-2.15.0+cpu-cp315-cp315-win_amd64.whl",
+      "url": "https://download-r2.pytorch.org/whl/cpu/torch-2.15.0%2Bcpu-cp315-cp315-win_amd64.whl#sha256=5c21ee962b6f67821dac0bc882f5ee1539a4edeabe736284d2ff1d652e595ed1",
+      "sha256": "5c21ee962b6f67821dac0bc882f5ee1539a4edeabe736284d2ff1d652e595ed1",
+      "bytes": 128632218
+    },
+    {
+      "filename": "torch-2.15.0+cu132-cp315-cp315-win_amd64.whl",
+      "url": "https://download-r2.pytorch.org/whl/cu132/torch-2.15.0%2Bcu132-cp315-cp315-win_amd64.whl#sha256=b2742d796bff9fd69e3153955852af56d1c6b0ff75d24a47f710ac1dbc4a5b47",
+      "sha256": "b2742d796bff9fd69e3153955852af56d1c6b0ff75d24a47f710ac1dbc4a5b47",
+      "bytes": 2115689118
+    },
+    {
+      "filename": "torchvision-0.29.2+cpu-py3-none-win_amd64.whl",
+      "url": "https://download-r2.pytorch.org/whl/cpu/torchvision-0.29.2%2Bcpu-py3-none-win_amd64.whl#sha256=84cb034b4ad99ccfda755270f6a7fff8a1c6694450e29880b99e4a60274e800b",
+      "sha256": "84cb034b4ad99ccfda755270f6a7fff8a1c6694450e29880b99e4a60274e800b",
+      "bytes": 1379232
+    },
+    {
+      "filename": "torchvision-0.29.2+cu132-py3-none-win_amd64.whl",
+      "url": "https://download-r2.pytorch.org/whl/cu132/torchvision-0.29.2%2Bcu132-py3-none-win_amd64.whl#sha256=862549c03c6b69e5ce1178a29c0224983fa477b331f1518f59574e9123fd3562",
+      "sha256": "862549c03c6b69e5ce1178a29c0224983fa477b331f1518f59574e9123fd3562",
+      "bytes": 6603299
+    }
+  ],
+  "official_sources": [
+    "https://pypi.org/project/torch/2.15.0/",
+    "https://pypi.org/project/torchvision/0.29.2/",
+    "https://download.pytorch.org/whl/cpu/torch/",
+    "https://download.pytorch.org/whl/cu132/torch/",
+    "https://download.pytorch.org/whl/cpu/torchvision/",
+    "https://download.pytorch.org/whl/cu132/torchvision/"
+  ],
+  "runtime_changes": [
+    "No private Torch binding compilation or wheel assembly.",
+    "Kept a Python exit callback that calls the official cuDNN dropout cache cleanup function; CUDA otherwise still fails during DLL unload.",
+    "Reject pre-2.15 Windows Python 3.15 installations with a clear update message.",
+    "Regression tests check both a direct official cleanup API call and the automatic Kraken cleanup before normal process exit."
+  ],
+  "initial_cuda_shutdown_reproduction": {
+    "official_unmodified_bindings": true,
+    "without_python_cleanup": "Autograd and CUDA LSTM dropout backward finish, followed by process exit 3221226505 (0xc0000409).",
+    "managed_python_full_suite": "2 failed, 320 passed; both failures were the CUDA shutdown controls.",
+    "official_cpython_regressions": "2 failed, 2 passed; both failures were the CUDA shutdown controls.",
+    "resolution": "Call the existing official torch._C._cudnn_clear_dropout_state at atexit; no native changes, cuDNN and dropout stay enabled.",
+    "probe": {
+      "returncode": 0,
+      "stdout": "Official cleanup: cuDNN dropout backward passed\n",
+      "stderr": "",
+      "binding_changes": false,
+      "cleanup": "atexit calls the official torch._C._cudnn_clear_dropout_state API"
+    }
+  },
+  "pylaia": {
+    "modified": false,
+    "installed_in_new_environments": false,
+    "previous_version": "1.2.8+fork.20261020",
+    "compatibility": "Previous version pins torch==2.14.1. Await a new compatible PyLaia release before sharing this runtime.",
+    "previous_shared_runtime_environments": "Preserved; new Kraken environments are separate."
+  },
+  "ci": {
+    "triggers": [
+      "workflow_dispatch"
+    ],
+    "permissions": {
+      "contents": "read"
+    },
+    "custom_torch_build_removed": true,
+    "ci_executed": false,
+    "published": false
+  },
+  "packaging": {
+    "wheel": "kraken-7.1.1.post23+g71ac1e19.d20261028-py3-none-any.whl",
+    "directory": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\.local\\torch215-official\\package-check-final",
+    "version": "7.1.1.post23+g71ac1e19.d20261028",
+    "requires_python": "<3.16,>=3.14",
+    "torch": "<2.16,>=2.15.0",
+    "torchvision": "<0.30,>=0.29.2",
+    "standard_model_sha256": "a3ccc7309fe8df62d1cbd372706edc73db6a2a32806e3758522ed8528a734073",
+    "native_bindings_modified": false,
+    "python_cudnn_exit_cleanup": "Calls the official API; needed for normal CUDA process exit.",
+    "published": false
+  },
+  "official_cpython_315_runtime_regressions": {
+    "python_source": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-embed-amd64.zip",
+    "sha256": "a6999bcbcbe56f937159ef79c2630260eca99f65f7860bc5cd20430324079a44",
+    "backends": {
+      "cpu": {
+        "returncode": 0,
+        "summary": ".s.s                                                                     [100%]\n2 passed, 2 skipped in 6.07s",
+        "cleanup": "Calls the official API directly or through Kraken; native files unchanged."
+      },
+      "cuda": {
+        "returncode": 0,
+        "summary": "4 passed in 10.24s",
+        "cleanup": "Calls the official API directly or through Kraken; native files unchanged."
+      }
+    }
+  },
+  "windows_guide": {
+    "html_build": "passed with warnings treated as errors",
+    "log_sha256": "a477e2e9896a000f1f2c704c80fc281221afa474f5631bae3a3dc10f6a132770"
+  },
+  "tests": {
+    "cpu": {
+      "environment": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\.venv315-official-cpu",
+      "summary": "317 passed, 5 skipped, 11 deselected, 1 xfailed, 1 xpassed, 2016 warnings, 131 subtests passed in 294.07s (0:04:54)",
+      "junit": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "6",
+        "tests": "455",
+        "time": "294.059",
+        "timestamp": "2026-10-28T23:10:31.950248+01:00",
+        "hostname": "HåkonPC4"
+      },
+      "checks": [
+        {
+          "check": "smoke",
+          "returncode": 0,
+          "log": "smoke-cpu.log"
+        },
+        {
+          "check": "tests",
+          "returncode": 0,
+          "log": "tests-cpu.log"
+        },
+        {
+          "check": "dependencies",
+          "returncode": 0,
+          "log": "dependencies-cpu.log"
+        },
+        {
+          "check": "lint",
+          "returncode": 0,
+          "log": "lint-cpu.log"
+        }
+      ],
+      "runtime_and_ocr": {
+        "torch": "2.15.0+cpu",
+        "torchvision": "0.29.2+cpu",
+        "python": "3.15.0 (main, Oct 14 2026, 01:12:50) [MSC v.1951 64 bit (AMD64)]",
+        "cuda": null,
+        "pylaia_installed": false,
+        "official_binding_sha256": {
+          "torch/_C.cp315-win_amd64.pyd": "cbb3c76a3f3582ab5bd1e74410213ae903491f9202cbed1b500e10dde2d5dfde",
+          "torch/lib/torch_python.dll": "e8afbc3ee76dd73ab84cdc5b6e4cfe00d6dd5ffb528045312d53b987ba000414",
+          "torch/lib/torch_python.lib": "16c508e337bcb0a2efdb5c83c795a1dbecf8c967ede3a79481c7fcbbdc6f8f74",
+          "torchvision/image_stable.pyd": "eb6a43b3c4fe4cdd2dd1fd95dd6253955deeeed5a0360896d4201506764aad66",
+          "torchvision/_C_stable.pyd": "25859e250d7327094eaab0668bda4ccb485790c0ea6ec91def857077129500aa"
+        },
+        "cli": "cli, version 7.1.1.post23+g71ac1e19.d20261028",
+        "devices": {
+          "cpu": {
+            "torchvision_nms_and_roi_align_backward": "passed",
+            "segmentation_lines": 30,
+            "recognition_characters": 34
+          }
+        }
+      },
+      "log_sha256": {
+        "smoke-cpu.log": "abbeef03c96fb840fe62a6fa0e16949de16a5e844e758bb48d88445bc8d7b7c6",
+        "tests-cpu.log": "68473c43ff5f137e898ec6f0aa299bcef34a73e8d160e9842f371d75c0fbb35f",
+        "dependencies-cpu.log": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+        "lint-cpu.log": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      "final_runtime_regressions": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "2",
+        "tests": "4",
+        "time": "5.669",
+        "timestamp": "2026-10-28T23:23:37.429453+01:00",
+        "hostname": "HåkonPC4"
+      },
+      "validation_order": "Full suite passed before the final CUDA-only exit callback was retained; affected runtime checks passed again after that change, both in the managed Python and the official python.org interpreter."
+    },
+    "cuda": {
+      "environment": "C:\\Users\\Håkon\\Documents\\Kraken fork-win\\.venv315-official-cuda",
+      "summary": "322 passed, 11 deselected, 1 xfailed, 1 xpassed, 2004 warnings, 131 subtests passed in 270.09s (0:04:30)",
+      "junit": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "1",
+        "tests": "455",
+        "time": "270.066",
+        "timestamp": "2026-10-28T23:23:16.857519+01:00",
+        "hostname": "HåkonPC4"
+      },
+      "checks": [
+        {
+          "check": "smoke",
+          "returncode": 0,
+          "log": "smoke-cuda.log"
+        },
+        {
+          "check": "tests",
+          "returncode": 0,
+          "log": "tests-cuda.log"
+        },
+        {
+          "check": "dependencies",
+          "returncode": 0,
+          "log": "dependencies-cuda.log"
+        },
+        {
+          "check": "lint",
+          "returncode": 0,
+          "log": "lint-cuda.log"
+        }
+      ],
+      "runtime_and_ocr": {
+        "torch": "2.15.0+cu132",
+        "torchvision": "0.29.2+cu132",
+        "python": "3.15.0 (main, Oct 14 2026, 01:12:50) [MSC v.1951 64 bit (AMD64)]",
+        "cuda": "13.2",
+        "pylaia_installed": false,
+        "official_binding_sha256": {
+          "torch/_C.cp315-win_amd64.pyd": "d36417a9ee379346c0a9a4a31a9ee58825ca2f1e89e9b9563e05d11eacdc47b4",
+          "torch/lib/torch_python.dll": "76bbdb02f23ea4d7ab260b73eea825cd8dc96590915ffef301f8ae6118259cf2",
+          "torch/lib/torch_python.lib": "b1b7e93108729967de6668afa2dbf3eff6c4afe8954203b08f2e8d189069e722",
+          "torchvision/image_stable.pyd": "08bfbcb7e272e35982448f2ef11d2b00673dbac1e3c2a77d20834252786e6906",
+          "torchvision/_C_stable.pyd": "242463633f313386f05a009c5376e5dbe4572ead5e948702cc6dfa83a9c53fae"
+        },
+        "cli": "cli, version 7.1.1.post23+g71ac1e19.d20261028",
+        "devices": {
+          "cpu": {
+            "torchvision_nms_and_roi_align_backward": "passed",
+            "segmentation_lines": 30,
+            "recognition_characters": 34
+          },
+          "cuda": {
+            "torchvision_nms_and_roi_align_backward": "passed",
+            "segmentation_lines": 30,
+            "recognition_characters": 34
+          }
+        },
+        "gpu": "NVIDIA GeForce RTX 4080 SUPER"
+      },
+      "log_sha256": {
+        "smoke-cuda.log": "abff45b95be880fc8e40a7e0d9f840d4ab7e51a84e22a865c6eb427b6c3a0ffd",
+        "tests-cuda.log": "07adc0958938d1b2bb6158dc6d1106186ae2add97c8d26c2c80a1d3b5f51ed67",
+        "dependencies-cuda.log": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+        "lint-cuda.log": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      }
+    }
+  },
+  "published": false,
+  "committed_or_pushed": false,
+  "source_sha256": {
+    "pyproject.toml": "9f00086690c15eac53a28b0a525db81d93b6df040c3b723ff8d09ebd4881d4e4",
+    "maintenance/dependency-constraints.txt": "fb3878dd25220e68e727a5c9d5694a4a713daf48f1d7c145138d579fb40dd00b",
+    "README.rst": "f5edc42149605ab509fc78683475d6bf0277307d990a04807b3c9325421aa2b3",
+    "docs/user_guide/windows.rst": "c9c662a0854ad164ed7d954af673ee1818ff0eaf11b6b4061c4899b6d54bb710",
+    ".github/workflows/test.yml": "3e58953202c548f5dc2cbe1996b23414e0ffff6ba08910e568b947d4c511b25e",
+    "kraken/lib/_torch_compat.py": "63b8ad071c385b287f6fb31b50d1c22eb2df9f2d3dd95d39b537e5775cee11bd",
+    "kraken/models/__init__.py": "7b3303ded437d6d10b8ececa4b1fcce7be0c1561fc0ce982c20b1d8efba81af2",
+    "tests/test_torch_runtime.py": "d9aeb35b84e2f3aa60550631c6106ae3ed280bfc3322579c4810e8f26a3de849",
+    "maintenance/windows315/README.rst": "874ba497f1a8f59aef02336a51dc351274e083a4e01c3fc1b4df27806343e1ca"
+  }
+}
