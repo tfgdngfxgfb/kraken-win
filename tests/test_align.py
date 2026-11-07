@@ -5,8 +5,11 @@ import warnings
 
 import pytest
 from pathlib import Path
+from PIL import Image
 
+from helpers import make_baseline_segmentation
 from kraken.align import forced_align
+from kraken.rpred import rpred
 from kraken.containers import BaselineLine, BaselineOCRRecord, Segmentation
 from kraken.lib import xml
 from kraken.lib.models import load_any
@@ -122,6 +125,20 @@ class TestKrakenAlign(unittest.TestCase):
         self.assertGreater(len(record.prediction), 0)
         self.assertGreater(len(record.cuts), 0)
         self.assertGreater(len(record.confidences), 0)
+
+    def test_forced_align_matches_recognition_positions(self):
+        """The legacy API should align the model's own transcription to its positions."""
+        image_path = resources / '000236.png'
+        seg = make_baseline_segmentation(imagename=image_path)
+        with Image.open(image_path) as im:
+            recognized = list(rpred(self.model, im, seg))[0]
+        seg = make_baseline_segmentation(imagename=image_path, text=recognized.prediction)
+        aligned = forced_align(seg, self.model).lines[0]
+        recognized_x = sorted(min(x for x, _ in cut) for cut in recognized.cuts)
+        aligned_x = sorted(min(x for x, _ in cut) for cut in aligned.cuts)
+        self.assertTrue(recognized_x)
+        self.assertEqual(len(recognized_x), len(aligned_x))
+        self.assertLess(sum(abs(a - b) for a, b in zip(recognized_x, aligned_x)) / len(recognized_x), 100)
 
     def test_forced_align_xml_document(self):
         """

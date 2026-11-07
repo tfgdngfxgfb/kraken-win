@@ -69,7 +69,8 @@ def forced_align(doc: Segmentation, model: 'TorchSeqRecognizer', base_dir: Optio
                            f'{2 * len(labels)} (length of "{line.text}" after encoding).')
             records.append(BaselineOCRRecord('', [], [], line))
             continue
-        emission = torch.tensor(model.outputs).squeeze().log_softmax(0).T
+        probabilities = torch.tensor(model.outputs).squeeze()
+        emission = probabilities.clamp_min(torch.finfo(probabilities.dtype).tiny).log().T
         trellis = get_trellis(emission, labels)
         path = backtrack(trellis, emission, labels)
         path = merge_repeats(path, do_text)

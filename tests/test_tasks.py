@@ -434,6 +434,20 @@ class TestForcedAlignmentTaskModel(unittest.TestCase):
         self.assertGreater(len(record.cuts), 0)
         self.assertGreater(len(record.confidences), 0)
 
+    def test_predict_aligns_with_recognition(self):
+        """Aligning the model's own transcription should preserve character positions."""
+        config = RecognitionInferenceConfig(num_line_workers=0)
+        seg = make_baseline_segmentation(imagename=resources / '000236.png')
+        recognized = list(RecognitionTaskModel(self.models).predict(self.im, seg, config))[0]
+        seg = make_baseline_segmentation(imagename=resources / '000236.png', text=recognized.prediction)
+        config = RecognitionInferenceConfig(num_line_workers=0)
+        aligned = ForcedAlignmentTaskModel(self.models).predict(self.im, seg, config).lines[0]
+        recognized_x = sorted(min(x for x, _ in cut) for cut in recognized.cuts)
+        aligned_x = sorted(min(x for x, _ in cut) for cut in aligned.cuts)
+        self.assertTrue(recognized_x)
+        self.assertEqual(len(recognized_x), len(aligned_x))
+        self.assertLess(sum(abs(a - b) for a, b in zip(recognized_x, aligned_x)) / len(recognized_x), 100)
+
     def test_predict_record_count(self):
         """
         Tests that the number of output records matches the number of input
