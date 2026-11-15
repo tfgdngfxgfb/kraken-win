@@ -34,7 +34,7 @@ yourself you can use `pipx`.
    $ sudo apt install pipx
    $ pipx install git+https://github.com/tfgdngfxgfb/kraken-win.git
 
-This fork targets Python 3.14 and 3.15 and uses official PyTorch 2.15 CPU/CUDA wheels. Windows Python 3.15 also needs native scikit-image and PyYAML wheels; see the Windows guide for setup. Optional PyLaia 1.2.11+fork.20261028 can share this runtime. It is possible the installation fails because `pipx` defaults to
+This fork targets Python 3.14 and 3.15 and uses official PyTorch 2.15 CPU/CUDA wheels. Windows Python 3.15 also needs native scikit-image and PyYAML wheels; see the Windows guide for setup. Optional PyLaia 1.2.13+fork.20261115 can share the Python 3.15 runtime. It is possible the installation fails because `pipx` defaults to
 an unsupported interpreter version. In that case you need to install a
 compatible interpreter version such as 3.14 and then specify this version
 explicitly:

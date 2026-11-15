@@ -77,18 +77,17 @@ source modifications are required.
 Dependency versions
 -------------------
 
-The 2026-10-29 update selects the latest compatible runtime, test,
-documentation and build libraries with PyLaia 1.2.11. This includes
-platformdirs 4.14.0, jsonargparse 4.53.0, setuptools 84.2.1, certifi 2026.10.23,
-pytest 9.2.0, pandas 3.1.0 and python-dateutil 3.0.0. Full exact selections are
-recorded in maintenance/dependency-constraints.txt.
+The 2026-11-15 update refreshes the runtime, test, documentation and build
+libraries, including filelock 4.2.10, platformdirs 4.14.5, PyArrow 26.0.1 and
+pypdfium2 5.15.2. The update includes security fixes in OpenTelemetry API
+1.45.2 and Soup Sieve 4.1.1. Exact versions are recorded in
+``maintenance/dependency-constraints.txt``.
 
 SymPy 1.14.0+pylaia1 pairs with mpmath 1.4.1. Optional W&B 0.31.0+pylaia2
 pairs with cwevals 0.0.1b3. Their compatibility recipes preserve numerical
 code and native backends. Documentation now uses official Sphinx 9.2.0,
-Docutils 0.23 and local MyST 5.1.0+kraken2. See
-``maintenance/python-compat/README.rst`` and
-``maintenance/docs-compat/README.rst`` for recipes and licenses.
+Docutils 0.23 and official MyST 5.2.0. See
+``maintenance/python-compat/README.rst`` for compatibility recipes and licenses.
 
 Use ``-c maintenance/dependency-constraints.txt`` to reproduce these versions,
 along with ``--find-links`` folders for the local compatibility wheels.
@@ -100,18 +99,18 @@ PyLaia compatibility
 --------------------
 
 Kraken does not depend on the PyLaia Python package. The supplied PyLaia
-``1.2.11+fork.20261028`` bundle uses the same official PyTorch 2.15.0 and
-TorchVision 0.29.2 CPU/CUDA 13.2 wheels. It can share Kraken's Python 3.15
-environment. The earlier 1.2.8 bundle still requires the older PyTorch runtime.
+``1.2.13+fork.20261115`` bundle uses the same official PyTorch 2.15.0 and
+TorchVision 0.29.2 CPU/CUDA 13.2 wheels. PyLaia 1.2.13 requires Python 3.15
+and can share Kraken's Python 3.15 environment. The earlier 1.2.8 bundle still requires the older PyTorch runtime.
 
-Extract the complete 1.2.11 ZIP and install its wheel into the Kraken environment
+Extract the complete 1.2.13 ZIP and install its wheel into the Kraken environment
 after the official CPU or CUDA runtime has been installed above. Replace the
 bundle directory below with its actual location:
 
 .. code-block:: powershell
 
-   $pylaiaBundle = 'C:\path\PyLaia-1.2.11-fork.20261028-Windows-x64'
-   .\.venv315\Scripts\python.exe -m pip install --find-links "$pylaiaBundle\wheels\cp315" --find-links "$pylaiaBundle\compatibility" -c maintenance/dependency-constraints.txt "$pylaiaBundle\wheels\pylaia-1.2.11+fork.20261028-py3-none-any.whl[language-model]"
+   $pylaiaBundle = 'C:\path\PyLaia-1.2.13-fork.20261115-Windows-x64'
+   .\.venv315\Scripts\python.exe -m pip install --find-links "$pylaiaBundle\wheels\cp315" --find-links "$pylaiaBundle\compatibility" -c maintenance/dependency-constraints.txt "$pylaiaBundle\wheels\pylaia-1.2.13+fork.20261115-py3-none-any.whl[language-model]"
    .\.venv315\Scripts\python.exe -m pip check
 
 The language-model extra installs the supplied Flashlight/KenLM native wheels.
@@ -123,7 +122,7 @@ the official Torch binding files are not modified.
 The local integration checks cover both import orders, three CTC training
 steps with finite gradients and updated weights, checkpoint round-trips,
 Kraken OCR and segmentation, native language-model decoding and offline W&B.
-Results are recorded in ``maintenance/dependency-update-20261029.json``.
+The local transfer package includes its own validation record.
 
 The optional ``maintenance/windows315/verify_shared_pylaia.py`` helper can be
 used to repeat the training checks. Run both import orders as separate

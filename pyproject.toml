@@ -60,7 +60,7 @@ test = ["hocr-spec>=0.2.0", "pytest>=9.2.0"]
 pdf = ["pypdfium2>=5.14,<6"]
 docs = [
     "sphinx==9.2.0",
-    "myst-parser==5.1.0+kraken2",
+    "myst-parser==5.2.0",
     "docutils==0.23",
     "sphinx-autoapi>=3.8.1",
     "sphinx-multiversion>=0.2.4",

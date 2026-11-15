@@ -1,7 +1,11 @@
 Local MyST build for official Sphinx 9.2 and Docutils 0.23
 ==========================================================
 
-The current stack uses official Sphinx 9.2.0 and Docutils 0.23 with local
+This directory preserves the historical MyST 5.1.0+kraken2 build recipe.
+The current stack uses unmodified MyST 5.2.0, which supports Docutils 0.23
+and Sphinx 9.2 without a custom wheel.
+
+The previous stack used official Sphinx 9.2.0 and Docutils 0.23 with local
 MyST-Parser 5.1.0+kraken2. Sphinx now supports Docutils 0.23 directly; its
 previous private build is no longer needed. MyST still needs its older
 Docutils restriction updated.

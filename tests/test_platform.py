@@ -183,3 +183,12 @@ def test_finetuning_mapping_checkpoint(tmp_path):
     assert loaded.net.user_metadata['_full_class_mapping'] == old_mapping
     assert set(datamodule.train_set.dataset.targets[0]['baselines']) == {3}
     assert set(datamodule.train_set.dataset.targets[0]['regions']) == {2}
+
+
+def test_short_neighbor_bounds_line_roi():
+    from kraken.lib.segmentation import _calc_roi
+
+    baseline = np.array([[122, 1635], [1038, 1635]], dtype=float)
+    neighbors = [[[116, 1599], [1045, 1597]], [[123, 1667], [276, 1667]]]
+    _, bottom = _calc_roi(baseline, np.array([1165., 1799.]), neighbors, [], np.array([1., 0.]))
+    np.testing.assert_array_equal(bottom[1:15, 1], 1666)
