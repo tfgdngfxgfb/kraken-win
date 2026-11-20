@@ -51,13 +51,17 @@ contain its dependencies. If these wheels are available, pass their directory
 as another ``--find-links`` argument when installing Kraken below.
 
 For a source build of scikit-image, install Visual Studio Build Tools with the
-C++ workload and Windows SDK, plus LLVM/Clang. Clang is needed for its Pythran
+C++ workload, Windows SDK, and bundled LLVM/Clang tools. Clang is needed for its Pythran
 C++ code; ``include-v2=false`` matches upstream's wheel layout. No scikit-image
 source modifications are required.
 
 .. code-block:: powershell
 
-   $env:PATH = 'C:\Program Files\LLVM\bin;' + $env:PATH
+   $taskVswhere = Join-Path ([Environment]::GetEnvironmentVariable('ProgramFiles(x86)')) 'Microsoft Visual Studio\Installer\vswhere.exe'
+   $taskVsRoot = & $taskVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Llvm.Clang -property installationPath
+   if (-not $taskVsRoot) { throw 'Visual Studio LLVM tools were not found.' }
+   $taskClangBin = Join-Path $taskVsRoot 'VC\Tools\Llvm\x64\bin'
+   $env:PATH = "$taskClangBin;" + $env:PATH
    $previousCC = $env:CC
    $previousCXX = $env:CXX
    try {
