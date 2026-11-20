@@ -43,7 +43,11 @@ jobs:
           CC: clang-cl
           CXX: clang-cl
         run: |
-          $env:PATH = "C:\Program Files\LLVM\bin;" + $env:PATH
+          $taskVswhere = Join-Path ([Environment]::GetEnvironmentVariable('ProgramFiles(x86)')) 'Microsoft Visual Studio\Installer\vswhere.exe'
+          $taskVsRoot = & $taskVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Llvm.Clang -property installationPath
+          if (-not $taskVsRoot) { throw 'Visual Studio LLVM tools were not found.' }
+          $taskClangBin = Join-Path $taskVsRoot 'VC\Tools\Llvm\x64\bin'
+          $env:PATH = "$taskClangBin;" + $env:PATH
           clang-cl --version
           python -m pip install "scikit-image>=0.26.0,<0.27" --config-settings "setup-args=--vsenv" --config-settings "setup-args=-Dinclude-v2=false"
       - name: Install official CPU PyTorch and TorchVision
