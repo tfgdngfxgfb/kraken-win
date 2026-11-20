@@ -74,6 +74,19 @@ source modifications are required.
    .\.venv315\Scripts\kraken.exe --help
    .\.venv315\Scripts\ketos.exe --help
 
+Kraken 7.2 integration
+----------------------
+
+This fork includes Kraken 7.2's faster baseline vectorization and polygon
+extraction, image-border fixes, combined-model reading-order fix, and
+class-mapping and evaluation corrections. The default segmentation model is
+the same file shipped in the validated 7.1.1-fork6 build.
+
+For training, replace the removed ``--resize add`` and ``--resize both``
+values with ``union`` and ``new``. The legacy polygon extraction settings are
+accepted for compatibility and are ignored. Recompile old Arrow datasets to
+use the current extractor consistently for training and inference.
+
 Dependency versions
 -------------------
 

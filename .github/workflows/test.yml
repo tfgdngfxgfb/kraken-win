@@ -1,7 +1,6 @@
 name: Test and build
 
-# Automatic CI is paused at the owner's request until November 2026.
-# Re-enable push/pull_request triggers no earlier than 2026-11-01.
+# CI runs manually at the owner's request.
 on:
   workflow_dispatch:
 

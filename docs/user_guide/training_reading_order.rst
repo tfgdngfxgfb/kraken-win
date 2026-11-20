@@ -398,7 +398,7 @@ The two models must have compatible baseline class mappings, i.e. the line
 types known to the reading order model must match those in the segmentation
 model.
 
-.. deprecated::
+.. note::
 
     The ``roadd`` command previously served this purpose but has been
     superseded by ``ketos convert`` which handles combining arbitrary model

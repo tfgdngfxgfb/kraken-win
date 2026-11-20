@@ -50,8 +50,8 @@ most cases, it is recommended to use the high-level API instead.
    kraken.lib
 
 .. autoapimodule:: kraken.ketos.pretrain
-.. autoapimodule:: kraken.ketos.train
-.. autoapimodulesummary:: kraken.lib
+.. autoapimodule:: kraken.ketos.recognition
+.. autoapimodule:: kraken.lib
 .. autoapimodule:: kraken.lib.dataset
 .. autoapimodule:: kraken.lib.bidi
 .. autoapimodule:: kraken.lib.codec

@@ -139,7 +139,6 @@ class BaselineSet(Dataset):
         self.imgs = []
         self.pad = padding
         self.targets = []
-        self._documents = []
         self.class_mapping = class_mapping
 
         # keep track of samples that failed to load
@@ -160,16 +159,8 @@ class BaselineSet(Dataset):
         return max(v for d in self.class_mapping.values() for v in d.values()) + 1
 
     def set_class_mapping(self, class_mapping):
-        """Rebuild targets when fine-tuning changes output channel indices."""
-        documents = self._documents
-        self._documents = []
-        self.imgs = []
-        self.targets = []
+        """Set output channels used to resolve the name-based targets."""
         self.class_mapping = class_mapping
-        self.class_stats = {'baselines': defaultdict(int), 'regions': defaultdict(int)}
-        self.failed_samples.clear()
-        for doc in documents:
-            self.add(doc)
 
     @property
     def canonical_class_mapping(self) -> dict[str, dict[str, int]]:
@@ -220,9 +211,11 @@ class BaselineSet(Dataset):
         baselines_ = defaultdict(list)
         for line in doc.lines:
             tag = _get_type(line.tags)
+            # targets are keyed by class name and resolved to indices in
+            # transform() as the class mapping may be replaced after loading.
             try:
-                idx = self.class_mapping['baselines'][tag]
-                baselines_[idx].append(line.baseline)
+                self.class_mapping['baselines'][tag]
+                baselines_[tag].append(line.baseline)
                 self.class_stats['baselines'][tag] += 1
             except KeyError:
                 continue
@@ -230,15 +223,14 @@ class BaselineSet(Dataset):
         regions_ = defaultdict(list)
         for k, v in doc.regions.items():
             try:
-                idx = self.class_mapping['regions'][k]
+                self.class_mapping['regions'][k]
                 v = [x for x in v if x.boundary]
-                regions_[idx].extend(v)
+                regions_[k].extend(v)
                 self.class_stats['regions'][k] += len(v)
             except KeyError:
                 continue
         self.targets.append({'baselines': baselines_, 'regions': regions_})
         self.imgs.append(doc.imagename)
-        self._documents.append(doc)
 
     def _update_im_mode(self, im):
         if im.shape[0] == 3:
@@ -298,7 +290,8 @@ class BaselineSet(Dataset):
         end_sep_cls = self.class_mapping['aux']['_end_separator']
 
         scaled_baselines = defaultdict(list)
-        for cls_idx, lines in target['baselines'].items():
+        for cls, lines in target['baselines'].items():
+            cls_idx = self.class_mapping['baselines'][cls]
             for line in lines:
                 # buffer out line to desired width
                 line = [k for k, g in groupby(line)]
@@ -323,7 +316,8 @@ class BaselineSet(Dataset):
                 rr_s, cc_s = polygon(end_sep[:, 1], end_sep[:, 0], shape=image.shape[1:])
                 t[end_sep_cls, rr_s, cc_s] = 1
                 t[end_sep_cls, rr, cc] = 0
-        for cls_idx, regions in target['regions'].items():
+        for cls, regions in target['regions'].items():
+            cls_idx = self.class_mapping['regions'][cls]
             for region in regions:
                 region = np.array(scale_regions([region.boundary], scale)[0])
                 rr, cc = polygon(region[:, 1], region[:, 0], shape=image.shape[1:])

@@ -93,7 +93,7 @@ def test_xml_image_path_relative_to_output(tmp_path):
     assert Path(XMLPage(output).imagename).resolve() == image.resolve()
 
 
-def test_class_remapping_rebuilds_training_targets():
+def test_class_remapping_resolves_training_targets_by_name():
     from helpers import make_baseline_segmentation
     from kraken.containers import Region
     from kraken.lib.dataset.segmentation import BaselineSet
@@ -103,11 +103,16 @@ def test_class_remapping_rebuilds_training_targets():
     remapped = {'aux': aux, 'baselines': {'line': 2}, 'regions': {'text': 3}}
     doc = make_baseline_segmentation(tags={'type': [{'type': 'line'}]})
     doc.regions = {'text': [Region(id='region', boundary=[[0, 0], [100, 0], [100, 20], [0, 20]])]}
-    dataset = BaselineSet(class_mapping=original)
+    from torchvision.transforms import v2
+    dataset = BaselineSet(class_mapping=original, im_transforms=v2.ToImage())
     dataset.add(doc)
+    before = dataset[0]['target']
     dataset.set_class_mapping(remapped)
-    assert set(dataset.targets[0]['baselines']) == {2}
-    assert set(dataset.targets[0]['regions']) == {3}
+    after = dataset[0]['target']
+    np.testing.assert_array_equal(before[2], after[3])
+    np.testing.assert_array_equal(before[3], after[2])
+    assert set(dataset.targets[0]['baselines']) == {'line'}
+    assert set(dataset.targets[0]['regions']) == {'text'}
     assert dataset.class_stats['baselines']['line'] == 1
     assert dataset.class_stats['regions']['text'] == 1
     assert dataset.canonical_class_mapping == remapped
@@ -181,8 +186,8 @@ def test_finetuning_mapping_checkpoint(tmp_path):
     loaded = BLLASegmentationModel.load_from_checkpoint(checkpoint, weights_only=False)
     assert loaded.net.user_metadata['class_mapping'] == old_mapping
     assert loaded.net.user_metadata['_full_class_mapping'] == old_mapping
-    assert set(datamodule.train_set.dataset.targets[0]['baselines']) == {3}
-    assert set(datamodule.train_set.dataset.targets[0]['regions']) == {2}
+    assert set(datamodule.train_set.dataset.targets[0]['baselines']) == {'line'}
+    assert set(datamodule.train_set.dataset.targets[0]['regions']) == {'text'}
 
 
 def test_short_neighbor_bounds_line_roi():
@@ -190,5 +195,5 @@ def test_short_neighbor_bounds_line_roi():
 
     baseline = np.array([[122, 1635], [1038, 1635]], dtype=float)
     neighbors = [[[116, 1599], [1045, 1597]], [[123, 1667], [276, 1667]]]
-    _, bottom = _calc_roi(baseline, np.array([1165., 1799.]), neighbors, [], np.array([1., 0.]))
+    _, bottom, _ = _calc_roi(baseline, np.array([1165., 1799.]), neighbors, [], np.array([1., 0.]))
     np.testing.assert_array_equal(bottom[1:15, 1], 1666)

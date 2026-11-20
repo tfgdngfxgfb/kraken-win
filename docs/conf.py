@@ -1,5 +1,7 @@
 import os
 
+from docutils.parsers.rst.roles import code_role
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -18,6 +20,7 @@ release = pipe.stdout.read().decode('utf-8')
 
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
     'sphinx_autodoc_typehints',
     'autoapi.extension',
     'sphinx.ext.napoleon',
@@ -76,3 +79,7 @@ htmlhelp_basename = 'krakendoc'
 smv_branch_whitelist = r'main'
 smv_tag_whitelist = r'^[2-9]\.\d+(\.0)?$'
 smv_remote_whitelist = r'^origin$'
+
+
+def setup(app):
+    app.add_role('paramref', code_role)

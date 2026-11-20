@@ -360,7 +360,7 @@ train
                                     Normalizes unicode whitespace
     -c, --codec UNPROCESSED         Load a codec JSON definition (invalid if
                                     loading existing model)
-    --resize [add, union, both, new, fail]
+    --resize [union, new, fail]
                                     Codec/output layer resizing option. If set
                                     to `union` code points will be added, `new`
                                     will set the layer to match exactly the
@@ -400,7 +400,6 @@ train
                                     store the logs. If not set, a directory
                                     will be created in the current working
                                     directory.
-    --legacy-polygons               Use the legacy polygon extractor.
 
 Evaluation
 ----------
@@ -450,7 +449,6 @@ test
                                     Ground truth normalization
     -n, --normalize-whitespace / --no-normalize-whitespace
                                     Normalizes unicode whitespace
-    --no-legacy-polygons            Force disable the legacy polygon extractor.
 
 Pretraining
 -----------
